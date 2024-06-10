@@ -83,7 +83,7 @@ export class DevkitRpcClient {
                     console.log('Sending request: ' + content);
                     this.client.write(content);
                 }
-            }, 1000); 
+            }, 1); 
         });
     }
 }
