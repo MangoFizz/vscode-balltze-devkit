@@ -1,9 +1,7 @@
 import * as vscode from "vscode"
 import * as fs from "fs"
 import * as path from "path"
-import * as net from "net"
-
-const client = new net.Socket()
+import client from "./devkitClient"
 
 const balltzeOutput: vscode.OutputChannel =
 	vscode.window.createOutputChannel("Balltze Devkit")
@@ -14,103 +12,88 @@ type TagEntry = {
 	class: string
 }
 
-let tags: TagEntry[] = []
-//let buffer = new Map<string, any>();
-let buffer = ""
-
-export class DepNodeProvider implements vscode.TreeDataProvider<Dependency> {
-	_onDidChangeTreeData: vscode.EventEmitter<Dependency | undefined | void> =
-		new vscode.EventEmitter<Dependency | undefined | void>()
-	readonly onDidChangeTreeData: vscode.Event<Dependency | undefined | void> =
+export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
+	_onDidChangeTreeData: vscode.EventEmitter<TagTreeItem | undefined | void> =
+		new vscode.EventEmitter<TagTreeItem | undefined | void>()
+	readonly onDidChangeTreeData: vscode.Event<TagTreeItem | undefined | void> =
 		this._onDidChangeTreeData.event
 
-	onDataReceived(data: any): void {
-		let chunk = data.toString()
-		if (chunk.at(chunk.length - 1) != "\n") {
-			buffer += chunk
-		} else {
-			buffer += chunk
-			balltzeOutput.appendLine(buffer)
-			vscode.window.showInformationMessage("Data received")
-			tags = JSON.parse(buffer).result
-			this.refresh()
-		}
-	}
-
-	getTags(): void {
-		balltzeOutput.appendLine("Getting tags")
-		buffer = ""
-		let request = {
-			jsonrpc: "2.0",
-			method: "Devkit.getTagList",
-			params: ["Hola mundo"],
-			id: "1",
-		}
-		client.write(JSON.stringify(request) + "\n")
-	}
-
-	spawnTag(tag: TagEntry): void {
-		balltzeOutput.appendLine("Spawning tag")
-		buffer = ""
-		let request = {
-			jsonrpc: "2.0",
-			method: "Engine.gameState.createObject",
-			params: [tag.handle, 0xffffffff, { x: 0, y: 0, z: 0 }],
-			id: "1",
-		}
-		client.write(JSON.stringify(request) + "\n")
-	}
+	private tags: TagEntry[] = [];
+	private tagTree: TagTreeItem[] = [];
 
 	constructor(private workspaceRoot: string | undefined) {
-		client.connect(19190, "localhost", function () {
-			vscode.window.showInformationMessage("Connected to server")
-		})
-
-		client.on("data", this.onDataReceived)
-
-		client.on("close", function () {
-			console.log("Connection closed")
-		})
+		client.conn.devkit.getTagList().then((tagList: TagEntry[]) => {
+			this.tags = tagList;
+			this.tagTree = this.getFileSystemItems(this.tags);
+			this._onDidChangeTreeData.fire();
+		});
 	}
 
+	// static async fetchTagList(): Promise<void> {
+	// 	let tagList: TagEntry[] = await client.conn.devkit.getTagList();
+	// 	return new DepNodeProvider();
+	// }
+
 	refresh(): void {
-		this.getTags()
 		this._onDidChangeTreeData.fire()
 	}
 
-	getTreeItem(element: Dependency): vscode.TreeItem {
+	getTreeItem(element: TagTreeItem): vscode.TreeItem {
 		return element
 	}
 
-	getChildren(element?: Dependency): Thenable<Dependency[]> {
+	getChildren(element?: TagTreeItem): Thenable<TagTreeItem[]> {
 		if (!this.workspaceRoot) {
 			vscode.window.showInformationMessage("No dependency in empty workspace")
 			return Promise.resolve([])
 		}
 
-		return Promise.resolve(
-			tags
-				.filter(
-					(tag) =>
-						tag.class == "weapon" ||
-						tag.class == "vehicle" ||
-						tag.class == "biped"
-				)
-				.map(
-					(tag) =>
-						new Dependency(
-							tag.path,
-							tag.class,
-							vscode.TreeItemCollapsibleState.None,
-							{
-								command: "nodeDependencies.spawnTag",
-								title: "Spawn tag",
-								arguments: [{ ...tag }],
-							}
-						)
-				)
-		)
+		return Promise.resolve(element ? element.children || [] : this.tagTree);
 	}
+
+	private getFileSystemItems(items: TagEntry[]): TagTreeItem[] {
+        let root: any = {};
+
+        items.forEach(item => {
+            const fullPath = item.path
+            const parts = fullPath.split('\\');
+            let current = root;
+
+            parts.forEach((part, index) => {
+                if (!current[part]) {
+                    current[part] = {
+                        isFile: index === parts.length - 1,
+                        children: {},
+                        handle: item.handle,
+						tagClass: item.class
+                    };
+                }
+                current = current[part].children;
+            });
+        });
+
+        const createTreeItems = (node: any, parentPath: string = ''): TagTreeItem[] => {
+            return Object.keys(node).map(key => {
+                const fullPath = `${parentPath}/${key}`;
+                const treeItem = new TagTreeItem(
+                    key,
+                    node[key].isFile ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
+                    fullPath,
+					node[key].tagClass,
+                    node[key].isFile,
+                    node[key].handle
+                );
+
+                if (!node[key].isFile) {
+                    treeItem.children = createTreeItems(node[key].children, fullPath);
+                }
+
+                return treeItem;
+            });
+        };
+
+        return createTreeItems(root);
+    }
 
 	private pathExists(p: string): boolean {
 		try {
@@ -123,37 +106,19 @@ export class DepNodeProvider implements vscode.TreeDataProvider<Dependency> {
 	}
 }
 
-export class Dependency extends vscode.TreeItem {
-	constructor(
-		public readonly label: string,
-		private readonly version: string,
-		public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-		public readonly command?: vscode.Command
-	) {
-		super(label, collapsibleState)
+export class TagTreeItem extends vscode.TreeItem {
+    children: TagTreeItem[] | undefined;
 
-		this.tooltip = `${this.label}-${this.version}`
-		this.description = this.version
-	}
-
-	iconPath = {
-		light: path.join(
-			__filename,
-			"..",
-			"..",
-			"resources",
-			"light",
-			"dependency.svg"
-		),
-		dark: path.join(
-			__filename,
-			"..",
-			"..",
-			"resources",
-			"dark",
-			"dependency.svg"
-		),
-	}
-
-	contextValue = "dependency"
+    constructor(
+        public readonly label: string,
+        public readonly collapsibleState: vscode.TreeItemCollapsibleState,
+        public readonly path: string,
+		public readonly tagClass: string,
+        public readonly isFile: boolean,
+        public readonly handle: number
+    ) {
+        super(label, collapsibleState);
+        this.description = this.isFile ? this.tagClass : undefined;
+		this.iconPath = new vscode.ThemeIcon(this.isFile ? "file" : "folder");
+    }
 }

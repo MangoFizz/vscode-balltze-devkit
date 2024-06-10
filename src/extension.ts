@@ -2,14 +2,13 @@
 
 import * as vscode from 'vscode';
 
-import { DepNodeProvider, Dependency } from './nodeDependencies';
+import { DepNodeProvider, TagTreeItem } from './nodeDependencies';
 import { JsonOutlineProvider } from './jsonOutline';
 import { FtpExplorer } from './ftpExplorer';
 import { FileExplorer } from './fileExplorer';
 import { TestViewDragAndDrop } from './testViewDragAndDrop';
 import { TestView } from './testView';
-
-
+import client, { initialize as initializeDevkitClient } from './devkitClient';
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -17,14 +16,13 @@ export function activate(context: vscode.ExtensionContext) {
 	const rootPath = (vscode.workspace.workspaceFolders && (vscode.workspace.workspaceFolders.length > 0))
 		? vscode.workspace.workspaceFolders[0].uri.fsPath : undefined;
 
+	// Connect to devkit server
+	initializeDevkitClient("172.18.64.1", 19190);
+
 	// Samples of `window.registerTreeDataProvider`
 	const nodeDependenciesProvider = new DepNodeProvider(rootPath);
 	vscode.window.registerTreeDataProvider('nodeDependencies', nodeDependenciesProvider);
 	vscode.commands.registerCommand('nodeDependencies.refreshEntry', () => nodeDependenciesProvider.refresh());
-	vscode.commands.registerCommand('extension.openPackageOnNpm', moduleName => vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(`https://www.npmjs.com/package/${moduleName}`)));
-	vscode.commands.registerCommand('nodeDependencies.addEntry', () => vscode.window.showInformationMessage(`Successfully called add entry.`));
-	vscode.commands.registerCommand('nodeDependencies.editEntry', (node: Dependency) => vscode.window.showInformationMessage(`Successfully called edit entry on ${node.label}.`));
-	vscode.commands.registerCommand('nodeDependencies.deleteEntry', (node: Dependency) => vscode.window.showInformationMessage(`Successfully called delete entry on ${node.label}.`));
 
 	const jsonOutlineProvider = new JsonOutlineProvider(context);
 	vscode.window.registerTreeDataProvider('jsonOutline', jsonOutlineProvider);
@@ -42,7 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	vscode.commands.registerCommand('extension.openJsonSelection', range => jsonOutlineProvider.select(range));
-	vscode.commands.registerCommand('nodeDependencies.spawnTag', (tag: any) => nodeDependenciesProvider.spawnTag(tag));
+	// vscode.commands.registerCommand('nodeDependencies.spawnTag', (tag: any) => nodeDependenciesProvider.spawnTag(tag));
 
 	// Samples of `window.createView`
 	new FtpExplorer(context);
