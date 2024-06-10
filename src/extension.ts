@@ -2,7 +2,7 @@
 
 import * as vscode from 'vscode';
 
-import { DepNodeProvider, TagTreeItem } from './nodeDependencies';
+import { TagListProvider, TagTreeItem } from './tagListTree';
 import { JsonOutlineProvider } from './jsonOutline';
 import { FtpExplorer } from './ftpExplorer';
 import { FileExplorer } from './fileExplorer';
@@ -19,10 +19,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// Connect to devkit server
 	initializeDevkitClient("172.18.64.1", 19190);
 
-	// Samples of `window.registerTreeDataProvider`
-	const nodeDependenciesProvider = new DepNodeProvider(rootPath);
-	vscode.window.registerTreeDataProvider('nodeDependencies', nodeDependenciesProvider);
-	vscode.commands.registerCommand('nodeDependencies.refreshEntry', () => nodeDependenciesProvider.refresh());
+	const tagListProvider = new TagListProvider(rootPath);
+	vscode.window.registerTreeDataProvider('nodeDependencies', tagListProvider);
+	vscode.commands.registerCommand('nodeDependencies.refreshEntry', () => tagListProvider.refresh());
 
 	const jsonOutlineProvider = new JsonOutlineProvider(context);
 	vscode.window.registerTreeDataProvider('jsonOutline', jsonOutlineProvider);
@@ -40,7 +39,6 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 	});
 	vscode.commands.registerCommand('extension.openJsonSelection', range => jsonOutlineProvider.select(range));
-	// vscode.commands.registerCommand('nodeDependencies.spawnTag', (tag: any) => nodeDependenciesProvider.spawnTag(tag));
 
 	// Samples of `window.createView`
 	new FtpExplorer(context);

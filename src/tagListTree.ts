@@ -1,10 +1,7 @@
 import * as vscode from "vscode"
-import * as fs from "fs"
-import * as path from "path"
 import client from "./devkitClient"
 
-const balltzeOutput: vscode.OutputChannel =
-	vscode.window.createOutputChannel("Balltze Devkit")
+const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit")
 
 type TagEntry = {
 	path: string
@@ -12,11 +9,9 @@ type TagEntry = {
 	class: string
 }
 
-export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
-	_onDidChangeTreeData: vscode.EventEmitter<TagTreeItem | undefined | void> =
-		new vscode.EventEmitter<TagTreeItem | undefined | void>()
-	readonly onDidChangeTreeData: vscode.Event<TagTreeItem | undefined | void> =
-		this._onDidChangeTreeData.event
+export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
+	_onDidChangeTreeData: vscode.EventEmitter<TagTreeItem | undefined | void> = new vscode.EventEmitter<TagTreeItem | undefined | void>()
+	readonly onDidChangeTreeData: vscode.Event<TagTreeItem | undefined | void> = this._onDidChangeTreeData.event
 
 	private tags: TagEntry[] = [];
 	private tagTree: TagTreeItem[] = [];
