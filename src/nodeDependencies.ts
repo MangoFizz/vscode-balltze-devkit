@@ -29,11 +29,6 @@ export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
 		});
 	}
 
-	// static async fetchTagList(): Promise<void> {
-	// 	let tagList: TagEntry[] = await client.conn.devkit.getTagList();
-	// 	return new DepNodeProvider();
-	// }
-
 	refresh(): void {
 		this._onDidChangeTreeData.fire()
 	}
@@ -55,13 +50,14 @@ export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
         let root: any = {};
 
         items.forEach(item => {
-            const fullPath = item.path
+            const fullPath = item.path + "." + item.class
             const parts = fullPath.split('\\');
             let current = root;
 
             parts.forEach((part, index) => {
                 if (!current[part]) {
                     current[part] = {
+						tagName: part,
                         isFile: index === parts.length - 1,
                         children: {},
                         handle: item.handle,
@@ -72,11 +68,20 @@ export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
             });
         });
 
+		const removeExtensionFromPath = (path: string): string => {
+			const parts = path.split('.');
+			if (parts.length > 1) {
+				parts.pop();
+			}
+			return parts.join('.');
+		}
+
         const createTreeItems = (node: any, parentPath: string = ''): TagTreeItem[] => {
             return Object.keys(node).map(key => {
                 const fullPath = `${parentPath}/${key}`;
+
                 const treeItem = new TagTreeItem(
-                    key,
+                    removeExtensionFromPath(key),
                     node[key].isFile ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
                     fullPath,
 					node[key].tagClass,
@@ -87,6 +92,25 @@ export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
                 if (!node[key].isFile) {
                     treeItem.children = createTreeItems(node[key].children, fullPath);
                 }
+
+				// sort items alphabetically and put folders first
+				if (treeItem.children) {
+					treeItem.children.sort((a, b) => {
+						if (a.isFile && !b.isFile) {
+							return 1;
+						}
+						if (!a.isFile && b.isFile) {
+							return -1;
+						}
+						if (a.label < b.label) {
+							return -1;
+						}
+						if (a.label > b.label) {
+							return 1;
+						}
+						return 0;
+					});
+				}
 
                 return treeItem;
             });
