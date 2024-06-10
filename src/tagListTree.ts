@@ -17,7 +17,11 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	private tagTree: TagTreeItem[] = [];
 
 	constructor(private workspaceRoot: string | undefined) {
-		client.conn.devkit.getTagList().then((tagList: TagEntry[]) => {
+		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
+			if (!tagList) {
+				vscode.window.showErrorMessage("Failed to get tag list from devkit server")
+				return
+			}
 			this.tags = tagList;
 			this.tagTree = this.getFileSystemItems(this.tags);
 			this._onDidChangeTreeData.fire();
@@ -123,16 +127,6 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 
         return createTreeItems(root);
     }
-
-	private pathExists(p: string): boolean {
-		try {
-			fs.accessSync(p)
-		} catch (err) {
-			return false
-		}
-
-		return true
-	}
 }
 
 export class TagTreeItem extends vscode.TreeItem {
@@ -148,6 +142,6 @@ export class TagTreeItem extends vscode.TreeItem {
     ) {
         super(label, collapsibleState);
         this.description = this.isFile ? this.tagClass : undefined;
-		this.iconPath = new vscode.ThemeIcon(this.isFile ? "file" : "folder");
+		this.resourceUri = vscode.Uri.file(path);
     }
 }
