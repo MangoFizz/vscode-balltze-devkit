@@ -45,11 +45,6 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	}
 
 	getChildren(element?: TagTreeItem): Thenable<TagTreeItem[]> {
-		if (!this.workspaceRoot) {
-			vscode.window.showInformationMessage("No dependency in empty workspace")
-			return Promise.resolve([])
-		}
-
 		return Promise.resolve(element ? element.children || [] : this.tagTree);
 	}
 
