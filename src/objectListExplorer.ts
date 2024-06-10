@@ -49,6 +49,13 @@ export class ObjectListProvider implements vscode.TreeDataProvider<ObjectTreeIte
         return Promise.resolve(this.getChildrenItems(element.elem.index));
 	}
 
+	deleteItem(item: ObjectTreeItem): void {
+			client.conn.engine.gameState.deleteObject(item.elem.index).then(() => {
+				this.refresh();
+			}
+		);
+	}
+
     private getChildrenItems(parentIndex: number = -1): ObjectTreeItem[] {
         return this.objects
             .filter(item => item.parentIndex === parentIndex)
@@ -71,5 +78,6 @@ export class ObjectTreeItem extends vscode.TreeItem {
         super(elem.name || elem.tagPath, collapsibleState);
         this.description = elem.objectType;
 		this.iconPath = new vscode.ThemeIcon("symbol-constructor");
+		this.contextValue
     }
 }

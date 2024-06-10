@@ -33,4 +33,8 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.commands.registerCommand("objectsExplorer.refreshEntry", () =>
 		objectListProvider.refresh()
 	)
+	vscode.commands.registerCommand("objectsExplorer.delete", (item: any) => {
+		vscode.window.showInformationMessage(`Deleting ${item.label}`)
+		objectListProvider.deleteItem(item)
+	})
 }

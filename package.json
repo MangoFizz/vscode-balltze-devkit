@@ -57,6 +57,11 @@
 				"command": "objectsExplorer.refreshEntry",
 				"title": "Refresh",
 				"icon": "$(refresh)"
+			},
+			{
+				"command": "objectsExplorer.delete",
+				"title": "Delete",
+				"icon": "$(trash)"
 			}
 		],
 		"menus": {
@@ -70,6 +75,18 @@
 					"command": "objectsExplorer.refreshEntry",
 					"when": "view == objectsExplorer",
 					"group": "navigation"
+				}
+			],
+			"view/item/context": [
+				{
+					"command": "tagsExplorer.spawn",
+					"when": "view == tagsExplorer",
+					"group": "inline"
+				},
+				{
+					"command": "objectsExplorer.delete",
+					"when": "view == objectsExplorer",
+					"group": "inline"
 				}
 			]
 		},
