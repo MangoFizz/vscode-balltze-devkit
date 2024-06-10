@@ -67,17 +67,23 @@ export class DevkitRpcClient {
 
     public sendRequest(method: string, params: any[]): Promise<any> {
         return new Promise((resolve, reject) => {
-            const id = this.requestCount++;
-            const request: RpcRequest = {
-                jsonrpc: '2.0',
-                method: method,
-                params: params,
-                id: id
-            };
-            this.responseHandlers[id] = resolve;
-            const content = JSON.stringify(request) + "\n";
-            console.log('Sending request: ' + content);
-            this.client.write(content);
+            const intervalId = setInterval(() => {
+                if(Object.keys(this.responseHandlers).length === 0) {
+                    clearInterval(intervalId);
+                    
+                    const id = this.requestCount++;
+                    const request: RpcRequest = {
+                        jsonrpc: '2.0',
+                        method: method,
+                        params: params,
+                        id: id
+                    };
+                    this.responseHandlers[id] = resolve;
+                    const content = JSON.stringify(request) + "\n";
+                    console.log('Sending request: ' + content);
+                    this.client.write(content);
+                }
+            }, 1000); 
         });
     }
 }

@@ -4,6 +4,7 @@ import * as vscode from "vscode"
 
 import { TagListProvider } from "./tagListTree"
 import { initialize as initializeDevkitClient } from "./devkitClient"
+import { ObjectListProvider } from "./objectListExplorer"
 
 export function activate(context: vscode.ExtensionContext) {
 	const rootPath =
@@ -21,6 +22,10 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const tagListProvider = new TagListProvider(rootPath)
 	vscode.window.registerTreeDataProvider("tagsExplorer", tagListProvider)
+
+	const objectListProvider = new ObjectListProvider(rootPath);
+	vscode.window.registerTreeDataProvider("objectsExplorer", objectListProvider)
+	
 	vscode.commands.registerCommand("tagsExplorer.refreshEntry", () =>
 		tagListProvider.refresh()
 	)
