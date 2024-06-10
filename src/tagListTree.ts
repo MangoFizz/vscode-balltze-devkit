@@ -29,7 +29,15 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	}
 
 	refresh(): void {
-		this._onDidChangeTreeData.fire()
+		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
+			if (!tagList) {
+				vscode.window.showErrorMessage("Failed to get tag list from devkit server")
+				return
+			}
+			this.tags = tagList;
+			this.tagTree = this.getFileSystemItems(this.tags);
+			this._onDidChangeTreeData.fire();
+		});
 	}
 
 	getTreeItem(element: TagTreeItem): vscode.TreeItem {

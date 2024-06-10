@@ -23,10 +23,14 @@ export function activate(context: vscode.ExtensionContext) {
 	const tagListProvider = new TagListProvider(rootPath)
 	vscode.window.registerTreeDataProvider("tagsExplorer", tagListProvider)
 
+	vscode.commands.registerCommand("tagsExplorer.refreshEntry", () =>
+		tagListProvider.refresh()
+	)
+
 	const objectListProvider = new ObjectListProvider(rootPath);
 	vscode.window.registerTreeDataProvider("objectsExplorer", objectListProvider)
 	
-	vscode.commands.registerCommand("tagsExplorer.refreshEntry", () =>
-		tagListProvider.refresh()
+	vscode.commands.registerCommand("objectsExplorer.refreshEntry", () =>
+		objectListProvider.refresh()
 	)
 }

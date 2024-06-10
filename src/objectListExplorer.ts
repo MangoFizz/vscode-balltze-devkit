@@ -28,7 +28,14 @@ export class ObjectListProvider implements vscode.TreeDataProvider<ObjectTreeIte
 	}
 
 	refresh(): void {
-		this._onDidChangeTreeData.fire()
+		client.conn.devkit.getObjectList().then((objectList?: ObjectEntry[]) => {
+			if (!objectList) {
+				vscode.window.showErrorMessage("Failed to get tag list from devkit server")
+				return
+			}
+			this.objects = objectList;
+			this._onDidChangeTreeData.fire();
+		});
 	}
 
 	getTreeItem(element: ObjectTreeItem): vscode.TreeItem {

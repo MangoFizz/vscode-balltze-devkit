@@ -52,6 +52,11 @@
 				"command": "tagsExplorer.refreshEntry",
 				"title": "Refresh",
 				"icon": "$(refresh)"
+			},
+			{
+				"command": "objectsExplorer.refreshEntry",
+				"title": "Refresh",
+				"icon": "$(refresh)"
 			}
 		],
 		"menus": {
@@ -59,6 +64,11 @@
 				{
 					"command": "tagsExplorer.refreshEntry",
 					"when": "view == tagsExplorer",
+					"group": "navigation"
+				},
+				{
+					"command": "objectsExplorer.refreshEntry",
+					"when": "view == objectsExplorer",
 					"group": "navigation"
 				}
 			]
