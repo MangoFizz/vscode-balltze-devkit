@@ -49,6 +49,16 @@ export class DepNodeProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	private getFileSystemItems(items: TagEntry[]): TagTreeItem[] {
         let root: any = {};
 
+		items.sort((a, b) => {
+			if (a.path < b.path) {
+				return -1;
+			}
+			if (a.path > b.path) {
+				return 1;
+			}
+			return 0;
+		});
+
         items.forEach(item => {
             const fullPath = item.path + "." + item.class
             const parts = fullPath.split('\\');
