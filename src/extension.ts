@@ -5,6 +5,7 @@ import * as vscode from "vscode"
 import { TagListProvider } from "./tagListTree"
 import { initialize as initializeDevkitClient } from "./devkitClient"
 import { ObjectListProvider } from "./objectListExplorer"
+import { ComponentGalleryPanel } from "./panels/ComponentGalleryPanel"
 
 export function activate(context: vscode.ExtensionContext) {
 	const rootPath =
@@ -37,4 +38,11 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage(`Deleting ${item.label}`)
 		objectListProvider.deleteItem(item)
 	})
+
+	const showGalleryCommand = vscode.commands.registerCommand("component-gallery-react.showGallery", () => {
+		ComponentGalleryPanel.render(context.extensionUri);
+	});
+	
+	// Add command to the extension context
+	context.subscriptions.push(showGalleryCommand);
 }

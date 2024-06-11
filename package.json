@@ -62,6 +62,10 @@
 				"command": "objectsExplorer.delete",
 				"title": "Delete",
 				"icon": "$(trash)"
+			},
+			{
+				"command": "component-gallery-react.showGallery",
+				"title": "Component Gallery (React): Show"
 			}
 		],
 		"menus": {
@@ -112,7 +116,10 @@
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
-		"lint": "eslint \"src/**/*.ts\""
+		"lint": "eslint \"src/**/*.ts\"",
+		"install:all": "npm install && cd tag-editor-ui && npm install",
+		"start:webview": "cd webview-ui && npm run start",
+    	"build:webview": "cd webview-ui && npm run build"
 	},
 	"devDependencies": {
 		"@types/ftp": "^0.3.33",
@@ -123,12 +130,20 @@
 		"@typescript-eslint/eslint-plugin": "^6.7.0",
 		"@typescript-eslint/parser": "^6.7.0",
 		"eslint": "^8.26.0",
-		"typescript": "^5.4.2"
+		"typescript": "^5.4.2",
+		"@types/react": "^17.0.33",
+    	"@types/react-dom": "^17.0.10",
+    	"@types/vscode-webview": "^1.57.0",
+    	"@vitejs/plugin-react": "^1.0.7",
+    	"vite": "^2.9.13"
 	},
 	"dependencies": {
 		"jsonc-parser": "^0.4.2",
 		"minimist": "^1.2.6",
 		"mkdirp": "^0.5.1",
-		"rimraf": "^2.6.2"
+		"rimraf": "^2.6.2",
+		"@vscode/webview-ui-toolkit": "^1.2.2",
+		"react": "^17.0.2",
+		"react-dom": "^17.0.2"
 	}
 }
