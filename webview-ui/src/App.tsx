@@ -17,6 +17,11 @@ import "./codicon.css";
 import { useState } from "react";
 import { StringField } from "./components/StringField";
 import { FlagsField, FlagsState } from "./components/FlagsField";
+import { NumericField } from "./components/NumericField";
+import { ColorArgbField } from "./components/ColorArgbField";
+import { Rectangle2dField } from "./components/Rectangle2dField";
+import { TagDependencyField } from "./components/TagDependencyField";
+import TagView from "./components/TagView";
 
 function App() {
   let [enumType, setEnumType] = useState("");
@@ -26,15 +31,29 @@ function App() {
     "Flag 2": false,
     "Flag 3": true,
   } as FlagsState);
+  let [numericField, setNumericField] = useState(0);
+  let [colorArgb, setColorArgb] = useState({ a: 1.0, r: 0.0, g: 0.0, b: 0.0 } as { [property: string]: number});
+  let [rectangle2D, setRectangle2D] = useState({ t: 0, r: 0, b: 480, l: 640 } as { [property: string]: number});
+  let [tagDependency, setTagDependency] = useState({ tagClass: "bitmap", tagPath: "path/to/tag", tagHandle: "3821534636" } as { [key: string]: string });
 
   return (
     <main>
       <div className="main-container">
+        <TagView tagEntry={{ class: "item_collection", path: "", handle: 5 }} tagData={null} />
+        
+        
+        
+        
+        
         <h1>React Tag Component Gallery</h1>
         <section>
           <EnumField label="Enum type" enumValues={["Option 1", "Option 2"]} value={enumType} setValue={setEnumType}></EnumField>
           <StringField label="String field" value={stringField} setValue={setStringField} />
           <FlagsField label="Flags field" values={flagsFields} setValues={setFlagsFields} />
+          <NumericField label="Numeric field" value={numericField} setValue={setNumericField} />
+          <ColorArgbField label="Color ARGB field" value={colorArgb} setValue={setColorArgb} />
+          <Rectangle2dField label="Rectangle 2D field" value={rectangle2D} setValue={setRectangle2D} />
+          <TagDependencyField label="Tag dependency field" value={tagDependency} setValue={setTagDependency} validClasses={["bitmap", "sound", "model"]} />
         </section>
       </div>
 

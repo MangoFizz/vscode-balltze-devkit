@@ -12,6 +12,7 @@ export interface IFlagsFieldProps extends IFieldProps {
 export function FlagsField(props: IFlagsFieldProps) {
 	let handleChange = function(e: Event, flagName: string): void {
 		props.values[flagName] = (e.target as HTMLInputElement).checked;
+		props.setValues(props.values);
 	};
 
   	return (

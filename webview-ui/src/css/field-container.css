@@ -17,10 +17,27 @@
 	width: 50%;
 }
 
+.field-content vscode-text-field {
+	width: 50%;
+}
+
+.field-content .numeric-field {
+	width: 16%;
+}
+
 .field-content vscode-dropdown {
 	width: 50%;
 }
 
 .field-label {
 	width: 25%;
+}
+
+.d-flex {
+	display: flex;
+	align-items: center;
+}
+
+.d-flex-column {
+	flex-direction: column;
 }
