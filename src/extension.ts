@@ -2,9 +2,9 @@
 
 import * as vscode from "vscode"
 
-import { TagListProvider } from "./tagListTree"
 import { initialize as initializeDevkitClient } from "./devkitClient"
-import { ObjectListProvider } from "./objectListExplorer"
+import { TagListProvider, TagTreeItem } from "./tagListTree"
+import { ObjectListProvider, ObjectTreeItem } from "./objectListExplorer"
 
 export function activate(context: vscode.ExtensionContext) {
 	const rootPath =
@@ -23,18 +23,34 @@ export function activate(context: vscode.ExtensionContext) {
 	const tagListProvider = new TagListProvider(rootPath)
 	vscode.window.registerTreeDataProvider("tagsExplorer", tagListProvider)
 
-	vscode.commands.registerCommand("tagsExplorer.refreshEntry", () =>
-		tagListProvider.refresh()
-	)
-
-	const objectListProvider = new ObjectListProvider(rootPath);
+	const objectListProvider = new ObjectListProvider(rootPath)
 	vscode.window.registerTreeDataProvider("objectsExplorer", objectListProvider)
-	
-	vscode.commands.registerCommand("objectsExplorer.refreshEntry", () =>
-		objectListProvider.refresh()
-	)
-	vscode.commands.registerCommand("objectsExplorer.delete", (item: any) => {
-		vscode.window.showInformationMessage(`Deleting ${item.label}`)
-		objectListProvider.deleteItem(item)
+
+	const commands = [
+		{
+			command: "tagsExplorer.refresh",
+			action: () => tagListProvider.refresh()
+		},
+		{
+			command: "objectsExplorer.refresh",
+			action: () => objectListProvider.refresh()
+		},
+		{
+			command: "tagsExplorer.spawn",
+			action: async (item: TagTreeItem) => {
+				await tagListProvider.spawnObject(item)
+			}
+		},
+		{
+			command: "objectsExplorer.delete",
+			action: (item: ObjectTreeItem) => {
+				vscode.window.showInformationMessage(`Deleting ${item.label}`)
+				objectListProvider.deleteItem(item)
+			}
+		}
+	]
+
+	commands.forEach(({ command, action }) => {
+		vscode.commands.registerCommand(command, action)
 	})
 }

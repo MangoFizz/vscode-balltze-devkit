@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
 import client from "./devkitClient"
+import MetaEnginePlayer from "./types/MetaEnginePlayer"
 
 const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit")
 
@@ -40,12 +41,12 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 		});
 	}
 
-	getTreeItem(element: TagTreeItem): vscode.TreeItem {
-		return element
+	getTreeItem(item: TagTreeItem): vscode.TreeItem {
+		return item
 	}
 
-	getChildren(element?: TagTreeItem): Thenable<TagTreeItem[]> {
-		return Promise.resolve(element ? element.children || [] : this.tagTree);
+	getChildren(item?: TagTreeItem): Thenable<TagTreeItem[]> {
+		return Promise.resolve(item ? item.children || [] : this.tagTree)
 	}
 
 	private getFileSystemItems(items: TagEntry[]): TagTreeItem[] {
@@ -130,6 +131,24 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 
         return createTreeItems(root);
     }
+
+	async spawnObject(item: TagTreeItem): Promise<void> {
+		vscode.window.showInformationMessage(`Spawning object: ${item.label}`)
+		const position = { x: 0, y: 0, z: 0 }
+		const player = await client.conn.engine.gameState.getPlayer() as MetaEnginePlayer | undefined
+		if (player) {
+			position.x = player.position.x
+			position.y = player.position.y
+			position.z = player.position.z + 1
+		}
+		const handle = item.handle
+		const result = await client.conn.engine.gameState.createObject(handle, 0xFFFFFFFF, position)
+		if (result) {
+			balltzeOutput.appendLine(`Spawned object: ${item.label}`)
+		} else {
+			balltzeOutput.appendLine(`Failed to spawn object`)
+		}
+	}
 }
 
 export class TagTreeItem extends vscode.TreeItem {
@@ -147,4 +166,6 @@ export class TagTreeItem extends vscode.TreeItem {
         this.description = this.isFile ? this.tagClass : undefined;
 		this.resourceUri = vscode.Uri.file(path);
     }
+
+	contextValue = this.isFile ? 'tag' : 'folder'
 }

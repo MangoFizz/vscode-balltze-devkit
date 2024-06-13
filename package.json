@@ -49,14 +49,29 @@
 		},
 		"commands": [
 			{
-				"command": "tagsExplorer.refreshEntry",
+				"command": "tagsExplorer.refresh",
 				"title": "Refresh",
 				"icon": "$(refresh)"
 			},
 			{
-				"command": "objectsExplorer.refreshEntry",
+				"command": "objectsExplorer.refresh",
 				"title": "Refresh",
 				"icon": "$(refresh)"
+			},
+			{
+				"command": "tagsExplorer.spawn",
+				"title": "Spawn Object",
+				"icon": "$(add)"
+			},
+			{
+				"command": "tagsExplorer.copyTagHandle",
+				"title": "Copy Tag Handle",
+				"icon": "$(symbol-number)"
+			},
+			{
+				"command": "tagsExplorer.copyPath",
+				"title": "Copy Path",
+				"icon": "$(files)"
 			},
 			{
 				"command": "objectsExplorer.delete",
@@ -67,12 +82,12 @@
 		"menus": {
 			"view/title": [
 				{
-					"command": "tagsExplorer.refreshEntry",
+					"command": "tagsExplorer.refresh",
 					"when": "view == tagsExplorer",
 					"group": "navigation"
 				},
 				{
-					"command": "objectsExplorer.refreshEntry",
+					"command": "objectsExplorer.refresh",
 					"when": "view == objectsExplorer",
 					"group": "navigation"
 				}
@@ -80,13 +95,19 @@
 			"view/item/context": [
 				{
 					"command": "tagsExplorer.spawn",
-					"when": "view == tagsExplorer",
-					"group": "inline"
+					"when": "view == tagsExplorer && viewItem == tag"
+				},
+				{
+					"command": "tagsExplorer.copyTagHandle",
+					"when": "view == tagsExplorer && viewItem == tag"
+				},
+				{
+					"command": "tagsExplorer.copyPath",
+					"when": "view == tagsExplorer"
 				},
 				{
 					"command": "objectsExplorer.delete",
-					"when": "view == objectsExplorer",
-					"group": "inline"
+					"when": "view == objectsExplorer"
 				}
 			]
 		},
