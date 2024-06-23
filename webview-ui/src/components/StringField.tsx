@@ -3,8 +3,8 @@ import { IFieldProps } from "../utilities/IFieldProps";
 import "../css/field-container.css"
 
 export interface IStringFieldProps extends IFieldProps {
-	value: string, 
-	setValue: (value: string) => void
+	value: string;
+	setValue: (value: string) => void;
 };
 
 export function StringField(props: IStringFieldProps) {

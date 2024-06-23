@@ -2,13 +2,13 @@ import { VSCodeDivider, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-
 import "../css/field-container.css"
 import { IFieldProps } from "../utilities/IFieldProps";
 
-export interface IEnumFieldProps extends IFieldProps {
-    enumValues: string[], 
-	value: string, 
-	setValue: (value: string) => void
+export interface EnumFieldProps extends IFieldProps {
+    enumValues: string[];
+	value: string;
+	setValue: (value: string) => void;
 };
 
-export function EnumField(props: IEnumFieldProps) {
+export function EnumField(props: EnumFieldProps) {
 	let handleChange = function(e: Event): void {
 		props.setValue((e.target as HTMLSelectElement).value);
 	};

@@ -1,0 +1,335 @@
+{
+	"jsonrpc": "2.0",
+	"result": {
+		"secondaryClass": -1,
+		"handle": {
+			"index": 364,
+			"value": 3806462316,
+			"id": 58082
+		},
+		"tertiaryClass": -1,
+		"data": {
+			"stringListIndex": 0,
+			"flags": {
+				"alwaysUseNiftyRenderFx": false,
+				"flags": 1,
+				"returnToMainMenuIfNoHistory": false,
+				"dpadUpDownTabsThruListItems": false,
+				"forceHandleMouse": false,
+				"alwaysUseTagControllerIndex": false,
+				"dpadLeftRightTabsThruListItems": false,
+				"pauseGameTime": false,
+				"passUnhandledEventsToFocusedChild": true,
+				"flashBackgroundBitmap": false,
+				"dontFocusASpecificChildWidget": false,
+				"passUnhandledEventsToAllChildren": false,
+				"dontPushHistory": false,
+				"dpadUpDownTabsThruChildren": false,
+				"passHandledEventsToAllChildren": false,
+				"renderRegardlessOfControllerIndex": false,
+				"dpadLeftRightTabsThruChildren": false
+			},
+			"flags2": {
+				"listItemsGeneratedInCode": false,
+				"flags": 0,
+				"listItemsFromStringListTag": false,
+				"listSinglePreviewNoScroll": false,
+				"listItemsOnlyOneTooltip": false
+			},
+			"listHeaderBitmap": {
+				"pathSize": 0,
+				"tagHandle": {
+					"index": 65535,
+					"value": 4294967295,
+					"id": 65535
+				},
+				"tagClass": "BITMAP"
+			},
+			"childWidgets": {
+				"elements": [
+					{
+						"customControllerIndex": 0,
+						"flags": {
+							"flags": 0,
+							"useCustomControllerIndex": false
+						},
+						"name": "halo_logo",
+						"verticalOffset": 28,
+						"horizontalOffset": 0,
+						"widgetTag": {
+							"tagHandle": {
+								"index": 375,
+								"value": 3807183223,
+								"id": 58093
+							},
+							"pathSize": 0,
+							"path": "ui\\shell\\main_menu\\halo_logo",
+							"tagClass": "UI_WIDGET_DEFINITION"
+						}
+					},
+					{
+						"customControllerIndex": 0,
+						"flags": {
+							"flags": 0,
+							"useCustomControllerIndex": false
+						},
+						"name": "main_menu_select_list",
+						"verticalOffset": 0,
+						"horizontalOffset": 0,
+						"widgetTag": {
+							"tagHandle": {
+								"index": 377,
+								"value": 3807314297,
+								"id": 58095
+							},
+							"pathSize": 0,
+							"path": "ui\\shell\\main_menu\\main_menu_select_list",
+							"tagClass": "UI_WIDGET_DEFINITION"
+						}
+					},
+					{
+						"customControllerIndex": 0,
+						"flags": {
+							"flags": 0,
+							"useCustomControllerIndex": false
+						},
+						"name": "build_number",
+						"verticalOffset": 400,
+						"horizontalOffset": 450,
+						"widgetTag": {
+							"tagHandle": {
+								"index": 1347,
+								"value": 3870885187,
+								"id": 59065
+							},
+							"pathSize": 0,
+							"path": "ui\\shell\\main_menu\\build_number",
+							"tagClass": "UI_WIDGET_DEFINITION"
+						}
+					}
+				],
+				"count": 3
+			},
+			"millisecondsToAutoClose": 0,
+			"flags1": {
+				"password": false,
+				"dontDoThatWeirdFocusTest": false,
+				"flags": 0,
+				"flashing": false,
+				"editable": false
+			},
+			"textFont": {
+				"pathSize": 0,
+				"tagHandle": {
+					"index": 65535,
+					"value": 4294967295,
+					"id": 65535
+				},
+				"tagClass": "FONT"
+			},
+			"textLabelUnicodeStringsList": {
+				"pathSize": 0,
+				"tagHandle": {
+					"index": 65535,
+					"value": 4294967295,
+					"id": 65535
+				},
+				"tagClass": "UNICODE_STRING_LIST"
+			},
+			"name": "the_main_menu",
+			"extendedDescriptionWidget": {
+				"pathSize": 0,
+				"tagHandle": {
+					"index": 65535,
+					"value": 4294967295,
+					"id": 65535
+				},
+				"tagClass": "UI_WIDGET_DEFINITION"
+			},
+			"conditionalWidgets": {
+				"elements": [],
+				"count": 0
+			},
+			"footerBounds": {
+				"right": 0,
+				"top": 0,
+				"bottom": 0,
+				"left": 0
+			},
+			"backgroundBitmap": {
+				"pathSize": 0,
+				"tagHandle": {
+					"index": 65535,
+					"value": 4294967295,
+					"id": 65535
+				},
+				"tagClass": "BITMAP"
+			},
+			"justification": "leftJustify",
+			"searchAndReplaceFunctions": {
+				"elements": [],
+				"count": 0
+			},
+			"gameDataInputs": {
+				"elements": [],
+				"count": 0
+			},
+			"horizOffset": 0,
+			"listFooterBitmap": {
+				"pathSize": 0,
+				"tagHandle": {
+					"index": 65535,
+					"value": 4294967295,
+					"id": 65535
+				},
+				"tagClass": "BITMAP"
+			},
+			"bounds": {
+				"right": 640,
+				"top": 0,
+				"bottom": 480,
+				"left": 0
+			},
+			"controllerIndex": "anyPlayer",
+			"eventHandlers": {
+				"elements": [
+					{
+						"eventType": "created",
+						"function": "mainMenuIntialize",
+						"flags": {
+							"flags": 128,
+							"closeCurrentWidget": false,
+							"giveFocusToWidget": false,
+							"replaceSelfWWidget": false,
+							"closeOtherWidget": false,
+							"tryToBranchOnFailure": false,
+							"reloadOtherWidget": false,
+							"runFunction": true,
+							"openWidget": false,
+							"goBackToPreviousWidget": false,
+							"reloadSelf": false,
+							"runScenarioScript": false,
+							"closeAllWidgets": false
+						},
+						"soundEffect": {
+							"pathSize": 0,
+							"tagHandle": {
+								"index": 65535,
+								"value": 4294967295,
+								"id": 65535
+							},
+							"tagClass": "SOUND"
+						},
+						"script": "ring_loop",
+						"widgetTag": {
+							"pathSize": 0,
+							"tagHandle": {
+								"index": 65535,
+								"value": 4294967295,
+								"id": 65535
+							},
+							"tagClass": "UI_WIDGET_DEFINITION"
+						}
+					},
+					{
+						"eventType": "backButton",
+						"function": "null",
+						"flags": {
+							"flags": 8,
+							"closeCurrentWidget": false,
+							"giveFocusToWidget": false,
+							"replaceSelfWWidget": false,
+							"closeOtherWidget": false,
+							"tryToBranchOnFailure": false,
+							"reloadOtherWidget": false,
+							"runFunction": false,
+							"openWidget": true,
+							"goBackToPreviousWidget": false,
+							"reloadSelf": false,
+							"runScenarioScript": false,
+							"closeAllWidgets": false
+						},
+						"soundEffect": {
+							"pathSize": 0,
+							"tagHandle": {
+								"index": 65535,
+								"value": 4294967295,
+								"id": 65535
+							},
+							"tagClass": "SOUND"
+						},
+						"script": "",
+						"widgetTag": {
+							"tagHandle": {
+								"index": 365,
+								"value": 3806527853,
+								"id": 58083
+							},
+							"pathSize": 0,
+							"path": "ui\\shell\\main_menu\\quit_select\\quit_screen",
+							"tagClass": "UI_WIDGET_DEFINITION"
+						}
+					},
+					{
+						"eventType": "bButton",
+						"function": "null",
+						"flags": {
+							"flags": 8,
+							"closeCurrentWidget": false,
+							"giveFocusToWidget": false,
+							"replaceSelfWWidget": false,
+							"closeOtherWidget": false,
+							"tryToBranchOnFailure": false,
+							"reloadOtherWidget": false,
+							"runFunction": false,
+							"openWidget": true,
+							"goBackToPreviousWidget": false,
+							"reloadSelf": false,
+							"runScenarioScript": false,
+							"closeAllWidgets": false
+						},
+						"soundEffect": {
+							"pathSize": 0,
+							"tagHandle": {
+								"index": 65535,
+								"value": 4294967295,
+								"id": 65535
+							},
+							"tagClass": "SOUND"
+						},
+						"script": "",
+						"widgetTag": {
+							"tagHandle": {
+								"index": 365,
+								"value": 3806527853,
+								"id": 58083
+							},
+							"pathSize": 0,
+							"path": "ui\\shell\\main_menu\\quit_select\\quit_screen",
+							"tagClass": "UI_WIDGET_DEFINITION"
+						}
+					}
+				],
+				"count": 3
+			},
+			"millisecondsAutoCloseFadeTime": 0,
+			"headerBounds": {
+				"right": 0,
+				"top": 0,
+				"bottom": 0,
+				"left": 0
+			},
+			"textColor": {
+				"green": 0,
+				"red": 0,
+				"blue": 0,
+				"alpha": 0
+			},
+			"widgetType": "container",
+			"vertOffset": 0
+		},
+		"path": "ui\\shell\\main_menu\\main_menu",
+		"primaryClass": "UI_WIDGET_DEFINITION"
+	},
+	"id": "1"
+}

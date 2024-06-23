@@ -22,6 +22,9 @@ import { ColorArgbField } from "./components/ColorArgbField";
 import { Rectangle2dField } from "./components/Rectangle2dField";
 import { TagDependencyField } from "./components/TagDependencyField";
 import TagView from "./components/TagView";
+import TagBlock from "./components/TagBlock";
+
+import TagDataExample from "../data/tag-data-example.json"
 
 function App() {
   let [enumType, setEnumType] = useState("");
@@ -39,14 +42,14 @@ function App() {
   return (
     <main>
       <div className="main-container">
-        <TagView tagEntry={{ class: "item_collection", path: "", handle: 5 }} tagData={null} />
+        <TagView tagEntry={{ class: TagDataExample.result.primaryClass, path: TagDataExample.result.path, handle: TagDataExample.result.handle.value }} tagData={TagDataExample.result.data} />
         
         
         
         
         
         <h1>React Tag Component Gallery</h1>
-        <section>
+        {/* <section>
           <EnumField label="Enum type" enumValues={["Option 1", "Option 2"]} value={enumType} setValue={setEnumType}></EnumField>
           <StringField label="String field" value={stringField} setValue={setStringField} />
           <FlagsField label="Flags field" values={flagsFields} setValues={setFlagsFields} />
@@ -54,7 +57,12 @@ function App() {
           <ColorArgbField label="Color ARGB field" value={colorArgb} setValue={setColorArgb} />
           <Rectangle2dField label="Rectangle 2D field" value={rectangle2D} setValue={setRectangle2D} />
           <TagDependencyField label="Tag dependency field" value={tagDependency} setValue={setTagDependency} validClasses={["bitmap", "sound", "model"]} />
-        </section>
+          <TagBlock label="Tag block" elems={["elem1", "elem2", "elem3"]} render={(elem: any) => <>
+            <EnumField label="Enum type" enumValues={["Option 1", "Option 2"]} value={enumType} setValue={setEnumType}></EnumField>
+            <StringField label="String field" value={stringField} setValue={setStringField} />
+            <FlagsField label="Flags field" values={flagsFields} setValues={setFlagsFields} />
+          </>} />
+        </section> */}
       </div>
 
       <h1>Webview UI Toolkit React Component Gallery</h1>

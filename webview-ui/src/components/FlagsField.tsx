@@ -1,18 +1,20 @@
 import { VSCodeCheckbox, VSCodeDivider, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react";
 import "../css/field-container.css"
 import { IFieldProps } from "../utilities/IFieldProps";
+import { camelCaseToNormal } from "../utilities/naming";
 
 export type FlagsState = { [flagName: string]: boolean };
 
 export interface IFlagsFieldProps extends IFieldProps {
 	values: FlagsState,
-	setValues: (values: FlagsState) => void
+	setValue: (flag: string, val: boolean) => void
 };
 
 export function FlagsField(props: IFlagsFieldProps) {
 	let handleChange = function(e: Event, flagName: string): void {
-		props.values[flagName] = (e.target as HTMLInputElement).checked;
-		props.setValues(props.values);
+		const val = (e.target as HTMLInputElement).checked;
+		props.values[flagName] = val;
+		props.setValue(flagName, val);
 	};
 
   	return (
@@ -22,10 +24,14 @@ export function FlagsField(props: IFlagsFieldProps) {
 				<div className="field-content">
 					{
 						Object.keys(props.values).map((flagName: string) => {
+							if(flagName === "flags") {
+								return null;
+							}
 							let flag = props.values[flagName];
+							console.log(flag);
 							return (
 								<VSCodeCheckbox checked={flag} onChange={(e) => handleChange(e as Event, flagName)} key={flagName}>
-									{flagName}
+									{camelCaseToNormal(flagName)}
 								</VSCodeCheckbox>
 							);
 						})

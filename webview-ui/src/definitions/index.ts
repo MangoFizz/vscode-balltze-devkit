@@ -83,7 +83,7 @@ import weapon from "./weapon.json";
 import weather_particle_system from "./weather_particle_system.json";
 import wind from "./wind.json";
 
-export default {
+const tagDefinitions = {
 	actor,
 	actor_variant,
 	antenna,
@@ -169,3 +169,24 @@ export default {
 	weather_particle_system,
 	wind
 };
+
+export interface TagStructField {
+	name: string;
+	type: string;
+	classes?: string[]
+};
+
+export interface TagDataType {
+	name: string;
+	type: "struct"|"bitfield"|"enum";
+	class?: string;
+	size?: number;
+	fields?: TagStructField[] | string[];
+	title?: string;
+	options?: string[];
+	width?: number;
+};
+
+const definitions = Object.values(tagDefinitions).reduce((acc, val) => acc.concat(val as TagDataType[]), [] as TagDataType[]);
+
+export default definitions;

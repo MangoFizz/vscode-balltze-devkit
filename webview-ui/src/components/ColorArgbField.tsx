@@ -4,8 +4,8 @@ import "../css/field-container.css"
 import { ChangeEventHandler } from "react";
 
 export interface IColorArgbFieldProps extends IFieldProps {
-	value: { [property: string]: number}
-	setValue: (value: { [property: string]: number}) => void
+	value: { [property: string]: number};
+	setValue: (value: { [property: string]: number}) => void;
 };
 
 export function ColorArgbField(props: IColorArgbFieldProps) {
