@@ -1,16 +1,16 @@
 import * as vscode from "vscode"
-import client from "./devkitClient"
+import client from "../utilities/devkitClient"
 
 type ObjectEntry = {
-	index: number,
-	tagHandle: number,
-	tagPath: string
-	objectType: string,
-	parentIndex: number,
-	name?: string
-}
+	index: number;
+	tagHandle: number;
+	tagPath: string;
+	objectType: string;
+	parentIndex: number;
+	name?: string;
+};
 
-export class ObjectListProvider implements vscode.TreeDataProvider<ObjectTreeItem> {
+export class ObjectTreeDataProvider implements vscode.TreeDataProvider<ObjectTreeItem> {
 	_onDidChangeTreeData: vscode.EventEmitter<ObjectTreeItem | undefined | void> = new vscode.EventEmitter<ObjectTreeItem | undefined | void>()
 	readonly onDidChangeTreeData: vscode.Event<ObjectTreeItem | undefined | void> = this._onDidChangeTreeData.event
 

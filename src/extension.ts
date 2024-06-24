@@ -2,9 +2,9 @@
 
 import * as vscode from "vscode"
 
-import { initialize as initializeDevkitClient } from "./devkitClient"
-import { TagListProvider, TagTreeItem } from "./tagListTree"
-import { ObjectListProvider, ObjectTreeItem } from "./objectListExplorer"
+import { initialize as initializeDevkitClient } from "./utilities/devkitClient"
+import { TagTreeDataProvider, TagTreeItem } from "./panels/TagExplorer"
+import { ObjectTreeDataProvider, ObjectTreeItem } from "./panels/ObjectExplorer"
 import { ComponentGalleryPanel } from "./panels/ComponentGalleryPanel"
 
 export function activate(context: vscode.ExtensionContext) {
@@ -21,10 +21,10 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.workspace.getConfiguration("balltzeDevkit").get("port") || 19190
 	)
 
-	const tagListProvider = new TagListProvider(rootPath)
+	const tagListProvider = new TagTreeDataProvider(rootPath)
 	vscode.window.registerTreeDataProvider("tagsExplorer", tagListProvider)
 
-	const objectListProvider = new ObjectListProvider(rootPath)
+	const objectListProvider = new ObjectTreeDataProvider(rootPath)
 	vscode.window.registerTreeDataProvider("objectsExplorer", objectListProvider)
 
 	const commands = [

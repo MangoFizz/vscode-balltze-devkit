@@ -1,16 +1,16 @@
 import * as vscode from "vscode"
-import client from "./devkitClient"
-import MetaEnginePlayer from "./types/MetaEnginePlayer"
+import client from "../utilities/devkitClient"
+import MetaEnginePlayer from "../types/MetaEnginePlayer"
 
-const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit")
+const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit");
 
 type TagEntry = {
-	path: string
-	handle: number
-	class: string
-}
+	path: string;
+	handle: number;
+	class: string;
+};
 
-export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
+export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	_onDidChangeTreeData: vscode.EventEmitter<TagTreeItem | undefined | void> = new vscode.EventEmitter<TagTreeItem | undefined | void>()
 	readonly onDidChangeTreeData: vscode.Event<TagTreeItem | undefined | void> = this._onDidChangeTreeData.event
 
@@ -20,8 +20,8 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	constructor(private workspaceRoot: string | undefined) {
 		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
 			if (!tagList) {
-				vscode.window.showErrorMessage("Failed to get tag list from devkit server")
-				return
+				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
+				return;
 			}
 			this.tags = tagList;
 			this.tagTree = this.getFileSystemItems(this.tags);
@@ -32,8 +32,8 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	refresh(): void {
 		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
 			if (!tagList) {
-				vscode.window.showErrorMessage("Failed to get tag list from devkit server")
-				return
+				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
+				return;
 			}
 			this.tags = tagList;
 			this.tagTree = this.getFileSystemItems(this.tags);
@@ -42,11 +42,11 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	}
 
 	getTreeItem(item: TagTreeItem): vscode.TreeItem {
-		return item
+		return item;
 	}
 
 	getChildren(item?: TagTreeItem): Thenable<TagTreeItem[]> {
-		return Promise.resolve(item ? item.children || [] : this.tagTree)
+		return Promise.resolve(item ? item.children || [] : this.tagTree);
 	}
 
 	private getFileSystemItems(items: TagEntry[]): TagTreeItem[] {
@@ -63,7 +63,7 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
 		});
 
         items.forEach(item => {
-            const fullPath = item.path + "." + item.class
+            const fullPath = item.path + "." + item.class;
             const parts = fullPath.split('\\');
             let current = root;
 
@@ -133,20 +133,20 @@ export class TagListProvider implements vscode.TreeDataProvider<TagTreeItem> {
     }
 
 	async spawnObject(item: TagTreeItem): Promise<void> {
-		vscode.window.showInformationMessage(`Spawning object: ${item.label}`)
-		const position = { x: 0, y: 0, z: 0 }
-		const player = await client.conn.engine.gameState.getPlayer() as MetaEnginePlayer | undefined
+		vscode.window.showInformationMessage(`Spawning object: ${item.label}`);
+		const position = { x: 0, y: 0, z: 0 };
+		const player = await client.conn.engine.gameState.getPlayer() as MetaEnginePlayer | undefined;
 		if (player) {
-			position.x = player.position.x
-			position.y = player.position.y
-			position.z = player.position.z + 1
+			position.x = player.position.x;
+			position.y = player.position.y;
+			position.z = player.position.z + 1;
 		}
-		const handle = item.handle
-		const result = await client.conn.engine.gameState.createObject(handle, 0xFFFFFFFF, position)
+		const handle = item.handle;
+		const result = await client.conn.engine.gameState.createObject(handle, 0xFFFFFFFF, position);
 		if (result) {
-			balltzeOutput.appendLine(`Spawned object: ${item.label}`)
+			balltzeOutput.appendLine(`Spawned object: ${item.label}`);
 		} else {
-			balltzeOutput.appendLine(`Failed to spawn object`)
+			balltzeOutput.appendLine(`Failed to spawn object`);
 		}
 	}
 }
@@ -164,9 +164,9 @@ export class TagTreeItem extends vscode.TreeItem {
     ) {
         super(label, collapsibleState);
         this.description = this.isFile ? this.tagClass : undefined;
-		this.tooltip = `${this.handle}`
+		this.tooltip = `${this.handle}`;
 		this.resourceUri = vscode.Uri.file(path);
     }
 
-	contextValue = this.isFile ? 'tag' : 'folder'
+	contextValue = this.isFile ? 'tag' : 'folder';
 }
