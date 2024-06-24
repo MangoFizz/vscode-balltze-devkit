@@ -176,6 +176,7 @@ export interface TagStructField {
 	classes?: string[];
 	struct?: string;
 	maximum?: number;
+	cache_only?: boolean;
 };
 
 export interface TagDataType {

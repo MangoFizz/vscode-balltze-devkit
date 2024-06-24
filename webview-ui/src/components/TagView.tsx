@@ -12,6 +12,7 @@ import TagDependencyField from "./TagDependencyField";
 import FloatField from "./FloatField";
 import ColorArgbField from "./ColorArgbField";
 import TagBlock from "./TagBlock";
+import VectorField from "./VectorField";
 
 type TagEntry = {
 	path: string;
@@ -35,7 +36,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 		<div>
 			{
 				fields.map((field): JSX.Element => {
-					if(field.type == "pad") {
+					if(field.type == "pad" || field.cache_only) {
 						return <></>;
 					}
 
@@ -69,6 +70,21 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 							);
 						}
 
+						case "Point2D":
+						case "Point3D":
+						case "Vector2D":
+						case "Vector3D":
+						case "Euler2D":
+						case "Euler3D":
+						case "Quaternion": {
+							return (
+								<VectorField 
+									label={field.name}
+									value={data[dataFieldName]}
+									setValue={(axis, val) => { data[dataFieldName][axis] = val; }} />
+							);
+						}
+
 						case "TagDependency": {
 							return (
 								<TagDependencyField 
@@ -97,8 +113,32 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 							);
 						}
 
+						case "Index":
+						case "TagEnum":
+						case "TickCount16": {
+							return (
+								<IntegerField
+									label={field.name}
+									value={data[dataFieldName]}
+									setValue={(val: number) => { data[dataFieldName] = val; }}
+									type={"uint16"} />
+							);
+						}
+
+						case "TickCount32": {
+							return (
+								<IntegerField
+									label={field.name}
+									value={data[dataFieldName]}
+									setValue={(val: number) => { data[dataFieldName] = val; }}
+									type={"uint32"} />
+							);
+						}
+
 						case "float":
-						case "double": {
+						case "double":
+						case "Angle":
+						case "Fraction": {
 							return (
 								<FloatField
 									label={field.name}
