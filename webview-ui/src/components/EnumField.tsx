@@ -1,6 +1,8 @@
 import { VSCodeDivider, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react";
 import "../css/field-container.css"
 import { IFieldProps } from "../utilities/IFieldProps";
+import { camelCaseToNormal } from "../utilities/naming";
+import React from "react";
 
 export interface EnumFieldProps extends IFieldProps {
     enumValues: string[];
@@ -8,23 +10,22 @@ export interface EnumFieldProps extends IFieldProps {
 	setValue: (value: string) => void;
 };
 
-export function EnumField(props: EnumFieldProps) {
-	let handleChange = function(e: Event): void {
-		props.setValue((e.target as HTMLSelectElement).value);
+const EnumField: React.FC<EnumFieldProps> = ({ label, enumValues, value, setValue }) => {
+	let [selectedValue, setSelectedValue] = React.useState(camelCaseToNormal(value));
+	
+	let handleChange = function(target: HTMLSelectElement): void {
+		setSelectedValue(target.value);
+		setValue(selectedValue);
 	};
-
-	let getSelectedIndex = function(): number {
-		return props.enumValues.indexOf(props.value) || 0;
-	}
 
   	return (
 		<div>
 			<section className="field-container">
-				<p className="field-label">{props.label}</p>
+				<p className="field-label">{label}</p>
 				<div className="field-content">
-					<VSCodeDropdown position="below" selectedIndex={getSelectedIndex()} onchange={handleChange}>
+					<VSCodeDropdown position="below" value={selectedValue} onChange={(e) => handleChange(e.target as HTMLSelectElement)}>
 						{
-							props.enumValues.map((value, index) => (
+							enumValues.map((value, index) => (
 								<VSCodeOption key={index} value={value}>{value}</VSCodeOption>
 							))
 						}	
@@ -35,3 +36,5 @@ export function EnumField(props: EnumFieldProps) {
 		</div>
   	);
 }
+
+export default EnumField;

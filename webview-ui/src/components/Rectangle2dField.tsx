@@ -1,63 +1,47 @@
 import { VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
 import { IFieldProps } from "../utilities/IFieldProps";
 import "../css/field-container.css"
+import React from "react";
 
-export interface IRectangle2dFieldProps extends IFieldProps {
+export interface Rectangle2dFieldProps extends IFieldProps {
 	value: { [property: string]: number}
-	setValue: (value: { [property: string]: number}) => void
+	setValue: (bound: string, value: number) => void
 };
 
-export function Rectangle2dField(props: IRectangle2dFieldProps) {
-	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
-		const { key } = e;
-    	const { value } = e.target as HTMLInputElement;
-
-		if (
-			key === 'Backspace' ||
-			key === 'Tab' ||
-			key === 'Enter' ||
-			key === 'ArrowLeft' ||
-			key === 'ArrowRight' ||
-			key === 'ArrowUp' ||
-			key === 'ArrowDown' ||
-			key === 'Delete'
-		  ) {
-			return;
-		  }
-	  
-		  if (!/[0-9]/.test(key)) {
-			e.preventDefault();
-		  }
-	};
+const Rectangle2dField: React.FC<Rectangle2dFieldProps> = ({ label, value, setValue }) => {
+	let [bounds, setBounds] = React.useState(value);
 
 	let handleChange = function(e: Event, property: string): void {
-		let color = props.value;
-		color[property] = Number.parseInt((e.target as HTMLInputElement).value);
-		props.setValue(color);
+		let inputValue = parseInt((e.target as HTMLInputElement).value);
+		if (inputValue < -32768) {
+			inputValue = -32768;	
+		}
+		else if(inputValue >= 32767) {
+			inputValue = 32767;
+		}
+
+		let currentBounds = bounds;
+		currentBounds[property] = inputValue;
+		setValue(property, currentBounds[property]);
+		setBounds(currentBounds);
 	};
 
   	return (
 		<div>
 			<section className="field-container">
-				<p className="field-label">{props.label}</p>
+				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<div className="d-flex">
-							<label style={{ marginRight: "5px" }}>t: </label>
-							<VSCodeTextField className="numeric-field" value={props.value["t"].toString()} onchange={(e) => handleChange(e as Event, "t")} onKeyDown={onKeyPress} />
-						</div>
-						<div className="d-flex">
-							<label style={{ marginRight: "5px" }}>r: </label>
-							<VSCodeTextField className="numeric-field" value={props.value["r"].toString()} onchange={(e) => handleChange(e as Event, "r")} onKeyDown={onKeyPress} />
-						</div>
-						<div className="d-flex">
-							<label style={{ marginRight: "5px" }}>b: </label>
-							<VSCodeTextField className="numeric-field" value={props.value["b"].toString()} onchange={(e) => handleChange(e as Event, "b")} onKeyDown={onKeyPress} />
-						</div>
-						<div className="d-flex">
-							<label style={{ marginRight: "5px" }}>l: </label>
-							<VSCodeTextField className="numeric-field" value={props.value["l"].toString()} onchange={(e) => handleChange(e as Event, "l")} onKeyDown={onKeyPress} />
-						</div>
+						{
+							["top", "left", "bottom", "right"].map((key) => {
+								return (
+									<div className="d-flex">
+										<label style={{ marginRight: "5px" }}>{key[0]}: </label>
+										<VSCodeTextField type="tel" className="numeric-field" value={bounds[key].toString()} onchange={(e) => handleChange(e as Event, key)} />
+									</div>
+								);
+							})
+						}
 					</div>
 				</div>
 			</section>
@@ -65,3 +49,5 @@ export function Rectangle2dField(props: IRectangle2dFieldProps) {
 		</div>
   	);
 }
+
+export default Rectangle2dField;

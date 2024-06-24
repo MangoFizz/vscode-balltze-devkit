@@ -173,7 +173,9 @@ const tagDefinitions = {
 export interface TagStructField {
 	name: string;
 	type: string;
-	classes?: string[]
+	classes?: string[];
+	struct?: string;
+	maximum?: number;
 };
 
 export interface TagDataType {

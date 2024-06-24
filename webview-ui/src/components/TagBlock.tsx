@@ -3,7 +3,7 @@ import React from "react";
 
 interface ITagBlock {
 	label: string;
-	elems: { [key: string]: any };
+	elems: any[];
 	render: (elem: any) => JSX.Element;
 	getElemName?: (elem: any) => string;
 };
@@ -11,7 +11,7 @@ interface ITagBlock {
 const TagBlock: React.FC<ITagBlock> = ({label, elems, render, getElemName}) => {
 	let [elemIndex, setElemIndex] = React.useState(0);
 
-	let nameForElem = getElemName || ((elem: any) => `Element ${elems.indexOf(elem)}`);
+	let nameForElem = getElemName || ((elem: any) => `${elems.indexOf(elem)}`);
 
 	return (
 		<div>
@@ -23,7 +23,8 @@ const TagBlock: React.FC<ITagBlock> = ({label, elems, render, getElemName}) => {
 							position="below" 
 							style={{ width: "50%", marginRight: "5px" }} 
 							selectedIndex={elemIndex} 
-							onChange={(e) => setElemIndex((e.target as HTMLSelectElement).selectedIndex)}>
+							onChange={(e) => setElemIndex((e.target as HTMLSelectElement).selectedIndex)}
+							disabled={elems.length == 0}>
 							{
 								elems.map((value: any, index: number) => (
 									<VSCodeOption key={index} value={value}>{nameForElem(value)}</VSCodeOption>
@@ -35,7 +36,11 @@ const TagBlock: React.FC<ITagBlock> = ({label, elems, render, getElemName}) => {
 			</section>
 			<VSCodeDivider role="presentation"></VSCodeDivider>
 			<div style={{ marginLeft: "1rem" }}>
-				{render(elems[elemIndex])}
+				{
+					elems.map((elem: any, index: number) => {
+						return <div key={index} style={{ display: index == elemIndex ? "block" : "none" }}>{render(elem)}</div>;
+					})
+				}
 			</div>
 		</div>
 	);

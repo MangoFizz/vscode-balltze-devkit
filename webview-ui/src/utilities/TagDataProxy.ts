@@ -22,14 +22,32 @@ export default class TagDataProxy {
             },
 
 			get: (object: TagDataProxy, key: string) => {
-				if (key in object.target) {
-					if(typeof(object.target[key]) === 'object') {
-						const targetKey = object.key ? `${object.key}.${key}` : key;
-						return new TagDataProxy(object.target[key], object.changelog, targetKey);
+				switch(key) {
+					case "map": {
+						return function(...args: any) {
+							return Array.prototype.map.apply(object.target, args);
+						};
 					}
-					return object.target[key];
+
+					case "length": {
+						return object.target.length;
+					}
+
+					case "indexOf": {
+						return Array.prototype.indexOf.bind(object.target);
+					}
+
+					default: {
+						if (key in object.target) {
+							if(typeof(object.target[key]) === 'object') {
+								const targetKey = object.key ? `${object.key}.${key}` : key;
+								return new TagDataProxy(object.target[key], object.changelog, targetKey);
+							}
+							return object.target[key];
+						}
+						return undefined;
+					}
 				}
-				return undefined;
 			},
 
 			ownKeys(object: TagDataProxy): string[] {

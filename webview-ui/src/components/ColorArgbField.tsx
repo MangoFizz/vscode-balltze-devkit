@@ -1,14 +1,16 @@
 import { VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
 import { IFieldProps } from "../utilities/IFieldProps";
 import "../css/field-container.css"
-import { ChangeEventHandler } from "react";
+import React from "react";
 
-export interface IColorArgbFieldProps extends IFieldProps {
+export interface ColorArgbFieldProps extends IFieldProps {
 	value: { [property: string]: number};
-	setValue: (value: { [property: string]: number}) => void;
+	setValue: (channel: string, val: number) => void;
 };
 
-export function ColorArgbField(props: IColorArgbFieldProps) {
+const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue }) => {
+	let [colors, setColors] = React.useState(value);
+
 	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
 		const { key } = e;
     	const { value } = e.target as HTMLInputElement;
@@ -22,22 +24,24 @@ export function ColorArgbField(props: IColorArgbFieldProps) {
 			key === 'ArrowUp' ||
 			key === 'ArrowDown' ||
 			key === 'Delete'
-		  ) {
+		) {
 			return;
-		  }
+		}
 	  
-		  if (key === '.' && value.includes('.')) {
+		if (key === '.' && value.includes('.')) {
 			e.preventDefault();
-		  } 
-		  else if (!/[0-9.]/.test(key)) {
+		} 
+		else if (!/[0-9.]/.test(key)) {
 			e.preventDefault();
-		  }
+		}
 	};
 
 	let handleChange = function(e: Event, property: string): void {
-		let color = props.value;
-		color[property] = Number.parseInt((e.target as HTMLInputElement).value);
-		props.setValue(color);
+		let val = Number.parseInt((e.target as HTMLInputElement).value);
+		let currentColors = colors;
+		currentColors[property] = val;
+		setValue(property, val);
+		setColors(currentColors);
 	};
 
 	let handleColorPicker = (e: any) => {
@@ -45,33 +49,40 @@ export function ColorArgbField(props: IColorArgbFieldProps) {
 			return parseFloat((parseInt(e.target.value.substr(i, 2), 16) / 255).toFixed(3));
 		};
 
-		props.setValue({
-			"a": props.value.a,
-			"r": getChannel(1),
-			"g": getChannel(3),
-			"b": getChannel(5)
-		});
+		let pickedColor = {
+			alpha: value.alpha,
+			red: getChannel(1),
+			green: getChannel(3),
+			blue: getChannel(5)
+		};
+
+		setValue("alpha", pickedColor.alpha);
+		setValue("red", pickedColor.red);
+		setValue("green", pickedColor.green);
+		setValue("blue", pickedColor.blue);
+		setColors(pickedColor);
 	};
 
 	let getColorHexValue = () => {
-		let colorHex = "";
-		colorHex += props.value["r"].toString(16).padStart(2, '0');
-		colorHex += props.value["g"].toString(16).padStart(2, '0');
-		colorHex += props.value["b"].toString(16).padStart(2, '0');
+		let colorHex = "#";
+		let getColorHex = (channel: number): string => Math.round(channel * 255).toString(16).padStart(2, '0');
+		colorHex += getColorHex(colors["red"]);
+		colorHex += getColorHex(colors["green"]);
+		colorHex += getColorHex(colors["blue"]);
 		return colorHex;
 	};
 
   	return (
 		<div>
 			<section className="field-container">
-				<p className="field-label">{props.label}</p>
+				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
 						{
-							Object.keys(props.value).map((key, index) => (
+							Object.keys(colors).map((key, index) => (
 								<div className="d-flex" key={index}>
-									<label style={{ marginRight: "5px" }}>{key}: </label>
-									<VSCodeTextField className="numeric-field" value={props.value[key].toString()} onchange={(e) => handleChange(e as Event, key)} onKeyDown={onKeyPress} />
+									<label style={{ marginRight: "5px" }}>{key[0]}: </label>
+									<VSCodeTextField className="numeric-field" value={`${colors[key]}`} onchange={(e) => handleChange(e as Event, key)} onKeyDown={onKeyPress} />
 								</div>
 							))
 						}
@@ -83,3 +94,5 @@ export function ColorArgbField(props: IColorArgbFieldProps) {
 		</div>
   	);
 }
+
+export default ColorArgbField;
