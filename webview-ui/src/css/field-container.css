@@ -1,0 +1,43 @@
+
+.field-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: 100%;
+}
+
+.field-content {
+	width: 75%;
+	display: flex;
+	flex-direction: column;
+}
+
+.field-content vscode-text-field {
+	width: 50%;
+}
+
+.field-content vscode-text-field {
+	width: 50%;
+}
+
+.field-content .numeric-field {
+	width: 16%;
+}
+
+.field-content vscode-dropdown {
+	width: 50%;
+}
+
+.field-label {
+	width: 25%;
+}
+
+.d-flex {
+	display: flex;
+	align-items: center;
+}
+
+.d-flex-column {
+	flex-direction: column;
+}

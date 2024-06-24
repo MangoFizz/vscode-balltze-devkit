@@ -164,6 +164,7 @@ export class TagTreeItem extends vscode.TreeItem {
     ) {
         super(label, collapsibleState);
         this.description = this.isFile ? this.tagClass : undefined;
+		this.tooltip = `${this.handle}`
 		this.resourceUri = vscode.Uri.file(path);
     }
 

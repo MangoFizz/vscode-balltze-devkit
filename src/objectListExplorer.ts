@@ -77,6 +77,7 @@ export class ObjectTreeItem extends vscode.TreeItem {
     ) {
         super(elem.name || elem.tagPath, collapsibleState);
         this.description = elem.objectType;
+		this.tooltip = elem.tagPath;
 		this.iconPath = new vscode.ThemeIcon("symbol-constructor");
 		this.contextValue
     }
