@@ -64,12 +64,12 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 
             parts.forEach((part, index) => {
                 if (!current[part]) {
+					let isFile = index === parts.length - 1;
                     current[part] = {
-						tagName: part,
-                        isFile: index === parts.length - 1,
-                        children: {},
-                        handle: item.handle,
-						tagClass: item.class
+						name: part,
+                        isFile: isFile,
+                        entry: item,
+                        children: {}
                     };
                 }
                 current = current[part].children;
@@ -91,10 +91,9 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
                 const treeItem = new TagTreeItem(
                     removeExtensionFromPath(key),
                     node[key].isFile ? vscode.TreeItemCollapsibleState.None : vscode.TreeItemCollapsibleState.Collapsed,
-                    fullPath,
-					node[key].tagClass,
                     node[key].isFile,
-                    node[key].handle
+					fullPath,
+					node[key].entry
                 );
 
                 if (!node[key].isFile) {
@@ -136,7 +135,11 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 			position.y = player.position.y;
 			position.z = player.position.z + 1;
 		}
-		const handle = item.handle;
+		if(item.tagEntry == null) {
+			balltzeOutput.appendLine(`Tag entry is null`);
+			return;
+		}
+		const handle = item.tagEntry.handle;
 		const result = await client.conn.engine.gameState.createObject(handle, 0xFFFFFFFF, position);
 		if (result) {
 			balltzeOutput.appendLine(`Spawned object: ${item.label}`);
@@ -152,15 +155,22 @@ export class TagTreeItem extends vscode.TreeItem {
     constructor(
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
-        public readonly path: string,
-		public readonly tagClass: string,
         public readonly isFile: boolean,
-        public readonly handle: number
+		public readonly path: string,
+		public readonly tagEntry?: TagEntry,
     ) {
         super(label, collapsibleState);
-        this.description = this.isFile ? this.tagClass : undefined;
-		this.tooltip = `${this.handle}`;
 		this.resourceUri = vscode.Uri.file(path);
+        if(isFile && tagEntry) {
+			this.description = this.isFile ? tagEntry.class : undefined;
+			this.tooltip = `${tagEntry.handle}`;
+			
+			this.command = {
+				command: "tagsExplorer.openPanel",
+				title: "Open tag editor",
+				arguments: [this]
+			};
+		}
     }
 
 	contextValue = this.isFile ? 'tag' : 'folder';

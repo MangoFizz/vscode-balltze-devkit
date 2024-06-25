@@ -5,7 +5,7 @@ import client from "../utilities/devkitClient"
 import { TagEntry } from "../types/EngineTag";
 
 export class TagViewPanel {
-    public static currentPanel: TagViewPanel | undefined;
+    public static panels: { [name: string]: TagViewPanel|undefined } = {};
     private readonly _panel: WebviewPanel;
     private _disposables: Disposable[] = [];
 
@@ -29,13 +29,15 @@ export class TagViewPanel {
     }
 
     public static render(context: ExtensionContext, tag: TagEntry) {
-        if (TagViewPanel.currentPanel) {
-            TagViewPanel.currentPanel._panel.reveal(ViewColumn.One);
+        const panelName = `${tag.path}.${tag.class}`;
+        let currentPanel = TagViewPanel.panels[panelName];
+        if (currentPanel) {
+            currentPanel._panel.reveal(ViewColumn.One);
         } 
         else {
             let tagName = tag.path.split("\\").pop() || "Unknown";
             const panel = window.createWebviewPanel(
-                tag.class,
+                panelName,
                 `${tagName}.${tag.class}`,
                 ViewColumn.One,
                 {
@@ -44,14 +46,15 @@ export class TagViewPanel {
                         Uri.joinPath(context.extensionUri, "out"),
                         Uri.joinPath(context.extensionUri, "webview-ui/build"),
                     ],
-                }
+                    retainContextWhenHidden: true
+                },
             );
-            TagViewPanel.currentPanel = new TagViewPanel(context, panel, tag.handle);
+            TagViewPanel.panels[panelName] = new TagViewPanel(context, panel, tag.handle);
         }
     }
 
     public dispose() {
-        TagViewPanel.currentPanel = undefined;
+        TagViewPanel.panels[this._panel.viewType] = undefined;
         this._panel.dispose();
         while (this._disposables.length) {
             const disposable = this._disposables.pop();

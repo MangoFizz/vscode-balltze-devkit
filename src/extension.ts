@@ -48,12 +48,20 @@ export function activate(context: vscode.ExtensionContext) {
 				vscode.window.showInformationMessage(`Deleting ${item.label}`)
 				objectListProvider.deleteItem(item)
 			}
+		},
+		{
+			command: "tagsExplorer.openPanel",
+			action: (node: TagTreeItem) => {
+				if(node.isFile && node.tagEntry) {
+					TagViewPanel.render(context, node.tagEntry);
+				}
+			}
 		}
 	]
 
 	commands.forEach(({ command, action }) => {
 		vscode.commands.registerCommand(command, action)
-	})
+	});
 
 	const showGalleryCommand = vscode.commands.registerCommand("component-gallery-react.showGallery", () => {
 		TagViewPanel.render(context, { class: "scenario", path: "levels\\ui\\ui", handle: 0 });
