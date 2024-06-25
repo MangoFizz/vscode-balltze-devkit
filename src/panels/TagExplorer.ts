@@ -164,7 +164,6 @@ export class TagTreeItem extends vscode.TreeItem {
 		this.tooltip = path;
         if(isFile && tagEntry) {
 			this.description = this.isFile ? tagEntry.class : undefined;
-			this.tooltip = `${path}.${tagEntry.class}`
 			this.command = {
 				command: "tagsExplorer.openPanel",
 				title: "Open tag editor",
