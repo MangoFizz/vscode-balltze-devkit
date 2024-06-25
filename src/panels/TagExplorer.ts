@@ -1,14 +1,9 @@
 import * as vscode from "vscode"
 import client from "../utilities/devkitClient"
 import MetaEnginePlayer from "../types/MetaEnginePlayer"
+import { TagEntry } from "../types/EngineTag";
 
 const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit");
-
-type TagEntry = {
-	path: string;
-	handle: number;
-	class: string;
-};
 
 export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	_onDidChangeTreeData: vscode.EventEmitter<TagTreeItem | undefined | void> = new vscode.EventEmitter<TagTreeItem | undefined | void>()

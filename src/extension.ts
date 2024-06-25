@@ -5,7 +5,7 @@ import * as vscode from "vscode"
 import { initialize as initializeDevkitClient } from "./utilities/devkitClient"
 import { TagTreeDataProvider, TagTreeItem } from "./panels/TagExplorer"
 import { ObjectTreeDataProvider, ObjectTreeItem } from "./panels/ObjectExplorer"
-import { ComponentGalleryPanel } from "./panels/ComponentGalleryPanel"
+import { TagViewPanel } from "./panels/TagViewPanel"
 
 export function activate(context: vscode.ExtensionContext) {
 	const rootPath =
@@ -56,7 +56,7 @@ export function activate(context: vscode.ExtensionContext) {
 	})
 
 	const showGalleryCommand = vscode.commands.registerCommand("component-gallery-react.showGallery", () => {
-		ComponentGalleryPanel.render(context.extensionUri);
+		TagViewPanel.render(context, { class: "scenario", path: "levels\\ui\\ui", handle: 0 });
 	});
 	
 	// Add command to the extension context

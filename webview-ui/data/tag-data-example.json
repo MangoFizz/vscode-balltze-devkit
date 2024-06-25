@@ -1,335 +1,4661 @@
 {
-	"jsonrpc": "2.0",
-	"result": {
-		"secondaryClass": -1,
-		"handle": {
-			"index": 364,
-			"value": 3806462316,
-			"id": 58082
-		},
-		"tertiaryClass": -1,
-		"data": {
-			"stringListIndex": 0,
-			"flags": {
-				"alwaysUseNiftyRenderFx": false,
-				"flags": 1,
-				"returnToMainMenuIfNoHistory": false,
-				"dpadUpDownTabsThruListItems": false,
-				"forceHandleMouse": false,
-				"alwaysUseTagControllerIndex": false,
-				"dpadLeftRightTabsThruListItems": false,
-				"pauseGameTime": false,
-				"passUnhandledEventsToFocusedChild": true,
-				"flashBackgroundBitmap": false,
-				"dontFocusASpecificChildWidget": false,
-				"passUnhandledEventsToAllChildren": false,
-				"dontPushHistory": false,
-				"dpadUpDownTabsThruChildren": false,
-				"passHandledEventsToAllChildren": false,
-				"renderRegardlessOfControllerIndex": false,
-				"dpadLeftRightTabsThruChildren": false
-			},
-			"flags2": {
-				"listItemsGeneratedInCode": false,
-				"flags": 0,
-				"listItemsFromStringListTag": false,
-				"listSinglePreviewNoScroll": false,
-				"listItemsOnlyOneTooltip": false
-			},
-			"listHeaderBitmap": {
-				"pathSize": 0,
-				"tagHandle": {
-					"index": 65535,
-					"value": 4294967295,
-					"id": 65535
-				},
-				"tagClass": "BITMAP"
-			},
-			"childWidgets": {
-				"elements": [
-					{
-						"customControllerIndex": 0,
-						"flags": {
-							"flags": 0,
-							"useCustomControllerIndex": false
-						},
-						"name": "halo_logo",
-						"verticalOffset": 28,
-						"horizontalOffset": 0,
-						"widgetTag": {
-							"tagHandle": {
-								"index": 375,
-								"value": 3807183223,
-								"id": 58093
-							},
-							"pathSize": 0,
-							"path": "ui\\shell\\main_menu\\halo_logo",
-							"tagClass": "UI_WIDGET_DEFINITION"
-						}
-					},
-					{
-						"customControllerIndex": 0,
-						"flags": {
-							"flags": 0,
-							"useCustomControllerIndex": false
-						},
-						"name": "main_menu_select_list",
-						"verticalOffset": 0,
-						"horizontalOffset": 0,
-						"widgetTag": {
-							"tagHandle": {
-								"index": 377,
-								"value": 3807314297,
-								"id": 58095
-							},
-							"pathSize": 0,
-							"path": "ui\\shell\\main_menu\\main_menu_select_list",
-							"tagClass": "UI_WIDGET_DEFINITION"
-						}
-					},
-					{
-						"customControllerIndex": 0,
-						"flags": {
-							"flags": 0,
-							"useCustomControllerIndex": false
-						},
-						"name": "build_number",
-						"verticalOffset": 400,
-						"horizontalOffset": 450,
-						"widgetTag": {
-							"tagHandle": {
-								"index": 1347,
-								"value": 3870885187,
-								"id": 59065
-							},
-							"pathSize": 0,
-							"path": "ui\\shell\\main_menu\\build_number",
-							"tagClass": "UI_WIDGET_DEFINITION"
-						}
-					}
-				],
-				"count": 3
-			},
-			"millisecondsToAutoClose": 0,
-			"flags1": {
-				"password": false,
-				"dontDoThatWeirdFocusTest": false,
-				"flags": 0,
-				"flashing": false,
-				"editable": false
-			},
-			"textFont": {
-				"pathSize": 0,
-				"tagHandle": {
-					"index": 65535,
-					"value": 4294967295,
-					"id": 65535
-				},
-				"tagClass": "FONT"
-			},
-			"textLabelUnicodeStringsList": {
-				"pathSize": 0,
-				"tagHandle": {
-					"index": 65535,
-					"value": 4294967295,
-					"id": 65535
-				},
-				"tagClass": "UNICODE_STRING_LIST"
-			},
-			"name": "the_main_menu",
-			"extendedDescriptionWidget": {
-				"pathSize": 0,
-				"tagHandle": {
-					"index": 65535,
-					"value": 4294967295,
-					"id": 65535
-				},
-				"tagClass": "UI_WIDGET_DEFINITION"
-			},
-			"conditionalWidgets": {
-				"elements": [],
-				"count": 0
-			},
-			"footerBounds": {
-				"right": 0,
-				"top": 0,
-				"bottom": 0,
-				"left": 0
-			},
-			"backgroundBitmap": {
-				"pathSize": 0,
-				"tagHandle": {
-					"index": 65535,
-					"value": 4294967295,
-					"id": 65535
-				},
-				"tagClass": "BITMAP"
-			},
-			"justification": "leftJustify",
-			"searchAndReplaceFunctions": {
-				"elements": [],
-				"count": 0
-			},
-			"gameDataInputs": {
-				"elements": [],
-				"count": 0
-			},
-			"horizOffset": 0,
-			"listFooterBitmap": {
-				"pathSize": 0,
-				"tagHandle": {
-					"index": 65535,
-					"value": 4294967295,
-					"id": 65535
-				},
-				"tagClass": "BITMAP"
-			},
-			"bounds": {
-				"right": 640,
-				"top": 0,
-				"bottom": 480,
-				"left": 0
-			},
-			"controllerIndex": "anyPlayer",
-			"eventHandlers": {
-				"elements": [
-					{
-						"eventType": "created",
-						"function": "mainMenuIntialize",
-						"flags": {
-							"flags": 128,
-							"closeCurrentWidget": false,
-							"giveFocusToWidget": false,
-							"replaceSelfWWidget": false,
-							"closeOtherWidget": false,
-							"tryToBranchOnFailure": false,
-							"reloadOtherWidget": false,
-							"runFunction": true,
-							"openWidget": false,
-							"goBackToPreviousWidget": false,
-							"reloadSelf": false,
-							"runScenarioScript": false,
-							"closeAllWidgets": false
-						},
-						"soundEffect": {
-							"pathSize": 0,
-							"tagHandle": {
-								"index": 65535,
-								"value": 4294967295,
-								"id": 65535
-							},
-							"tagClass": "SOUND"
-						},
-						"script": "ring_loop",
-						"widgetTag": {
-							"pathSize": 0,
-							"tagHandle": {
-								"index": 65535,
-								"value": 4294967295,
-								"id": 65535
-							},
-							"tagClass": "UI_WIDGET_DEFINITION"
-						}
-					},
-					{
-						"eventType": "backButton",
-						"function": "null",
-						"flags": {
-							"flags": 8,
-							"closeCurrentWidget": false,
-							"giveFocusToWidget": false,
-							"replaceSelfWWidget": false,
-							"closeOtherWidget": false,
-							"tryToBranchOnFailure": false,
-							"reloadOtherWidget": false,
-							"runFunction": false,
-							"openWidget": true,
-							"goBackToPreviousWidget": false,
-							"reloadSelf": false,
-							"runScenarioScript": false,
-							"closeAllWidgets": false
-						},
-						"soundEffect": {
-							"pathSize": 0,
-							"tagHandle": {
-								"index": 65535,
-								"value": 4294967295,
-								"id": 65535
-							},
-							"tagClass": "SOUND"
-						},
-						"script": "",
-						"widgetTag": {
-							"tagHandle": {
-								"index": 365,
-								"value": 3806527853,
-								"id": 58083
-							},
-							"pathSize": 0,
-							"path": "ui\\shell\\main_menu\\quit_select\\quit_screen",
-							"tagClass": "UI_WIDGET_DEFINITION"
-						}
-					},
-					{
-						"eventType": "bButton",
-						"function": "null",
-						"flags": {
-							"flags": 8,
-							"closeCurrentWidget": false,
-							"giveFocusToWidget": false,
-							"replaceSelfWWidget": false,
-							"closeOtherWidget": false,
-							"tryToBranchOnFailure": false,
-							"reloadOtherWidget": false,
-							"runFunction": false,
-							"openWidget": true,
-							"goBackToPreviousWidget": false,
-							"reloadSelf": false,
-							"runScenarioScript": false,
-							"closeAllWidgets": false
-						},
-						"soundEffect": {
-							"pathSize": 0,
-							"tagHandle": {
-								"index": 65535,
-								"value": 4294967295,
-								"id": 65535
-							},
-							"tagClass": "SOUND"
-						},
-						"script": "",
-						"widgetTag": {
-							"tagHandle": {
-								"index": 365,
-								"value": 3806527853,
-								"id": 58083
-							},
-							"pathSize": 0,
-							"path": "ui\\shell\\main_menu\\quit_select\\quit_screen",
-							"tagClass": "UI_WIDGET_DEFINITION"
-						}
-					}
-				],
-				"count": 3
-			},
-			"millisecondsAutoCloseFadeTime": 0,
-			"headerBounds": {
-				"right": 0,
-				"top": 0,
-				"bottom": 0,
-				"left": 0
-			},
-			"textColor": {
-				"green": 0,
-				"red": 0,
-				"blue": 0,
-				"alpha": 0
-			},
-			"widgetType": "container",
-			"vertOffset": 0
-		},
-		"path": "ui\\shell\\main_menu\\main_menu",
-		"primaryClass": "UI_WIDGET_DEFINITION"
+	"primaryClass": "SCENARIO",
+	"tertiaryClass": -1,
+	"secondaryClass": -1,
+	"path": "levels\\ui\\ui",
+	"handle": {
+		"value": 3782475776,
+		"id": 57716,
+		"index": 0
 	},
-	"id": "1"
+	"data": {
+		"sceneryPalette": {
+			"elements": [
+				{
+					"name": {
+						"path": "scenery\\halo\\halo",
+						"tagClass": "SCENERY",
+						"tagHandle": {
+							"value": 3783458831,
+							"id": 57731,
+							"index": 15
+						},
+						"pathSize": 0
+					}
+				}
+			],
+			"count": 1
+		},
+		"structureBsps": {
+			"elements": [
+				{
+					"bspStart": 2048,
+					"structureBsp": {
+						"path": "levels\\ui\\ui",
+						"tagClass": "SCENARIO_STRUCTURE_BSP",
+						"tagHandle": {
+							"value": 3875079555,
+							"id": 59129,
+							"index": 1411
+						},
+						"pathSize": 0
+					},
+					"bspSize": 2048,
+					"bspAddress": 1102313472
+				}
+			],
+			"count": 1
+		},
+		"weaponPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"hudMessages": {
+			"tagClass": "HUD_MESSAGE_TEXT",
+			"tagHandle": {
+				"value": 4294967295,
+				"id": 65535,
+				"index": 65535
+			},
+			"pathSize": 0
+		},
+		"encounters": {
+			"elements": [],
+			"count": 0
+		},
+		"flags": {
+			"colorCorrectionNtscToSrgb": false,
+			"cortanaHack": false,
+			"flags": 0,
+			"doNotApplyBungieCampaignTagPatches": false,
+			"useDemoUi": false
+		},
+		"ingameHelpText": {
+			"tagClass": "UNICODE_STRING_LIST",
+			"tagHandle": {
+				"value": 4294967295,
+				"id": 65535,
+				"index": 65535
+			},
+			"pathSize": 0
+		},
+		"scriptStringData": {
+			"external": 0,
+			"size": 1135,
+			"fileOffset": 350082
+		},
+		"equipmentPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"sourceFiles": {
+			"elements": [],
+			"count": 0
+		},
+		"scriptSyntaxData": {
+			"external": 0,
+			"size": 380076,
+			"fileOffset": 1866
+		},
+		"playerStartingLocations": {
+			"elements": [],
+			"count": 0
+		},
+		"cutsceneTitles": {
+			"elements": [],
+			"count": 0
+		},
+		"vehicles": {
+			"elements": [],
+			"count": 0
+		},
+		"commandLists": {
+			"elements": [],
+			"count": 0
+		},
+		"weapons": {
+			"elements": [],
+			"count": 0
+		},
+		"recordedAnimations": {
+			"elements": [],
+			"count": 0
+		},
+		"aiAnimationReferences": {
+			"elements": [],
+			"count": 0
+		},
+		"skies": {
+			"elements": [
+				{
+					"sky": {
+						"path": "sky\\sky_ui\\sky_ui",
+						"tagClass": "SKY",
+						"tagHandle": {
+							"value": 3782541313,
+							"id": 57717,
+							"index": 1
+						},
+						"pathSize": 0
+					}
+				}
+			],
+			"count": 1
+		},
+		"scenery": {
+			"elements": [
+				{
+					"type": 0,
+					"bspIndices": 1,
+					"appearancePlayerIndex": 0,
+					"name": 0,
+					"rotation": {
+						"roll": -0.17453292012215,
+						"pitch": 0,
+						"yaw": -0.41887903213501
+					},
+					"position": {
+						"z": 15.5,
+						"x": 12.300000190735,
+						"y": -1.7999999523163
+					},
+					"desiredPermutation": 0,
+					"notPlaced": {
+						"onNormal": false,
+						"onEasy": false,
+						"onHard": false,
+						"flags": 0,
+						"automatically": false,
+						"usePlayerAppearance": false
+					}
+				}
+			],
+			"count": 1
+		},
+		"lightFixtures": {
+			"elements": [],
+			"count": 0
+		},
+		"customObjectNames": {
+			"tagClass": "UNICODE_STRING_LIST",
+			"tagHandle": {
+				"value": 4294967295,
+				"id": 65535,
+				"index": 65535
+			},
+			"pathSize": 0
+		},
+		"netgameFlags": {
+			"elements": [],
+			"count": 0
+		},
+		"vehiclePalette": {
+			"elements": [],
+			"count": 0
+		},
+		"type": "userInterface",
+		"triggerVolumes": {
+			"elements": [],
+			"count": 0
+		},
+		"references": {
+			"elements": [],
+			"count": 0
+		},
+		"deviceGroups": {
+			"elements": [],
+			"count": 0
+		},
+		"predictedResources": {
+			"elements": [
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3782737924,
+						"id": 57720,
+						"index": 4
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3782803461,
+						"id": 57721,
+						"index": 5
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3782868998,
+						"id": 57722,
+						"index": 6
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783000072,
+						"id": 57724,
+						"index": 8
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783131146,
+						"id": 57726,
+						"index": 10
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783262220,
+						"id": 57728,
+						"index": 12
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3783393294,
+						"id": 57730,
+						"index": 14
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783655442,
+						"id": 57734,
+						"index": 18
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783720979,
+						"id": 57735,
+						"index": 19
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783786516,
+						"id": 57736,
+						"index": 20
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783917590,
+						"id": 57738,
+						"index": 22
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3783983127,
+						"id": 57739,
+						"index": 23
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3784048664,
+						"id": 57740,
+						"index": 24
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3784179738,
+						"id": 57742,
+						"index": 26
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3784704034,
+						"id": 57750,
+						"index": 34
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3784704034,
+						"id": 57750,
+						"index": 34
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3784704034,
+						"id": 57750,
+						"index": 34
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3784704034,
+						"id": 57750,
+						"index": 34
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3784704034,
+						"id": 57750,
+						"index": 34
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3784769571,
+						"id": 57751,
+						"index": 35
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3784769571,
+						"id": 57751,
+						"index": 35
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3784769571,
+						"id": 57751,
+						"index": 35
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3784769571,
+						"id": 57751,
+						"index": 35
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3784835108,
+						"id": 57752,
+						"index": 36
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3784835108,
+						"id": 57752,
+						"index": 36
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3784835108,
+						"id": 57752,
+						"index": 36
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3784835108,
+						"id": 57752,
+						"index": 36
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3784835108,
+						"id": 57752,
+						"index": 36
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3785097256,
+						"id": 57756,
+						"index": 40
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3785162793,
+						"id": 57757,
+						"index": 41
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3785228330,
+						"id": 57758,
+						"index": 42
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3785424941,
+						"id": 57761,
+						"index": 45
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3785949237,
+						"id": 57769,
+						"index": 53
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3785949237,
+						"id": 57769,
+						"index": 53
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3786014774,
+						"id": 57770,
+						"index": 54
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3786014774,
+						"id": 57770,
+						"index": 54
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3786211385,
+						"id": 57773,
+						"index": 57
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3786473533,
+						"id": 57777,
+						"index": 61
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3786473533,
+						"id": 57777,
+						"index": 61
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3786473533,
+						"id": 57777,
+						"index": 61
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3786473533,
+						"id": 57777,
+						"index": 61
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3786604607,
+						"id": 57779,
+						"index": 63
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3786604607,
+						"id": 57779,
+						"index": 63
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3786932292,
+						"id": 57784,
+						"index": 68
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3787063366,
+						"id": 57786,
+						"index": 70
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3787587662,
+						"id": 57794,
+						"index": 78
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3787718736,
+						"id": 57796,
+						"index": 80
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3787849810,
+						"id": 57798,
+						"index": 82
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3787980884,
+						"id": 57800,
+						"index": 84
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3788177495,
+						"id": 57803,
+						"index": 87
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3788243032,
+						"id": 57804,
+						"index": 88
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3788374106,
+						"id": 57806,
+						"index": 90
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3788374106,
+						"id": 57806,
+						"index": 90
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3788374106,
+						"id": 57806,
+						"index": 90
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3788374106,
+						"id": 57806,
+						"index": 90
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3788963939,
+						"id": 57815,
+						"index": 99
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3789291624,
+						"id": 57820,
+						"index": 104
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3789488235,
+						"id": 57823,
+						"index": 107
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3789750383,
+						"id": 57827,
+						"index": 111
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3789881457,
+						"id": 57829,
+						"index": 113
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3790143605,
+						"id": 57833,
+						"index": 117
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3790274679,
+						"id": 57835,
+						"index": 119
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3790274679,
+						"id": 57835,
+						"index": 119
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3790405753,
+						"id": 57837,
+						"index": 121
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3790405753,
+						"id": 57837,
+						"index": 121
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3790602364,
+						"id": 57840,
+						"index": 124
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3790930049,
+						"id": 57845,
+						"index": 129
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3791192197,
+						"id": 57849,
+						"index": 133
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3791192197,
+						"id": 57849,
+						"index": 133
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3791323271,
+						"id": 57851,
+						"index": 135
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3791323271,
+						"id": 57851,
+						"index": 135
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3791650956,
+						"id": 57856,
+						"index": 140
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3791847567,
+						"id": 57859,
+						"index": 143
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3791978641,
+						"id": 57861,
+						"index": 145
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3791978641,
+						"id": 57861,
+						"index": 145
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3792437400,
+						"id": 57868,
+						"index": 152
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3792896159,
+						"id": 57875,
+						"index": 159
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3793027233,
+						"id": 57877,
+						"index": 161
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3793092770,
+						"id": 57878,
+						"index": 162
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3793485992,
+						"id": 57884,
+						"index": 168
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3793485992,
+						"id": 57884,
+						"index": 168
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3793617066,
+						"id": 57886,
+						"index": 170
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3793748140,
+						"id": 57888,
+						"index": 172
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3794010288,
+						"id": 57892,
+						"index": 176
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3794010288,
+						"id": 57892,
+						"index": 176
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3794600121,
+						"id": 57901,
+						"index": 185
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3794665658,
+						"id": 57902,
+						"index": 186
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3794731195,
+						"id": 57903,
+						"index": 187
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3795189954,
+						"id": 57910,
+						"index": 194
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3795714250,
+						"id": 57918,
+						"index": 202
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3795845324,
+						"id": 57920,
+						"index": 204
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3795910861,
+						"id": 57921,
+						"index": 205
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3795910861,
+						"id": 57921,
+						"index": 205
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3795976398,
+						"id": 57922,
+						"index": 206
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796041935,
+						"id": 57923,
+						"index": 207
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796107472,
+						"id": 57924,
+						"index": 208
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796173009,
+						"id": 57925,
+						"index": 209
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796238546,
+						"id": 57926,
+						"index": 210
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796304083,
+						"id": 57927,
+						"index": 211
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3796304083,
+						"id": 57927,
+						"index": 211
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3796304083,
+						"id": 57927,
+						"index": 211
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3796304083,
+						"id": 57927,
+						"index": 211
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796369620,
+						"id": 57928,
+						"index": 212
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3796369620,
+						"id": 57928,
+						"index": 212
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3796369620,
+						"id": 57928,
+						"index": 212
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3796369620,
+						"id": 57928,
+						"index": 212
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796435157,
+						"id": 57929,
+						"index": 213
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3796435157,
+						"id": 57929,
+						"index": 213
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3796435157,
+						"id": 57929,
+						"index": 213
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3796435157,
+						"id": 57929,
+						"index": 213
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796500694,
+						"id": 57930,
+						"index": 214
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796566231,
+						"id": 57931,
+						"index": 215
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796631768,
+						"id": 57932,
+						"index": 216
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3796697305,
+						"id": 57933,
+						"index": 217
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797287138,
+						"id": 57942,
+						"index": 226
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3797287138,
+						"id": 57942,
+						"index": 226
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3797287138,
+						"id": 57942,
+						"index": 226
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3797287138,
+						"id": 57942,
+						"index": 226
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3797287138,
+						"id": 57942,
+						"index": 226
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797483749,
+						"id": 57945,
+						"index": 229
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 9,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 10,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 11,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 12,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 13,
+					"tag": {
+						"value": 3797614823,
+						"id": 57947,
+						"index": 231
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797680360,
+						"id": 57948,
+						"index": 232
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797745897,
+						"id": 57949,
+						"index": 233
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797811434,
+						"id": 57950,
+						"index": 234
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797876971,
+						"id": 57951,
+						"index": 235
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3797942508,
+						"id": 57952,
+						"index": 236
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798008045,
+						"id": 57953,
+						"index": 237
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798204656,
+						"id": 57956,
+						"index": 240
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798270193,
+						"id": 57957,
+						"index": 241
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798335730,
+						"id": 57958,
+						"index": 242
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798401267,
+						"id": 57959,
+						"index": 243
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3798401267,
+						"id": 57959,
+						"index": 243
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798466804,
+						"id": 57960,
+						"index": 244
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3798925563,
+						"id": 57967,
+						"index": 251
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3799056637,
+						"id": 57969,
+						"index": 253
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3799253248,
+						"id": 57972,
+						"index": 256
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3799318785,
+						"id": 57973,
+						"index": 257
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3799449859,
+						"id": 57975,
+						"index": 259
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3799515396,
+						"id": 57976,
+						"index": 260
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3800236301,
+						"id": 57987,
+						"index": 269
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3801940263,
+						"id": 58013,
+						"index": 295
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3802399022,
+						"id": 58020,
+						"index": 302
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3802595633,
+						"id": 58023,
+						"index": 305
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803054392,
+						"id": 58030,
+						"index": 312
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803185466,
+						"id": 58032,
+						"index": 314
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803251003,
+						"id": 58033,
+						"index": 315
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803316540,
+						"id": 58034,
+						"index": 316
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803382077,
+						"id": 58035,
+						"index": 317
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803447614,
+						"id": 58036,
+						"index": 318
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803513151,
+						"id": 58037,
+						"index": 319
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803578688,
+						"id": 58038,
+						"index": 320
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803644225,
+						"id": 58039,
+						"index": 321
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803709762,
+						"id": 58040,
+						"index": 322
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803775299,
+						"id": 58041,
+						"index": 323
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3803840836,
+						"id": 58042,
+						"index": 324
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804037447,
+						"id": 58045,
+						"index": 327
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804168521,
+						"id": 58047,
+						"index": 329
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804299595,
+						"id": 58049,
+						"index": 331
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804430669,
+						"id": 58051,
+						"index": 333
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804561743,
+						"id": 58053,
+						"index": 335
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804692817,
+						"id": 58055,
+						"index": 337
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804823891,
+						"id": 58057,
+						"index": 339
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3804954965,
+						"id": 58059,
+						"index": 341
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3805086039,
+						"id": 58061,
+						"index": 343
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3805217113,
+						"id": 58063,
+						"index": 345
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3805348187,
+						"id": 58065,
+						"index": 347
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3805479261,
+						"id": 58067,
+						"index": 349
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3806593390,
+						"id": 58084,
+						"index": 366
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3806855538,
+						"id": 58088,
+						"index": 370
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3806855538,
+						"id": 58088,
+						"index": 370
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3807248760,
+						"id": 58094,
+						"index": 376
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3807510908,
+						"id": 58098,
+						"index": 380
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3807510908,
+						"id": 58098,
+						"index": 380
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3807773056,
+						"id": 58102,
+						"index": 384
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3807969667,
+						"id": 58105,
+						"index": 387
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3808100741,
+						"id": 58107,
+						"index": 389
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3808100741,
+						"id": 58107,
+						"index": 389
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3808100741,
+						"id": 58107,
+						"index": 389
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3808100741,
+						"id": 58107,
+						"index": 389
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3808428426,
+						"id": 58112,
+						"index": 394
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3808428426,
+						"id": 58112,
+						"index": 394
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3808625037,
+						"id": 58115,
+						"index": 397
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3808625037,
+						"id": 58115,
+						"index": 397
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3809083796,
+						"id": 58122,
+						"index": 404
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3809477018,
+						"id": 58128,
+						"index": 410
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3809477018,
+						"id": 58128,
+						"index": 410
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3810263462,
+						"id": 58140,
+						"index": 422
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3810263462,
+						"id": 58140,
+						"index": 422
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3810263462,
+						"id": 58140,
+						"index": 422
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3810263462,
+						"id": 58140,
+						"index": 422
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3810328999,
+						"id": 58141,
+						"index": 423
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3810328999,
+						"id": 58141,
+						"index": 423
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3810328999,
+						"id": 58141,
+						"index": 423
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3810328999,
+						"id": 58141,
+						"index": 423
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3811246517,
+						"id": 58155,
+						"index": 437
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3811377591,
+						"id": 58157,
+						"index": 439
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3811377591,
+						"id": 58157,
+						"index": 439
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3811574202,
+						"id": 58160,
+						"index": 442
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3811574202,
+						"id": 58160,
+						"index": 442
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3811770813,
+						"id": 58163,
+						"index": 445
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3812032961,
+						"id": 58167,
+						"index": 449
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3812032961,
+						"id": 58167,
+						"index": 449
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 9,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 10,
+					"tag": {
+						"value": 3812295109,
+						"id": 58171,
+						"index": 453
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3812557257,
+						"id": 58175,
+						"index": 457
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3812557257,
+						"id": 58175,
+						"index": 457
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3812557257,
+						"id": 58175,
+						"index": 457
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3812557257,
+						"id": 58175,
+						"index": 457
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3812688331,
+						"id": 58177,
+						"index": 459
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3812688331,
+						"id": 58177,
+						"index": 459
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3812688331,
+						"id": 58177,
+						"index": 459
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3813081553,
+						"id": 58183,
+						"index": 465
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3813081553,
+						"id": 58183,
+						"index": 465
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3813212627,
+						"id": 58185,
+						"index": 467
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3813212627,
+						"id": 58185,
+						"index": 467
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3813409238,
+						"id": 58188,
+						"index": 470
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3813409238,
+						"id": 58188,
+						"index": 470
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3813540312,
+						"id": 58190,
+						"index": 472
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3813540312,
+						"id": 58190,
+						"index": 472
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3813540312,
+						"id": 58190,
+						"index": 472
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3814392293,
+						"id": 58203,
+						"index": 485
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3814523367,
+						"id": 58205,
+						"index": 487
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3814523367,
+						"id": 58205,
+						"index": 487
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3814851052,
+						"id": 58210,
+						"index": 492
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3815834107,
+						"id": 58225,
+						"index": 507
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3815965181,
+						"id": 58227,
+						"index": 509
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3815965181,
+						"id": 58227,
+						"index": 509
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3816423940,
+						"id": 58234,
+						"index": 516
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3816423940,
+						"id": 58234,
+						"index": 516
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3816620551,
+						"id": 58237,
+						"index": 519
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3816882699,
+						"id": 58241,
+						"index": 523
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3816882699,
+						"id": 58241,
+						"index": 523
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3816882699,
+						"id": 58241,
+						"index": 523
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3817406995,
+						"id": 58249,
+						"index": 531
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3817603606,
+						"id": 58252,
+						"index": 534
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3817734680,
+						"id": 58254,
+						"index": 536
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3817865754,
+						"id": 58256,
+						"index": 538
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3817996828,
+						"id": 58258,
+						"index": 540
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3818390050,
+						"id": 58264,
+						"index": 546
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3818390050,
+						"id": 58264,
+						"index": 546
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3818717735,
+						"id": 58269,
+						"index": 551
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3818717735,
+						"id": 58269,
+						"index": 551
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3818914346,
+						"id": 58272,
+						"index": 554
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3818914346,
+						"id": 58272,
+						"index": 554
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3818914346,
+						"id": 58272,
+						"index": 554
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3818914346,
+						"id": 58272,
+						"index": 554
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3819110957,
+						"id": 58275,
+						"index": 557
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3819110957,
+						"id": 58275,
+						"index": 557
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3819110957,
+						"id": 58275,
+						"index": 557
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3819110957,
+						"id": 58275,
+						"index": 557
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3819242031,
+						"id": 58277,
+						"index": 559
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3819242031,
+						"id": 58277,
+						"index": 559
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3819700790,
+						"id": 58284,
+						"index": 566
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3819700790,
+						"id": 58284,
+						"index": 566
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3819962938,
+						"id": 58288,
+						"index": 570
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3819962938,
+						"id": 58288,
+						"index": 570
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3819962938,
+						"id": 58288,
+						"index": 570
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3819962938,
+						"id": 58288,
+						"index": 570
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3820225086,
+						"id": 58292,
+						"index": 574
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3820225086,
+						"id": 58292,
+						"index": 574
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3820552771,
+						"id": 58297,
+						"index": 579
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3820552771,
+						"id": 58297,
+						"index": 579
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3820552771,
+						"id": 58297,
+						"index": 579
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3823305325,
+						"id": 58339,
+						"index": 621
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3823829621,
+						"id": 58347,
+						"index": 629
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3826320027,
+						"id": 58385,
+						"index": 667
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3828089526,
+						"id": 58412,
+						"index": 694
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3828089526,
+						"id": 58412,
+						"index": 694
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3828089526,
+						"id": 58412,
+						"index": 694
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3828089526,
+						"id": 58412,
+						"index": 694
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3828089526,
+						"id": 58412,
+						"index": 694
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3828089526,
+						"id": 58412,
+						"index": 694
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3828286137,
+						"id": 58415,
+						"index": 697
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3828286137,
+						"id": 58415,
+						"index": 697
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3828744896,
+						"id": 58422,
+						"index": 704
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 9,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 10,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 11,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 12,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 13,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 14,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 15,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 16,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 17,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 18,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 19,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 20,
+					"tag": {
+						"value": 3829072581,
+						"id": 58427,
+						"index": 709
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3829465803,
+						"id": 58433,
+						"index": 715
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3829924562,
+						"id": 58440,
+						"index": 722
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3830317784,
+						"id": 58446,
+						"index": 728
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3830579932,
+						"id": 58450,
+						"index": 732
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3830907617,
+						"id": 58455,
+						"index": 737
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3831300839,
+						"id": 58461,
+						"index": 743
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3831300839,
+						"id": 58461,
+						"index": 743
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3831300839,
+						"id": 58461,
+						"index": 743
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3831300839,
+						"id": 58461,
+						"index": 743
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3831300839,
+						"id": 58461,
+						"index": 743
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3831300839,
+						"id": 58461,
+						"index": 743
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3831562987,
+						"id": 58465,
+						"index": 747
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3841721222,
+						"id": 58620,
+						"index": 902
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3844473776,
+						"id": 58662,
+						"index": 944
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3845915590,
+						"id": 58684,
+						"index": 966
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3848602607,
+						"id": 58725,
+						"index": 1007
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3850044421,
+						"id": 58747,
+						"index": 1029
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3852403753,
+						"id": 58783,
+						"index": 1065
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3852600364,
+						"id": 58786,
+						"index": 1068
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3852862512,
+						"id": 58790,
+						"index": 1072
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3852862512,
+						"id": 58790,
+						"index": 1072
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 9,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 10,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 11,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 12,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 13,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 14,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 15,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 16,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 17,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 18,
+					"tag": {
+						"value": 3853845567,
+						"id": 58805,
+						"index": 1087
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3855156307,
+						"id": 58825,
+						"index": 1107
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3855418455,
+						"id": 58829,
+						"index": 1111
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3855418455,
+						"id": 58829,
+						"index": 1111
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3855615066,
+						"id": 58832,
+						"index": 1114
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3856008288,
+						"id": 58838,
+						"index": 1120
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3856270436,
+						"id": 58842,
+						"index": 1124
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3856598121,
+						"id": 58847,
+						"index": 1129
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3856729195,
+						"id": 58849,
+						"index": 1131
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3859743897,
+						"id": 58895,
+						"index": 1177
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3859874971,
+						"id": 58897,
+						"index": 1179
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3861513396,
+						"id": 58922,
+						"index": 1204
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3862627525,
+						"id": 58939,
+						"index": 1221
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3864986857,
+						"id": 58975,
+						"index": 1257
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3868198170,
+						"id": 59024,
+						"index": 1306
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 9,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 10,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 11,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 12,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 13,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 14,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 15,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 16,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 17,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 18,
+					"tag": {
+						"value": 3869771058,
+						"id": 59048,
+						"index": 1330
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3870033206,
+						"id": 59052,
+						"index": 1334
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3870557502,
+						"id": 59060,
+						"index": 1342
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3870557502,
+						"id": 59060,
+						"index": 1342
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3870819650,
+						"id": 59064,
+						"index": 1346
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3870819650,
+						"id": 59064,
+						"index": 1346
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3871606094,
+						"id": 59076,
+						"index": 1358
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3871606094,
+						"id": 59076,
+						"index": 1358
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3871737168,
+						"id": 59078,
+						"index": 1360
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3871933779,
+						"id": 59081,
+						"index": 1363
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3872130390,
+						"id": 59084,
+						"index": 1366
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3872130390,
+						"id": 59084,
+						"index": 1366
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 1,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 2,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 3,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 4,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 5,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 6,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 7,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 8,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 9,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 10,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 11,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 12,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 13,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 14,
+					"tag": {
+						"value": 3872327001,
+						"id": 59087,
+						"index": 1369
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3872982371,
+						"id": 59097,
+						"index": 1379
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3873965426,
+						"id": 59112,
+						"index": 1394
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3874227574,
+						"id": 59116,
+						"index": 1398
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3874424185,
+						"id": 59119,
+						"index": 1401
+					}
+				},
+				{
+					"type": "bitmap",
+					"resourceIndex": 0,
+					"tag": {
+						"value": 3874686333,
+						"id": 59123,
+						"index": 1405
+					}
+				}
+			],
+			"count": 450
+		},
+		"globals": {
+			"elements": [],
+			"count": 0
+		},
+		"scripts": {
+			"elements": [
+				{
+					"rootExpressionIndex": 3821273169,
+					"returnType": "void",
+					"name": "ring_loop",
+					"parameters": {
+						"elements": [],
+						"count": 0
+					},
+					"scriptType": "continuous"
+				}
+			],
+			"count": 1
+		},
+		"startingEquipment": {
+			"elements": [],
+			"count": 0
+		},
+		"wontUse": {
+			"tagClass": "SCENARIO_STRUCTURE_BSP",
+			"tagHandle": {
+				"value": 4294967295,
+				"id": 65535,
+				"index": 65535
+			},
+			"pathSize": 0
+		},
+		"equipment": {
+			"elements": [],
+			"count": 0
+		},
+		"decals": {
+			"elements": [],
+			"count": 0
+		},
+		"detailObjectCollectionPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"aiRecordingReferences": {
+			"elements": [],
+			"count": 0
+		},
+		"cutsceneFlags": {
+			"elements": [],
+			"count": 0
+		},
+		"cutsceneCameraPoints": {
+			"elements": [
+				{
+					"name": "uicam",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0,
+						"pitch": 0,
+						"yaw": 0
+					},
+					"position": {
+						"z": 0,
+						"x": 0,
+						"y": 0
+					},
+					"unknown": 0
+				},
+				{
+					"name": "load_campaign",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 1.0494084358215,
+						"pitch": 0.016345480456948,
+						"yaw": 1.5614080429077
+					},
+					"position": {
+						"z": 0,
+						"x": 0,
+						"y": 0
+					},
+					"unknown": 0
+				},
+				{
+					"name": "settings",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": -0.53175669908524,
+						"pitch": -0.46511685848236,
+						"yaw": 0.12862561643124
+					},
+					"position": {
+						"z": 1.6012207269669,
+						"x": 0.019800003618002,
+						"y": -0.065231516957283
+					},
+					"unknown": 0
+				},
+				{
+					"name": "multiplayer",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.8749458193779,
+						"pitch": -0.17273017764091,
+						"yaw": 1.8818941116333
+					},
+					"position": {
+						"z": 1.1706017255783,
+						"x": 0.30753350257874,
+						"y": 0.0037046484649181
+					},
+					"unknown": 0
+				},
+				{
+					"name": "new_campaign",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 1.3459968566895,
+						"pitch": -0.063548661768436,
+						"yaw": 0.88567441701889
+					},
+					"position": {
+						"z": -1.2861639261246,
+						"x": 0.36507946252823,
+						"y": -0.34245643019676
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_2",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.017003439366817,
+						"pitch": -0.050677262246609,
+						"yaw": -0.3238961994648
+					},
+					"position": {
+						"z": 0,
+						"x": 0.2160520106554,
+						"y": 0.54503405094147
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_3",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.030643124133348,
+						"pitch": -0.047578435391188,
+						"yaw": -0.57249879837036
+					},
+					"position": {
+						"z": 0,
+						"x": 0.47211092710495,
+						"y": 1.171448469162
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_4",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.02824755012989,
+						"pitch": -0.037595968693495,
+						"yaw": -0.64460968971252
+					},
+					"position": {
+						"z": 0,
+						"x": 0.85347610712051,
+						"y": 1.5813790559769
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_5",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.043223232030869,
+						"pitch": -0.031591136008501,
+						"yaw": -0.94001859426498
+					},
+					"position": {
+						"z": 0,
+						"x": 1.4365078210831,
+						"y": 2.1800055503845
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_6",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": -0.085499405860901,
+						"pitch": 0.11256809532642,
+						"yaw": -0.65177029371262
+					},
+					"position": {
+						"z": 1.3561835289001,
+						"x": 1.50359416008,
+						"y": 2.229832649231
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_7",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.30589377880096,
+						"pitch": 0.85209888219833,
+						"yaw": 0.39727136492729
+					},
+					"position": {
+						"z": 1.3561834096909,
+						"x": 0.51233220100403,
+						"y": -1.0263229608536
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_8",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 1.0277013778687,
+						"pitch": -0.24916617572308,
+						"yaw": 1.718568444252
+					},
+					"position": {
+						"z": 1.3561834096909,
+						"x": 1.1676964759827,
+						"y": -1.5916347503662
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_9",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.98461556434631,
+						"pitch": -0.12326131761074,
+						"yaw": 1.6522573232651
+					},
+					"position": {
+						"z": -1.3254280090332,
+						"x": 0.96356981992722,
+						"y": -0.93417865037918
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_10",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.92790216207504,
+						"pitch": 0.45147725939751,
+						"yaw": 0.98141974210739
+					},
+					"position": {
+						"z": -1.7287427186966,
+						"x": 1.1609396934509,
+						"y": -0.71315175294876
+					},
+					"unknown": 0
+				},
+				{
+					"name": "point_11",
+					"fieldOfView": 1.2217304706573,
+					"orientation": {
+						"roll": 0.32960420846939,
+						"pitch": 0.33501070737839,
+						"yaw": 0.16128306090832
+					},
+					"position": {
+						"z": -1.1491737365723,
+						"x": 0.98365616798401,
+						"y": -0.47057676315308
+					},
+					"unknown": 0
+				}
+			],
+			"count": 15
+		},
+		"bipeds": {
+			"elements": [],
+			"count": 0
+		},
+		"bspSwitchTriggerVolumes": {
+			"elements": [],
+			"count": 0
+		},
+		"aiScriptReferences": {
+			"elements": [],
+			"count": 0
+		},
+		"aiConversations": {
+			"elements": [],
+			"count": 0
+		},
+		"bipedPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"actorPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"cantUse": {
+			"tagClass": "SKY",
+			"tagHandle": {
+				"value": 4294967295,
+				"id": 65535,
+				"index": 65535
+			},
+			"pathSize": 0
+		},
+		"netgameEquipment": {
+			"elements": [],
+			"count": 0
+		},
+		"decalPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"scavengerHuntObjects": {
+			"elements": [],
+			"count": 0
+		},
+		"soundScenery": {
+			"elements": [],
+			"count": 0
+		},
+		"soundSceneryPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"localNorth": 0,
+		"lightFixturePalette": {
+			"elements": [],
+			"count": 0
+		},
+		"dontUse": {
+			"tagClass": "SCENARIO_STRUCTURE_BSP",
+			"tagHandle": {
+				"value": 4294967295,
+				"id": 65535,
+				"index": 65535
+			},
+			"pathSize": 0
+		},
+		"controls": {
+			"elements": [],
+			"count": 0
+		},
+		"controlPalette": {
+			"elements": [],
+			"count": 0
+		},
+		"editorScenarioData": {
+			"external": 0,
+			"size": 202,
+			"fileOffset": 1490
+		},
+		"playerStartingProfile": {
+			"elements": [],
+			"count": 0
+		},
+		"machinePalette": {
+			"elements": [],
+			"count": 0
+		},
+		"functions": {
+			"elements": [],
+			"count": 0
+		},
+		"childScenarios": {
+			"elements": [],
+			"count": 0
+		},
+		"machines": {
+			"elements": [],
+			"count": 0
+		},
+		"comments": {
+			"elements": [],
+			"count": 0
+		},
+		"objectNames": {
+			"elements": [
+				{
+					"objectType": "scenery",
+					"objectIndex": 0,
+					"name": "halo"
+				}
+			],
+			"count": 1
+		}
+	}
 }
