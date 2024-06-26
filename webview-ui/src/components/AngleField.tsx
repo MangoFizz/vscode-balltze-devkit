@@ -51,7 +51,7 @@ const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
 				<div className="field-content">
 					<div className="d-flex">
 						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onchange={handleChange} onKeyDown={onKeyPress} />
-						<span>degrees</span>
+						<span style={{ marginLeft: "0.5rem" }}>degrees</span>
 					</div>
 				</div>
 			</section>

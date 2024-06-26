@@ -4,6 +4,7 @@ import { vscode } from "../utilities/vscode";
 import "../css/field-container.css"
 import React from "react";
 import { getNonce } from "../utilities/getNonce";
+import { tagClasses } from "../definitions";
 
 export interface TagDependencyFieldProps extends IFieldProps {
 	validClasses: string[];
@@ -12,6 +13,7 @@ export interface TagDependencyFieldProps extends IFieldProps {
 };
 
 const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validClasses, value, setValue }) => {
+	let [validClassesList, setValidClassesList] = React.useState(validClasses);
 	let [selectedClass, setSelectedClass] = React.useState(value.tagClass.toLowerCase());
 	let [selectedTagHandle, setSelectedTagHandle] = React.useState(value.tagHandle.value);
 	let [selectedTagPath, setSelectedTagPath] = React.useState(`${selectedClass}\\${selectedTagHandle}`);
@@ -37,6 +39,10 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 		else {
 			setSelectedTagPath("");
 		}
+
+		setValidClassesList(tagClasses.filter((value) => validClasses.find((validClass) => {
+			return value.startsWith(validClass.toLowerCase()) && value != validClass
+		})));
     }, []);
 	
   	return (
@@ -48,11 +54,11 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 						<VSCodeDropdown 
 							position="below" 
 							style={{ width: "40%", marginRight: "5px" }} 
-							selectedIndex={validClasses.indexOf(selectedClass)} 
+							value={selectedClass}
 							disabled={true}
 						>
 							{
-								validClasses.map((value, index) => (
+								validClassesList.map((value, index) => (
 									<VSCodeOption key={index} value={value}>{value}</VSCodeOption>
 								))
 							}	

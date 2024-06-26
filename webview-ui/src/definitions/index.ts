@@ -190,6 +190,8 @@ export interface TagDataType {
 	width?: number;
 };
 
+export const tagClasses = Object.keys(tagDefinitions);
+
 const definitions = Object.values(tagDefinitions).reduce((acc, val) => acc.concat(val as TagDataType[]), [] as TagDataType[]);
 
 export default definitions;
