@@ -1,11 +1,11 @@
-import { Disposable, Webview, WebviewPanel, window, Uri, ViewColumn, ExtensionContext } from "vscode";
+import { commands, Disposable, Webview, WebviewPanel, window, Uri, ViewColumn, ExtensionContext } from "vscode";
 import { getUri } from "../utilities/getUri";
 import { getNonce } from "../utilities/getNonce";
 import client from "../utilities/devkitClient"
 import { TagEntry } from "../types/EngineTag";
 
-export class TagViewPanel {
-    public static panels: { [name: string]: TagViewPanel|undefined } = {};
+export class TagEditorPanel {
+    public static panels: { [name: string]: TagEditorPanel|undefined } = {};
     private readonly _panel: WebviewPanel;
     private _disposables: Disposable[] = [];
 
@@ -24,22 +24,41 @@ export class TagViewPanel {
 
                     case "getTagPath": {
                         if(msg.value) {
-                            let req = JSON.parse(msg.value);
-                            let path = await client.conn.devkit.pathForTag(req.handle);
-                            panel.webview.postMessage({ type: "tagPath", value: JSON.stringify({ nonce: req.nonce, path: path }) });
+                            let data = JSON.parse(msg.value);
+                            let path = await client.conn.devkit.pathForTag(data.handle);
+                            panel.webview.postMessage({ type: "tagPath", value: JSON.stringify({ nonce: data.nonce, path: path }) });
                         }
                         break;
+                    }
+
+                    case "openTagInEditor": {
+                        if(msg.value) {
+                            let data = JSON.parse(msg.value);
+                            commands.executeCommand("tagsExplorer.openEditorByHandle", data.handle);                         
+                        }                            
                     }
                 }
             },
             undefined,
             context.subscriptions
         );
+
+        this._panel.onDidChangeViewState(
+            e => {
+                if(e.webviewPanel.active) {
+                    commands.executeCommand("tagsExplorer.revealTagByHandle", tagHandle);
+                }
+            },
+            null,
+            context.subscriptions
+        );
+
+        commands.executeCommand("tagsExplorer.revealTagByHandle", tagHandle);
     }
 
     public static render(context: ExtensionContext, tag: TagEntry) {
         const panelName = `${tag.path}.${tag.class}`;
-        let currentPanel = TagViewPanel.panels[panelName];
+        let currentPanel = TagEditorPanel.panels[panelName];
         if (currentPanel) {
             currentPanel._panel.reveal(ViewColumn.One);
         } 
@@ -58,12 +77,12 @@ export class TagViewPanel {
                     retainContextWhenHidden: true
                 },
             );
-            TagViewPanel.panels[panelName] = new TagViewPanel(context, panel, tag.handle);
+            TagEditorPanel.panels[panelName] = new TagEditorPanel(context, panel, tag.handle);
         }
     }
 
     public dispose() {
-        TagViewPanel.panels[this._panel.viewType] = undefined;
+        TagEditorPanel.panels[this._panel.viewType] = undefined;
         this._panel.dispose();
         while (this._disposables.length) {
             const disposable = this._disposables.pop();

@@ -44,6 +44,10 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 			return value.startsWith(validClass.toLowerCase()) && value != validClass
 		})));
     }, []);
+
+	const openTagInEditor = () => {
+		vscode.postMessage({ type: "openTagInEditor", value: JSON.stringify({ handle: selectedTagHandle }) });
+	}
 	
   	return (
 		<div>
@@ -66,7 +70,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 						<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath} placeholder="NULL" />
 						<div className="d-flex">
 							<VSCodeButton style={{ marginRight: "5px" }} onClick={() => {}} >Find</VSCodeButton>
-							<VSCodeButton onClick={() => {}} >Open</VSCodeButton>
+							<VSCodeButton onClick={openTagInEditor} >Open</VSCodeButton>
 						</div>
 					</div>
 				</div>

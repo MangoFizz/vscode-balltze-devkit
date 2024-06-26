@@ -5,12 +5,13 @@ import { TagEntry } from "../types/EngineTag";
 
 const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit");
 
-export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem> {
+export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem> {
 	_onDidChangeTreeData: vscode.EventEmitter<TagTreeItem | undefined | void> = new vscode.EventEmitter<TagTreeItem | undefined | void>()
 	readonly onDidChangeTreeData: vscode.Event<TagTreeItem | undefined | void> = this._onDidChangeTreeData.event
 
-	private tags: TagEntry[] = [];
+	private tagsData: TagEntry[] = [];
 	private tagTree: TagTreeItem[] = [];
+	private tagTreeItemsList: TagTreeItem[] = [];
 
 	constructor(private workspaceRoot: string | undefined) {
 		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
@@ -18,8 +19,8 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
 				return;
 			}
-			this.tags = tagList;
-			this.tagTree = this.getFileSystemItems(this.tags);
+			this.tagsData = tagList;
+			this.buildTagsTree(this.tagsData);
 			this._onDidChangeTreeData.fire();
 		});
 	}
@@ -30,8 +31,8 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
 				return;
 			}
-			this.tags = tagList;
-			this.tagTree = this.getFileSystemItems(this.tags);
+			this.tagsData = tagList;
+			this.buildTagsTree(this.tagsData);
 			this._onDidChangeTreeData.fire();
 		});
 	}
@@ -40,11 +41,23 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 		return item;
 	}
 
+	getTagEntry(tagHandle: number): TagEntry | undefined {
+		return this.tagsData.find(tag => tag.handle === tagHandle);
+	}
+
+	getTreeItemByTagHandle(tagHandle: number): TagTreeItem | undefined {
+		return this.tagTreeItemsList.find(item => item.tagEntry?.handle === tagHandle);
+	}
+
 	getChildren(item?: TagTreeItem): Thenable<TagTreeItem[]> {
 		return Promise.resolve(item ? item.children || [] : this.tagTree);
 	}
 
-	private getFileSystemItems(items: TagEntry[]): TagTreeItem[] {
+	getParent(element: TagTreeItem): TagTreeItem | undefined {
+		return element.parent;
+	}
+
+	private buildTagsTree(items: TagEntry[]): void {
         let root: any = {};
 
 		items.sort((a, b) => {
@@ -100,6 +113,13 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
                     treeItem.children = createTreeItems(node[key].children, fullPath);
                 }
 
+				// Set parent for children
+				if (treeItem.children) {
+					treeItem.children.forEach(child => {
+						child.parent = treeItem;
+					});
+				}
+
 				// sort items alphabetically and put folders first
 				if (treeItem.children) {
 					treeItem.children.sort((a, b) => {
@@ -119,11 +139,13 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 					});
 				}
 
+				this.tagTreeItemsList.push(treeItem);
+
                 return treeItem;
             });
         };
 
-        return createTreeItems(root);
+        this.tagTree = createTreeItems(root);
     }
 
 	async spawnObject(item: TagTreeItem): Promise<void> {
@@ -150,14 +172,15 @@ export class TagTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem>
 }
 
 export class TagTreeItem extends vscode.TreeItem {
-    children: TagTreeItem[] | undefined;
+    public children: TagTreeItem[] | undefined;
+	public parent: TagTreeItem | undefined;
 
     constructor(
         public readonly label: string,
         public readonly collapsibleState: vscode.TreeItemCollapsibleState,
         public readonly isFile: boolean,
 		public readonly path: string,
-		public readonly tagEntry?: TagEntry,
+		public readonly tagEntry?: TagEntry
     ) {
         super(label, collapsibleState);
 		this.resourceUri = vscode.Uri.file(path);
@@ -165,7 +188,7 @@ export class TagTreeItem extends vscode.TreeItem {
         if(isFile && tagEntry) {
 			this.description = this.isFile ? tagEntry.class : undefined;
 			this.command = {
-				command: "tagsExplorer.openPanel",
+				command: "tagsExplorer.openEditor",
 				title: "Open tag editor",
 				arguments: [this]
 			};

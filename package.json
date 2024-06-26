@@ -79,8 +79,16 @@
 				"icon": "$(trash)"
 			},
 			{
-				"command": "tagsExplorer.openPanel",
-				"title": "Edit tag"
+				"command": "tagsExplorer.openEditor",
+				"title": "Open tag editor"
+			},
+			{
+				"command": "tagsExplorer.openEditorByHandle",
+				"title": "Open tag editor (by tag handle)"
+			},
+			{
+				"command": "tagsExplorer.revealTagByHandle",
+				"title": "Reveal tag in tree (by tag handle)"
 			}
 		],
 		"menus": {

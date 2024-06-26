@@ -3,9 +3,9 @@
 import * as vscode from "vscode"
 
 import { initialize as initializeDevkitClient } from "./utilities/devkitClient"
-import { TagTreeDataProvider, TagTreeItem } from "./panels/TagExplorer"
+import { TagsTreeDataProvider, TagTreeItem } from "./panels/TagsExplorer"
 import { ObjectTreeDataProvider, ObjectTreeItem } from "./panels/ObjectExplorer"
-import { TagViewPanel } from "./panels/TagViewPanel"
+import { TagEditorPanel } from "./panels/TagEditorPanel"
 
 export function activate(context: vscode.ExtensionContext) {
 	const rootPath =
@@ -21,39 +21,73 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.workspace.getConfiguration("balltzeDevkit").get("port") || 19190
 	)
 
-	const tagListProvider = new TagTreeDataProvider(rootPath)
-	vscode.window.registerTreeDataProvider("tagsExplorer", tagListProvider)
+	const tagTreeProvider = new TagsTreeDataProvider(rootPath)
+	const tagsExplorer = vscode.window.createTreeView("tagsExplorer", {
+		treeDataProvider: tagTreeProvider
+	});
 
-	const objectListProvider = new ObjectTreeDataProvider(rootPath)
-	vscode.window.registerTreeDataProvider("objectsExplorer", objectListProvider)
+	const objectTreeProvider = new ObjectTreeDataProvider(rootPath)
+	vscode.window.registerTreeDataProvider("objectsExplorer", objectTreeProvider)
 
 	const commands = [
 		{
 			command: "tagsExplorer.refresh",
-			action: () => tagListProvider.refresh()
+			action: () => tagTreeProvider.refresh()
 		},
 		{
 			command: "objectsExplorer.refresh",
-			action: () => objectListProvider.refresh()
+			action: () => objectTreeProvider.refresh()
 		},
 		{
 			command: "tagsExplorer.spawn",
 			action: async (item: TagTreeItem) => {
-				await tagListProvider.spawnObject(item)
+				await tagTreeProvider.spawnObject(item)
 			}
 		},
 		{
 			command: "objectsExplorer.delete",
 			action: (item: ObjectTreeItem) => {
 				vscode.window.showInformationMessage(`Deleting ${item.label}`)
-				objectListProvider.deleteItem(item)
+				objectTreeProvider.deleteItem(item)
 			}
 		},
 		{
-			command: "tagsExplorer.openPanel",
+			command: "tagsExplorer.openEditor",
 			action: (node: TagTreeItem) => {
 				if(node.isFile && node.tagEntry) {
-					TagViewPanel.render(context, node.tagEntry);
+					TagEditorPanel.render(context, node.tagEntry);
+				}
+				else {
+					vscode.window.showErrorMessage(`Failed to open tag editor panel: ${node.path} is not a file`);
+				}
+			}
+		},
+		{
+			command: "tagsExplorer.openEditorByHandle",
+			action: (handle: number) => {
+				let node = tagTreeProvider.getTreeItemByTagHandle(handle);
+				if(node) {
+					if(node.isFile && node.tagEntry) {
+						TagEditorPanel.render(context, node.tagEntry);
+					}
+					else {
+						vscode.window.showErrorMessage(`Failed to open tag editor panel: ${node.path} is not a file`);
+					}
+				}
+				else {
+					vscode.window.showErrorMessage(`Failed to open tag editor panel for handle ${handle}`);
+				}
+			}
+		},
+		{
+			command: "tagsExplorer.revealTagByHandle",
+			action: (handle: number) => {
+				let node = tagTreeProvider.getTreeItemByTagHandle(handle);
+				if(node) {
+					tagsExplorer.reveal(node);
+				}
+				else {
+					vscode.window.showErrorMessage(`Failed to open tag editor panel for handle ${handle}`);
 				}
 			}
 		}
@@ -64,7 +98,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	const showGalleryCommand = vscode.commands.registerCommand("component-gallery-react.showGallery", () => {
-		TagViewPanel.render(context, { class: "scenario", path: "levels\\ui\\ui", handle: 0 });
+		TagEditorPanel.render(context, { class: "scenario", path: "levels\\ui\\ui", handle: 0 });
 	});
 	
 	// Add command to the extension context
