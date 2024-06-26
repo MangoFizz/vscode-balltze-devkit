@@ -19,7 +19,6 @@ const TagViewBootstrapper: React.FC = () => {
         });
 
         vscode.postMessage({ type: "ready" });
-		console.log("TagViewBootstrapper ready");
     }, []);
 
 	if(!tagData) {
