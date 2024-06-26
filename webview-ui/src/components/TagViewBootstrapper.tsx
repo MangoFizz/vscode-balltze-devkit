@@ -1,6 +1,8 @@
 import TagView from "./TagView";
 import React from "react";
 import { vscode } from "../utilities/vscode";
+import { VSCodeProgressRing } from "@vscode/webview-ui-toolkit/react";
+import LoadingOverlay from "./LoadingOverlay";
 
 const TagViewBootstrapper: React.FC = () => {
     let [tagData, setTagData] = React.useState(null as any);
@@ -21,7 +23,7 @@ const TagViewBootstrapper: React.FC = () => {
     }, []);
 
 	if(!tagData) {
-		return <div>Loading...</div>;
+		return <LoadingOverlay />
 	}
 
     return (

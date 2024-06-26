@@ -13,6 +13,7 @@ import FloatField from "./FloatField";
 import ColorArgbField from "./ColorArgbField";
 import TagBlock from "./TagBlock";
 import VectorField from "./VectorField";
+import AngleField from "./AngleField";
 
 type TagEntry = {
 	path: string;
@@ -137,10 +138,18 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 
 						case "float":
 						case "double":
-						case "Angle":
 						case "Fraction": {
 							return (
 								<FloatField
+									label={field.name}
+									value={data[dataFieldName]}
+									setValue={(val: number) => { data[dataFieldName] = val; }} />
+							);
+						}
+
+						case "Angle": {
+							return (
+								<AngleField
 									label={field.name}
 									value={data[dataFieldName]}
 									setValue={(val: number) => { data[dataFieldName] = val; }} />

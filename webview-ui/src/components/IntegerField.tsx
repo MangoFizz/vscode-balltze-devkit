@@ -79,12 +79,19 @@ const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, typ
 		setInputValue(inputValue);
 	};
 
+	const getStringValue = () => {
+		if (inputValue == 0xFFFF || inputValue == 0xFFFFFFFF) {
+			return "";
+		}
+		return inputValue.toString();
+	};
+
   	return (
 		<div>
 			<section className="field-container">
 				<p className="field-label">{label}</p>
 				<div className="field-content">
-					<VSCodeTextField type="tel" className="numeric-field" value={inputValue.toString()} onchange={handleChange} />
+					<VSCodeTextField type="tel" className="numeric-field" value={getStringValue()} placeholder="NULL" onchange={handleChange} />
 				</div>
 			</section>
 			<VSCodeDivider role="presentation"></VSCodeDivider>

@@ -28,10 +28,10 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
 			return;
 		}
 	  
-		if (key === '.' && value.includes('.')) {
-			e.preventDefault();
-		} 
-		else if (!/[0-9.]/.test(key)) {
+		try {
+			Number.parseFloat(value + key);
+		}
+		catch (error) {
 			e.preventDefault();
 		}
 	};

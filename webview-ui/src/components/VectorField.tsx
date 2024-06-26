@@ -2,6 +2,7 @@ import { VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@v
 import { IFieldProps } from "../utilities/IFieldProps";
 import "../css/field-container.css"
 import React from "react";
+import { round } from "../utilities/math";
 
 export interface PointFieldProps extends IFieldProps {
 	value: { [property: string]: number}
@@ -28,7 +29,10 @@ const VectorField: React.FC<PointFieldProps> = ({ label, value, setValue }) => {
 			return;
 		}
 	  
-		if (!/[0-9.]/.test(key)) {
+		try {
+			Number.parseFloat(value + key);
+		}
+		catch (error) {
 			e.preventDefault();
 		}
 	};
@@ -52,7 +56,7 @@ const VectorField: React.FC<PointFieldProps> = ({ label, value, setValue }) => {
 								return (
 									<div className="d-flex">
 										<label style={{ marginRight: "5px" }}>{key[0]}: </label>
-										<VSCodeTextField type="tel" className="numeric-field" value={axis[key].toString()} onKeyPress={onKeyPress} onchange={(e) => handleChange(e as Event, key)} />
+										<VSCodeTextField type="tel" className="numeric-field" value={round(axis[key]).toString()} onKeyPress={onKeyPress} onchange={(e) => handleChange(e as Event, key)} />
 									</div>
 								);
 							})

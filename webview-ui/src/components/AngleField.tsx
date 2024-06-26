@@ -2,15 +2,15 @@ import { VSCodeDivider, VSCodeTextField } from "@vscode/webview-ui-toolkit/react
 import { IFieldProps } from "../utilities/IFieldProps";
 import "../css/field-container.css"
 import React from "react";
-import { round } from "../utilities/math";
+import { degToRad, radToDeg, round } from "../utilities/math";
 
-export interface NumericFieldProps extends IFieldProps {
+export interface AngleFieldProps extends IFieldProps {
 	value: number, 
 	setValue: (value: number) => void
 };
 
-const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue }) => {
-	let [inputValue, setInputValue] = React.useState(round(value));
+const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
+	let [inputValue, setInputValue] = React.useState(round(radToDeg(value)));
 
 	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
 		const { key } = e;
@@ -38,9 +38,10 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue }) => 
 	};
 
 	let handleChange = function(e: Event): void {
-		let val = Number.parseFloat((e.target as HTMLInputElement).value);
-		setValue(val);
-		setInputValue(val);
+		let degs = Number.parseFloat((e.target as HTMLInputElement).value);
+		let rads = degToRad(degs);
+		setValue(rads);
+		setInputValue(degs);
 	};
 
   	return (
@@ -48,7 +49,10 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue }) => 
 			<section className="field-container">
 				<p className="field-label">{label}</p>
 				<div className="field-content">
-					<VSCodeTextField className="numeric-field" value={inputValue.toString()} onchange={handleChange} onKeyDown={onKeyPress} />
+					<div className="d-flex">
+						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onchange={handleChange} onKeyDown={onKeyPress} />
+						<span>degrees</span>
+					</div>
 				</div>
 			</section>
 			<VSCodeDivider role="presentation"></VSCodeDivider>
@@ -56,4 +60,4 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue }) => 
   	);
 }
 
-export default FloatField;
+export default AngleField;
