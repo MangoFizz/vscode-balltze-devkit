@@ -21,6 +21,17 @@ export class TagViewPanel {
                         panel.webview.postMessage({ type: "tagData", value: tagData });
                         break;
                     }
+
+                    case "getTagPath": {
+                        if(msg.value) {
+                            console.log(msg.value);
+                            let req = JSON.parse(msg.value);
+                            let path = await client.conn.devkit.pathForTag(req.handle);
+                            console.log("path: ", path);
+                            panel.webview.postMessage({ type: "tagPath", value: JSON.stringify({ nonce: req.nonce, path: path }) });
+                        }
+                        break;
+                    }
                 }
             },
             undefined,
