@@ -178,7 +178,7 @@ export interface TagStructField {
 	maximum?: number;
 	cache_only?: boolean;
 	bounds?: boolean;
-	units?: string;
+	unit?: string;
 };
 
 export interface TagDataType {

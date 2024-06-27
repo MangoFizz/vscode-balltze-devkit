@@ -116,7 +116,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 										values={data[dataFieldName]}
 										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }}
 										type={field.type}
-										units={field.units} />
+										units={field.unit} />
 								);
 							}
 							else {
@@ -126,7 +126,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 										value={data[dataFieldName]}
 										setValue={(val: number) => { data[dataFieldName] = val; }}
 										type={field.type}
-										units={field.units} />
+										units={field.unit} />
 								);
 							}
 						}
@@ -162,7 +162,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 										label={field.name}
 										values={data[dataFieldName]}
 										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }}
-										units={field.units} />
+										units={field.unit} />
 								);
 							}
 							else {
@@ -171,7 +171,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 										label={field.name}
 										value={data[dataFieldName]}
 										setValue={(val: number) => { data[dataFieldName] = val; }}
-										units={field.units} />
+										units={field.unit} />
 								);
 							}
 						}
@@ -196,10 +196,6 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 						}
 
 						case "TagReflexive": {
-							if(!(data[dataFieldName]?.elements)) {
-								console.log("DATA: ", data);
-								console.log("FIELD: ", field);
-							}
 							return (
 								<TagBlock 
 									label={field.name}
