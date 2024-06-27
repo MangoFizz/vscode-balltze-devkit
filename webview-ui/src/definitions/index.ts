@@ -179,6 +179,7 @@ export interface TagStructField {
 	cache_only?: boolean;
 	bounds?: boolean;
 	unit?: string;
+	non_null?: boolean;
 };
 
 export interface TagDataType {

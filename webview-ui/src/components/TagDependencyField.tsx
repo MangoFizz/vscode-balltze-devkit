@@ -10,9 +10,10 @@ export interface TagDependencyFieldProps extends IFieldProps {
 	validClasses: string[];
 	value: { [key: string]: any };
 	setValue: (tagClass: string, tagHandle: number) => void;
+	nullable: boolean;
 };
 
-const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validClasses, value, setValue }) => {
+const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validClasses, value, setValue, nullable }) => {
 	let [validClassesList, setValidClassesList] = React.useState(validClasses);
 	let [selectedClass, setSelectedClass] = React.useState("NULL");
 	let [selectedTagHandle, setSelectedTagHandle] = React.useState(0xFFFFFFFF);
@@ -38,6 +39,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 							setSelectedTagHandle(data.tagEntry.handle);
 							setSelectedTagPath(data.tagEntry.path);
 							setSelectedClass(data.tagEntry.class);
+							setValue(data.tagEntry.class, data.tagEntry.handle);
 						}
 					}
 					break;
@@ -70,6 +72,13 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 	const pickTag = () => {
 		vscode.postMessage({ type: "pickTag", value: JSON.stringify({ nonce: nonce, validClasses: validClassesList }) });
 	}
+
+	const clearDependency = () => {
+		setSelectedClass("");
+		setSelectedTagHandle(0xFFFFFFFF);
+		setSelectedTagPath("");
+		setValue("NULL", -1);
+	}
 	
   	return (
 		<div>
@@ -93,6 +102,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 						<div className="d-flex">
 							<VSCodeButton style={{ marginRight: "5px" }} onClick={pickTag} >Find</VSCodeButton>
 							<VSCodeButton onClick={openTagInEditor} >Open</VSCodeButton>
+							{ nullable ? <VSCodeButton style={{ marginLeft: "5px" }} onClick={clearDependency} >Clear</VSCodeButton> : null }
 						</div>
 					</div>
 				</div>

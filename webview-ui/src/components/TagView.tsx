@@ -99,7 +99,8 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									setValue={(tagClass: string, tagHandle: number) => { 
 										data[dataFieldName].tagClass = tagClass.toUpperCase();
 										data[dataFieldName].tagHandle.value = tagHandle;
-									}} />
+									}}
+									nullable={!(field.non_null || false)} />
 							);
 						}
 
