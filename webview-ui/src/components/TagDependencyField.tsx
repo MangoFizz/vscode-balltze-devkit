@@ -40,9 +40,10 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 			setSelectedTagPath("");
 		}
 
-		setValidClassesList(tagClasses.filter((value) => validClasses.find((validClass) => {
-			return value.startsWith(validClass.toLowerCase()) && value != validClass
-		})));
+		// Populate shader classes
+		if(validClasses.find((value) => value === "shader")) {
+			setValidClassesList(validClassesList.concat(tagClasses.filter((value) => value.startsWith("shader"))));
+		}
     }, []);
 
 	const openTagInEditor = () => {

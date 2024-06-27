@@ -80,7 +80,6 @@ export class DevkitRpcClient {
                     };
                     this.responseHandlers[id] = resolve;
                     const content = JSON.stringify(request) + "\n";
-                    console.log('Sending request: ' + content);
                     this.client.write(content);
                 }
             }, 1); 

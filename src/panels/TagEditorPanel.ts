@@ -25,8 +25,9 @@ export class TagEditorPanel {
                     case "getTagPath": {
                         if(msg.value) {
                             let data = JSON.parse(msg.value);
-                            let path = await client.conn.devkit.pathForTag(data.handle);
-                            panel.webview.postMessage({ type: "tagPath", value: JSON.stringify({ nonce: data.nonce, path: path }) });
+                            client.conn.devkit.pathForTag(data.handle).then((path: string) => {
+                                panel.webview.postMessage({ type: "tagPath", value: JSON.stringify({ nonce: data.nonce, path: path }) });
+                            });
                         }
                         break;
                     }
@@ -35,7 +36,8 @@ export class TagEditorPanel {
                         if(msg.value) {
                             let data = JSON.parse(msg.value);
                             commands.executeCommand("tagsExplorer.openEditorByHandle", data.handle);                         
-                        }                            
+                        }
+                        break;                     
                     }
                 }
             },

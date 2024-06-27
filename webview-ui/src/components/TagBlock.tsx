@@ -1,5 +1,6 @@
 import { VSCodeDivider, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react";
 import React from "react";
+import "../css/tag-block.css"
 
 interface ITagBlock {
 	label: string;
@@ -15,7 +16,7 @@ const TagBlock: React.FC<ITagBlock> = ({label, elems, render, getElemName}) => {
 
 	return (
 		<div>
-			<section className="field-container">
+			<section className="field-container tag-block-header">
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
@@ -34,13 +35,15 @@ const TagBlock: React.FC<ITagBlock> = ({label, elems, render, getElemName}) => {
 					</div>
 				</div>
 			</section>
-			<VSCodeDivider role="presentation"></VSCodeDivider>
-			<div style={{ marginLeft: "1rem" }}>
-				{
-					elems.map((elem: any, index: number) => {
-						return <div key={index} style={{ display: index == elemIndex ? "block" : "none" }}>{render(elem)}</div>;
-					})
-				}
+			<div className="tag-block-content">
+				<div className="tag-block-sidebar"></div>
+				<div className="tag-block-items">
+					{
+						elems.map((elem: any, index: number) => {
+							return <div key={index} style={{ display: index == elemIndex ? "block" : "none" }}>{render(elem)}</div>;
+						})
+					}
+				</div>
 			</div>
 		</div>
 	);

@@ -167,6 +167,27 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 											return <></>;
 										}
 										return renderTagDataStruct(elemsType as TagDataType, elem);
+									}}
+									getElemName={(elem: any): string => {
+										const elemType = tagDefinitions.find((definition) => definition.name === field.struct);
+										const elemIndex = data[dataFieldName].elements.indexOf(elem);
+										if(elemType && elemType.title && elemType.fields) {
+											const fields = elemType.fields as TagStructField[];
+											const titleField = fields.find((field) => field.name === elemType.title);
+											const fieldName = normalToCamelCase(elemType.title);
+											switch(titleField?.type) {
+												case "TagString": {
+													return `${elemIndex}: ${elem[fieldName]}`;
+												}
+												case "TagDependency": {
+													const tagDependency = elem[fieldName];
+													if(tagDependency.tagHandle.value != 0xFFFFFFFF) {
+														return `${elemIndex}: ${tagDependency.path}`;
+													}
+												}
+											}
+										}
+										return `${elemIndex}`;
 									}} />
 							);
 						}
@@ -225,7 +246,7 @@ const TagView: React.FC<TagViewProps> = ({tagData, tagEntry}) => {
 		changes: [] 
 	});
 
-	let data = React.useRef(new TagDataProxy(tagData, changelog.current))
+	let data = React.useRef(new TagDataProxy(tagData, changelog.current));
 
 	return (
 		<div>
