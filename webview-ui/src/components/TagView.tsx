@@ -14,6 +14,7 @@ import ColorArgbField from "./ColorArgbField";
 import TagBlock from "./TagBlock";
 import VectorField from "./VectorField";
 import AngleField from "./AngleField";
+import { VSCodeDivider } from "@vscode/webview-ui-toolkit/react";
 
 type TagEntry = {
 	path: string;
@@ -250,6 +251,7 @@ const TagView: React.FC<TagViewProps> = ({tagData, tagEntry}) => {
 
 	return (
 		<div>
+			<VSCodeDivider role="presentation"></VSCodeDivider>
 			{renderTagClass(tagEntry.class, data.current)}
 		</div>
 	);

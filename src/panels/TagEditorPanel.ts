@@ -4,14 +4,19 @@ import { getNonce } from "../utilities/getNonce";
 import client from "../utilities/devkitClient"
 import { TagEntry } from "../types/EngineTag";
 
+interface PanelInstance {
+    panel: TagEditorPanel;
+    tagHandle: number;
+};
+
 export class TagEditorPanel {
-    public static panels: { [name: string]: TagEditorPanel|undefined } = {};
+    public static panels: PanelInstance[] = [];
     private readonly _panel: WebviewPanel;
     private _disposables: Disposable[] = [];
 
     private constructor(context: ExtensionContext, panel: WebviewPanel, tagHandle: number) {
         this._panel = panel;
-        this._panel.onDidDispose(() => this.dispose(), null, this._disposables);
+        this._panel.onDidDispose(() => this.dispose(), this, this._disposables);
         this._panel.webview.html = this._getWebviewContent(this._panel.webview, context.extensionUri);
         this._panel.webview.onDidReceiveMessage(
             async (msg) => {
@@ -69,15 +74,14 @@ export class TagEditorPanel {
     }
 
     public static render(context: ExtensionContext, tag: TagEntry) {
-        const panelName = `${tag.path}.${tag.class}`;
-        let currentPanel = TagEditorPanel.panels[panelName];
+        let currentPanel = TagEditorPanel.panels.find(instance => instance.tagHandle == tag.handle);
         if (currentPanel) {
-            currentPanel._panel.reveal(ViewColumn.One);
+            currentPanel.panel._panel.reveal(ViewColumn.One);
         } 
         else {
             let tagName = tag.path.split("\\").pop() || "Unknown";
             const panel = window.createWebviewPanel(
-                panelName,
+                tag.handle.toString(),
                 `${tagName}.${tag.class}`,
                 ViewColumn.One,
                 {
@@ -89,12 +93,11 @@ export class TagEditorPanel {
                     retainContextWhenHidden: true
                 },
             );
-            TagEditorPanel.panels[panelName] = new TagEditorPanel(context, panel, tag.handle);
+            TagEditorPanel.panels.push({ panel: new TagEditorPanel(context, panel, tag.handle), tagHandle: tag.handle });
         }
     }
 
     public dispose() {
-        TagEditorPanel.panels[this._panel.viewType] = undefined;
         this._panel.dispose();
         while (this._disposables.length) {
             const disposable = this._disposables.pop();
@@ -102,6 +105,7 @@ export class TagEditorPanel {
                 disposable.dispose();
             }
         }
+        TagEditorPanel.panels.splice(TagEditorPanel.panels.findIndex(instance => instance.panel == this), 1);
     }
 
     private _getWebviewContent(webview: Webview, extensionUri: Uri) {
