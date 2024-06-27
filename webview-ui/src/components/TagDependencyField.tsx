@@ -15,7 +15,7 @@ export interface TagDependencyFieldProps extends IFieldProps {
 const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validClasses, value, setValue }) => {
 	let [validClassesList, setValidClassesList] = React.useState(validClasses);
 	let [selectedClass, setSelectedClass] = React.useState("NULL");
-	let [selectedTagHandle, setSelectedTagHandle] = React.useState(-1);
+	let [selectedTagHandle, setSelectedTagHandle] = React.useState(0xFFFFFFFF);
 	let [selectedTagPath, setSelectedTagPath] = React.useState(`${selectedClass}\\${selectedTagHandle}`);
 	let [nonce] = React.useState(getNonce());
 
@@ -45,10 +45,13 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
             }
         });
 
-        if(value.tagHandle.value != 0xFFFFFFFF) {
-			setSelectedClass(value.tagClass.toLowerCase());
-			setSelectedTagHandle(value.tagHandle.value);
-			vscode.postMessage({ type: "getTagPath", value: JSON.stringify({ nonce: nonce, handle: selectedTagHandle }) });
+		let tagHandle = value.tagHandle.value;
+		let tagClass = value.tagClass;
+
+        if(tagHandle != 0xFFFFFFFF && tagClass !== -1) {
+			setSelectedClass(tagClass.toLowerCase());
+			setSelectedTagHandle(tagHandle);
+			vscode.postMessage({ type: "getTagPath", value: JSON.stringify({ nonce: nonce, handle: tagHandle }) });
 		}
 		else {
 			setSelectedTagPath("");
