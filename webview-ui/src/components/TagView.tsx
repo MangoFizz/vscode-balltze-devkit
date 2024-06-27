@@ -15,6 +15,9 @@ import TagBlock from "./TagBlock";
 import VectorField from "./VectorField";
 import AngleField from "./AngleField";
 import { VSCodeDivider } from "@vscode/webview-ui-toolkit/react";
+import IntegerBoundsField from "./IntegerBoundsField";
+import FloatBoundsField from "./FloatBoundsField";
+import AngleBoundsField from "./AngleBoundsField";
 
 type TagEntry = {
 	path: string;
@@ -106,13 +109,26 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 						case "uint16":
 						case "int32":
 						case "uint32": {
-							return (
-								<IntegerField
-									label={field.name}
-									value={data[dataFieldName]}
-									setValue={(val: number) => { data[dataFieldName] = val; }}
-									type={field.type} />
-							);
+							if(field?.bounds) {
+								return (
+									<IntegerBoundsField
+										label={field.name}
+										values={data[dataFieldName]}
+										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }}
+										type={field.type}
+										units={field.units} />
+								);
+							}
+							else {
+								return (
+									<IntegerField
+										label={field.name}
+										value={data[dataFieldName]}
+										setValue={(val: number) => { data[dataFieldName] = val; }}
+										type={field.type}
+										units={field.units} />
+								);
+							}
 						}
 
 						case "Index":
@@ -140,24 +156,50 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 						case "float":
 						case "double":
 						case "Fraction": {
-							return (
-								<FloatField
-									label={field.name}
-									value={data[dataFieldName]}
-									setValue={(val: number) => { data[dataFieldName] = val; }} />
-							);
+							if(field.bounds) {
+								return (
+									<FloatBoundsField
+										label={field.name}
+										values={data[dataFieldName]}
+										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }}
+										units={field.units} />
+								);
+							}
+							else {
+								return (
+									<FloatField
+										label={field.name}
+										value={data[dataFieldName]}
+										setValue={(val: number) => { data[dataFieldName] = val; }}
+										units={field.units} />
+								);
+							}
 						}
 
 						case "Angle": {
-							return (
-								<AngleField
-									label={field.name}
-									value={data[dataFieldName]}
-									setValue={(val: number) => { data[dataFieldName] = val; }} />
-							);
+							if(field.bounds) {
+								return (
+									<AngleBoundsField
+										label={field.name}
+										values={data[dataFieldName]}
+										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }} />
+								);
+							}
+							else {
+								return (
+									<AngleField
+										label={field.name}
+										value={data[dataFieldName]}
+										setValue={(val: number) => { data[dataFieldName] = val; }} />
+								);
+							}
 						}
 
 						case "TagReflexive": {
+							if(!(data[dataFieldName]?.elements)) {
+								console.log("DATA: ", data);
+								console.log("FIELD: ", field);
+							}
 							return (
 								<TagBlock 
 									label={field.name}

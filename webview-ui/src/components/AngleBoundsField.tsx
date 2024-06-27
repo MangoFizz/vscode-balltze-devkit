@@ -5,12 +5,12 @@ import React from "react";
 import { degToRad, radToDeg, round } from "../utilities/math";
 
 export interface AngleFieldProps extends IFieldProps {
-	value: number;
-	setValue: (value: number) => void;
+	values: number[];
+	setValue: (bound: number, value: number) => void;
 };
 
-const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
-	let [inputValue, setInputValue] = React.useState(round(radToDeg(value)));
+const AngleBoundsField: React.FC<AngleFieldProps> = ({ label, values, setValue }) => {
+	let [inputValues, setInputValues] = React.useState(values.map(val => round(radToDeg(val))));
 
 	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
 		const { key } = e;
@@ -37,11 +37,13 @@ const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
 		}
 	};
 
-	let handleChange = function(e: Event): void {
+	let handleChange = function(e: Event, bound: number): void {
 		let degs = Number.parseFloat((e.target as HTMLInputElement).value);
 		let rads = degToRad(degs);
-		setValue(rads);
-		setInputValue(degs);
+		setValue(bound, rads);
+		let values = inputValues;
+		values[bound] = degs;
+		setInputValues(values);
 	};
 
   	return (
@@ -50,7 +52,9 @@ const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onchange={handleChange} onKeyDown={onKeyPress} />
+						<VSCodeTextField className="numeric-field" value={inputValues[0].toString()} onchange={(e) => handleChange(e, 0)} onKeyDown={onKeyPress} />
+						<span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>-</span>
+						<VSCodeTextField className="numeric-field" value={inputValues[1].toString()} onchange={(e) => handleChange(e, 1)} onKeyDown={onKeyPress} />
 						<span style={{ marginLeft: "0.5rem" }}>degrees</span>
 					</div>
 				</div>
@@ -60,4 +64,4 @@ const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
   	);
 }
 
-export default AngleField;
+export default AngleBoundsField;

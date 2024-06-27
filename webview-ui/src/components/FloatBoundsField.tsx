@@ -5,13 +5,13 @@ import React from "react";
 import { round } from "../utilities/math";
 
 export interface NumericFieldProps extends IFieldProps {
-	value: number;
-	setValue: (value: number) => void;
+	values: number[];
+	setValue: (bound: number, value: number) => void;
 	units?: string;
 };
 
-const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue, units }) => {
-	let [inputValue, setInputValue] = React.useState(round(value));
+const FloatBoundsField: React.FC<NumericFieldProps> = ({ label, values, setValue, units }) => {
+	let [inputValues, setInputValues] = React.useState(values.map(val => round(val)));
 
 	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
 		const { key } = e;
@@ -38,10 +38,12 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue, units
 		}
 	};
 
-	let handleChange = function(e: Event): void {
+	let handleChange = function(e: Event, bound: number): void {
 		let val = Number.parseFloat((e.target as HTMLInputElement).value);
-		setValue(val);
-		setInputValue(val);
+		setValue(bound, val);
+		let values = inputValues;
+		values[bound] = val;
+		setInputValues(values);
 	};
 
   	return (
@@ -50,7 +52,9 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue, units
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onchange={handleChange} onKeyDown={onKeyPress} />
+						<VSCodeTextField className="numeric-field" value={inputValues[0].toString()} onchange={(e) => handleChange(e, 0)} onKeyDown={onKeyPress} />
+						<span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>-</span>
+						<VSCodeTextField className="numeric-field" value={inputValues[1].toString()} onchange={(e) => handleChange(e, 1)} onKeyDown={onKeyPress} />
 						<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
 					</div>
 				</div>
@@ -60,4 +64,4 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue, units
   	);
 }
 
-export default FloatField;
+export default FloatBoundsField;

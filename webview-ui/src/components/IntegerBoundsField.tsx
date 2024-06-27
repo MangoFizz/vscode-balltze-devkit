@@ -4,16 +4,16 @@ import "../css/field-container.css"
 import React from "react";
 
 export interface NumericFieldProps extends IFieldProps {
-	value: number;
-	setValue: (value: number) => void;
+	values: number[];
+	setValue: (bound: number, value: number) => void;
 	type: string;
 	units?: string;
 };
 
-const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, type, units }) => {
-	let [inputValue, setInputValue] = React.useState(value);
+const IntegerBoundsField: React.FC<NumericFieldProps> = ({ label, values, setValue, type, units }) => {
+	let [inputValues, setInputValues] = React.useState(values);
 
-	let handleChange = function(e: Event): void {
+	let handleChange = function(e: Event, bound: number): void {
 		let inputValue = parseInt((e.target as HTMLInputElement).value);
 		switch(type) {
 			case "int8": {
@@ -76,15 +76,17 @@ const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, typ
 				break;
 			}
 		}
-		setValue(inputValue);
-		setInputValue(inputValue);
+		setValue(bound, inputValue);
+		let values = inputValues;
+		inputValues[bound] = inputValue;
+		setInputValues(inputValues);
 	};
 
-	const getStringValue = () => {
-		if (inputValue == 0xFFFF || inputValue == 0xFFFFFFFF) {
+	const getStringValue = (bound: number) => {
+		if (inputValues[bound] == 0xFFFF || inputValues[bound] == 0xFFFFFFFF) {
 			return "";
 		}
-		return inputValue.toString();
+		return inputValues[bound].toString();
 	};
 
   	return (
@@ -93,7 +95,9 @@ const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, typ
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue()} placeholder="NULL" onchange={handleChange} />
+						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue(0)} placeholder="NULL" onchange={(e) => handleChange(e, 0)} />
+						<span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>-</span>
+						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue(1)} placeholder="NULL" onchange={(e) => handleChange(e, 1)} />
 						<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
 					</div>
 				</div>
@@ -103,4 +107,4 @@ const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, typ
   	);
 }
 
-export default IntegerField;
+export default IntegerBoundsField;
