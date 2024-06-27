@@ -89,6 +89,10 @@
 			{
 				"command": "tagsExplorer.revealTagByHandle",
 				"title": "Reveal tag in tree (by tag handle)"
+			},
+			{
+				"command": "tagsExplorer.showTagPicker",
+				"title": "Show tag quick pick"
 			}
 		],
 		"menus": {

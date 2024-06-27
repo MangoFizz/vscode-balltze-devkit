@@ -6,6 +6,7 @@ import { initialize as initializeDevkitClient } from "./utilities/devkitClient"
 import { TagsTreeDataProvider, TagTreeItem } from "./panels/TagsExplorer"
 import { ObjectTreeDataProvider, ObjectTreeItem } from "./panels/ObjectExplorer"
 import { TagEditorPanel } from "./panels/TagEditorPanel"
+import { TagEntry } from "./types/EngineTag"
 
 export function activate(context: vscode.ExtensionContext) {
 	const rootPath =
@@ -88,6 +89,12 @@ export function activate(context: vscode.ExtensionContext) {
 				else {
 					vscode.window.showErrorMessage(`Failed to open tag editor panel for handle ${handle}`);
 				}
+			}
+		},
+		{
+			command: "tagsExplorer.showTagPicker",
+			action: (validClasses: string[]): Promise<TagEntry | undefined> => {
+				return tagTreeProvider.showTagQuickPick(validClasses);
 			}
 		}
 	]

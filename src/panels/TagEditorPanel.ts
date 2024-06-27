@@ -39,6 +39,16 @@ export class TagEditorPanel {
                         }
                         break;                     
                     }
+
+                    case "pickTag": {
+                        if(msg.value) {
+                            let data = JSON.parse(msg.value);
+                            commands.executeCommand("tagsExplorer.showTagPicker", data.validClasses).then((tagEntry: any) => {
+                                panel.webview.postMessage({ type: "pickedTag", value: JSON.stringify({ nonce: data.nonce, tagEntry: tagEntry || null }) });
+                            });
+                        }
+                        break;
+                    }
                 }
             },
             undefined,

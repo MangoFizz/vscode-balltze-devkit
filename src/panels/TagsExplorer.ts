@@ -169,6 +169,51 @@ export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem
 			balltzeOutput.appendLine(`Failed to spawn object`);
 		}
 	}
+
+	async showTagQuickPick(validClasses: string[]): Promise<TagEntry | undefined> {
+		let currentLevelItems: TagTreeItem[] = this.tagTree;
+		let parent: TagTreeItem | undefined;
+		while (true) {
+			let quickPickItems: vscode.QuickPickItem[] = [];
+			if(parent) {
+				quickPickItems.push({ label: "..", iconPath: new vscode.ThemeIcon("folder") } as vscode.QuickPickItem);
+			}
+			quickPickItems = quickPickItems.concat(
+				currentLevelItems
+					.filter(item => !item.isFile || item.tagEntry && validClasses.includes(item.tagEntry.class))
+					.map(item => new TagQuickPickItem(item))
+			);
+			
+			const item = await vscode.window.showQuickPick<vscode.QuickPickItem>(quickPickItems, {
+				placeHolder: "Select a tag",
+				canPickMany: false,
+				title: `Choose a tag from ${parent?.path || "/"}`
+			});
+
+			if(!item) {
+				return;
+			}
+
+			if(item.label === "..") {
+				if(parent && parent.parent) {
+					parent = parent.parent;
+					currentLevelItems = parent?.children || [];
+				}
+				else {
+					parent = undefined;
+					currentLevelItems = this.tagTree;
+				}
+			}
+			
+			if(item instanceof TagQuickPickItem) {
+				if(item.tagTreeItem.isFile) {
+					return item.tagTreeItem.tagEntry;
+				}
+				parent = item.tagTreeItem;
+				currentLevelItems = item.tagTreeItem.children || [];
+			}
+		}
+	}
 }
 
 export class TagTreeItem extends vscode.TreeItem {
@@ -197,3 +242,24 @@ export class TagTreeItem extends vscode.TreeItem {
 
 	contextValue = this.isFile ? 'tag' : 'folder';
 }
+
+class TagQuickPickItem implements vscode.QuickPickItem {
+	label: string;
+	kind?: vscode.QuickPickItemKind | undefined;
+	description?: string | undefined;
+	detail?: string | undefined;
+	picked?: boolean | undefined;
+	alwaysShow?: boolean | undefined;
+	buttons?: readonly vscode.QuickInputButton[] | undefined;
+	iconPath?: string | vscode.Uri | { light: string | vscode.Uri; dark: string | vscode.Uri } | vscode.ThemeIcon | undefined;
+
+	constructor(public readonly tagTreeItem: TagTreeItem, itemLabel?: string) {
+		const { tagEntry } = tagTreeItem;
+		this.label = itemLabel ? itemLabel : tagTreeItem.label;
+		this.kind = vscode.QuickPickItemKind.Default;
+		this.description = tagTreeItem.isFile ? tagEntry?.class : "";
+		this.picked = false;
+		this.alwaysShow = true;
+		this.iconPath = tagTreeItem.isFile ? new vscode.ThemeIcon("file") : new vscode.ThemeIcon("folder");
+	}
+};

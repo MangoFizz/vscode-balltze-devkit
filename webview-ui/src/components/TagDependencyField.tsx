@@ -17,7 +17,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 	let [selectedClass, setSelectedClass] = React.useState(value.tagClass.toLowerCase());
 	let [selectedTagHandle, setSelectedTagHandle] = React.useState(value.tagHandle.value);
 	let [selectedTagPath, setSelectedTagPath] = React.useState(`${selectedClass}\\${selectedTagHandle}`);
-	const nonce = getNonce();
+	let [nonce] = React.useState(getNonce());
 
 	React.useEffect(() => {
         window.addEventListener("message", (e: MessageEvent) => {
@@ -30,6 +30,18 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 					}
                     break;
                 }
+
+				case "pickedTag": {
+					let data = JSON.parse(msg.data.value);
+					if(data.nonce == nonce) {
+						if(data.tagEntry) {
+							setSelectedTagHandle(data.tagEntry.handle);
+							setSelectedTagPath(data.tagEntry.path);
+							setSelectedClass(data.tagEntry.class);
+						}
+					}
+					break;
+				}
             }
         });
 
@@ -48,6 +60,10 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 
 	const openTagInEditor = () => {
 		vscode.postMessage({ type: "openTagInEditor", value: JSON.stringify({ handle: selectedTagHandle }) });
+	}
+
+	const pickTag = () => {
+		vscode.postMessage({ type: "pickTag", value: JSON.stringify({ nonce: nonce, validClasses: validClassesList }) });
 	}
 	
   	return (
@@ -70,7 +86,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 						</VSCodeDropdown>
 						<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath} placeholder="NULL" />
 						<div className="d-flex">
-							<VSCodeButton style={{ marginRight: "5px" }} onClick={() => {}} >Find</VSCodeButton>
+							<VSCodeButton style={{ marginRight: "5px" }} onClick={pickTag} >Find</VSCodeButton>
 							<VSCodeButton onClick={openTagInEditor} >Open</VSCodeButton>
 						</div>
 					</div>
