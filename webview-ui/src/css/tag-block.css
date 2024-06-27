@@ -1,0 +1,25 @@
+.tag-block-header {
+	background-color: rgba(0, 0, 0, 0.15);
+	margin-top: 0.3rem;
+}
+
+.tag-block-content {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	margin-bottom: 0.3rem;
+}
+
+.tag-block-sidebar {
+	background-color: rgba(0, 0, 0, 0.15);
+	width: 0.6rem;
+	margin-right: 0.2rem;
+}
+
+.tag-block-items {
+	width: 100%;
+}
+
+.tag-block-items:first-child {
+	margin-top: 0.3rem;
+}

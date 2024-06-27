@@ -16,8 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Connect to devkit server
 	initializeDevkitClient(
-		vscode.workspace.getConfiguration("balltzeDevkit").get("host") ||
-			"localhost",
+		vscode.workspace.getConfiguration("balltzeDevkit").get("host") || "localhost",
 		vscode.workspace.getConfiguration("balltzeDevkit").get("port") || 19190
 	)
 
@@ -96,11 +95,4 @@ export function activate(context: vscode.ExtensionContext) {
 	commands.forEach(({ command, action }) => {
 		vscode.commands.registerCommand(command, action)
 	});
-
-	const showGalleryCommand = vscode.commands.registerCommand("component-gallery-react.showGallery", () => {
-		TagEditorPanel.render(context, { class: "scenario", path: "levels\\ui\\ui", handle: 0 });
-	});
-	
-	// Add command to the extension context
-	context.subscriptions.push(showGalleryCommand);
 }
