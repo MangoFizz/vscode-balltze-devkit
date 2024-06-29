@@ -49,6 +49,10 @@
 		},
 		"commands": [
 			{
+				"command": "balltzeDevkit.reconnect",
+				"title": "Balltze Devkit: Reconnect to Balltze Devkit Server"
+			},
+			{
 				"command": "tagsExplorer.refresh",
 				"title": "Refresh",
 				"icon": "$(refresh)"

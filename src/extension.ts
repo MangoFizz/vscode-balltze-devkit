@@ -15,11 +15,14 @@ export function activate(context: vscode.ExtensionContext) {
 			? vscode.workspace.workspaceFolders[0].uri.fsPath
 			: undefined
 
-	// Connect to devkit server
-	initializeDevkitClient(
-		vscode.workspace.getConfiguration("balltzeDevkit").get("host") || "localhost",
-		vscode.workspace.getConfiguration("balltzeDevkit").get("port") || 19190
-	)
+	const connectDevkit = () => {
+		// Connect to devkit server
+		initializeDevkitClient(
+			vscode.workspace.getConfiguration("balltzeDevkit").get("host") || "localhost",
+			vscode.workspace.getConfiguration("balltzeDevkit").get("port") || 19190
+		)
+	}
+	connectDevkit()
 
 	const tagTreeProvider = new TagsTreeDataProvider(rootPath)
 	const tagsExplorer = vscode.window.createTreeView("tagsExplorer", {
@@ -30,6 +33,14 @@ export function activate(context: vscode.ExtensionContext) {
 	vscode.window.registerTreeDataProvider("objectsExplorer", objectTreeProvider)
 
 	const commands = [
+		{
+			command: "balltzeDevkit.reconnect",
+			action: () => {
+				connectDevkit()
+				tagTreeProvider.refresh()
+				objectTreeProvider.refresh()
+			}
+		},
 		{
 			command: "tagsExplorer.refresh",
 			action: () => tagTreeProvider.refresh()
