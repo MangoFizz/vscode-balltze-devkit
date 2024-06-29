@@ -6,7 +6,7 @@ import { round } from "../utilities/math";
 
 export interface NumericFieldProps extends IFieldProps {
 	values: number[];
-	setValue: (bound: number, value: number) => void;
+	setValue: (values: number[]) => void;
 	units?: string;
 };
 
@@ -40,10 +40,10 @@ const FloatBoundsField: React.FC<NumericFieldProps> = ({ label, values, setValue
 
 	let handleChange = function(e: Event, bound: number): void {
 		let val = Number.parseFloat((e.target as HTMLInputElement).value);
-		setValue(bound, val);
 		let values = inputValues;
 		values[bound] = val;
 		setInputValues(values);
+		setValue(values);
 	};
 
   	return (

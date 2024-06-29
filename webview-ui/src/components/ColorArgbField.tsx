@@ -5,7 +5,7 @@ import React from "react";
 
 export interface ColorArgbFieldProps extends IFieldProps {
 	value: { [property: string]: number};
-	setValue: (channel: string, val: number) => void;
+	setValue: (value: { [key: string]: number }) => void;
 };
 
 const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue }) => {
@@ -40,8 +40,8 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
 		let val = Number.parseInt((e.target as HTMLInputElement).value);
 		let currentColors = colors;
 		currentColors[property] = val;
-		setValue(property, val);
 		setColors(currentColors);
+		setValue(currentColors);
 	};
 
 	let handleColorPicker = (e: any) => {
@@ -56,11 +56,8 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
 			blue: getChannel(5)
 		};
 
-		setValue("alpha", pickedColor.alpha);
-		setValue("red", pickedColor.red);
-		setValue("green", pickedColor.green);
-		setValue("blue", pickedColor.blue);
 		setColors(pickedColor);
+		setValue(pickedColor);
 	};
 
 	let getColorHexValue = () => {

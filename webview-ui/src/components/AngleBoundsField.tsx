@@ -6,7 +6,7 @@ import { degToRad, radToDeg, round } from "../utilities/math";
 
 export interface AngleFieldProps extends IFieldProps {
 	values: number[];
-	setValue: (bound: number, value: number) => void;
+	setValue: (value: number[]) => void;
 };
 
 const AngleBoundsField: React.FC<AngleFieldProps> = ({ label, values, setValue }) => {
@@ -40,10 +40,10 @@ const AngleBoundsField: React.FC<AngleFieldProps> = ({ label, values, setValue }
 	let handleChange = function(e: Event, bound: number): void {
 		let degs = Number.parseFloat((e.target as HTMLInputElement).value);
 		let rads = degToRad(degs);
-		setValue(bound, rads);
 		let values = inputValues;
 		values[bound] = degs;
 		setInputValues(values);
+		setValue(values);
 	};
 
   	return (

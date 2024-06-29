@@ -109,6 +109,12 @@ export function activate(context: vscode.ExtensionContext) {
 			action: (validClasses: string[]): Promise<TagEntry | undefined> => {
 				return tagTreeProvider.showTagQuickPick(validClasses);
 			}
+		},
+		{
+			command: "tagsExplorer.getTagEntry",
+			action: (tagHandle: number): TagEntry | undefined => {
+				return tagTreeProvider.getTagEntry(tagHandle);
+			}
 		}
 	]
 

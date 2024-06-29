@@ -18,6 +18,7 @@ import { VSCodeDivider } from "@vscode/webview-ui-toolkit/react";
 import IntegerBoundsField from "./IntegerBoundsField";
 import FloatBoundsField from "./FloatBoundsField";
 import AngleBoundsField from "./AngleBoundsField";
+import { vscode } from "../utilities/vscode";
 
 type TagEntry = {
 	path: string;
@@ -30,7 +31,11 @@ interface TagViewProps {
 	tagEntry: TagEntry
 };
 
-const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any }): JSX.Element => {
+const updateValue = (key: string, value: any, fieldType: string) => {
+	vscode.postMessage({ type: "tagDataChange", change: { key, value, fieldType } });
+}
+
+const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any }, parentKey: string = ""): JSX.Element => {
 	if(definition.type != "struct") {
 		console.error("Data type is not a struct");
 		return <></>;
@@ -46,6 +51,9 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 					}
 
 					const dataFieldName = normalToCamelCase(field.name);
+					const fieldKey = `${parentKey}${field.name}`;
+
+					const setValue = (val: any) => { updateValue(fieldKey, val, field.type) };
 
 					switch(field.type) {
 						case "TagString": {
@@ -53,7 +61,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<StringField 
 									label={field.name} 
 									value={data[dataFieldName]}
-									setValue={(val) => { data[dataFieldName] = val; console.log("AAAAAAAAAAAAAAAAAAAAA: ", data, val) }} />
+									setValue={setValue} />
 							);
 						}
 
@@ -62,7 +70,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<Rectangle2dField
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={(bound, val) => { data[dataFieldName][bound] = val; }} />
+									setValue={setValue} />
 							);
 						}
 
@@ -71,7 +79,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<ColorArgbField 
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={(bound, val) => { data[dataFieldName][bound] = val; }} />
+									setValue={setValue} />
 							);
 						}
 
@@ -86,7 +94,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<VectorField 
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={(axis, val) => { data[dataFieldName][axis] = val; }} />
+									setValue={setValue} />
 							);
 						}
 
@@ -96,10 +104,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									label={field.name} 
 									validClasses={field.classes as string[]}
 									value={data[dataFieldName]}
-									setValue={(tagClass: string, tagHandle: number) => { 
-										data[dataFieldName].tagClass = tagClass.toUpperCase();
-										data[dataFieldName].tagHandle.value = tagHandle;
-									}}
+									setValue={setValue}
 									nullable={!(field.non_null || false)} />
 							);
 						}
@@ -115,7 +120,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<IntegerBoundsField
 										label={field.name}
 										values={data[dataFieldName]}
-										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }}
+										setValue={setValue}
 										type={field.type}
 										units={field.unit} />
 								);
@@ -125,7 +130,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<IntegerField
 										label={field.name}
 										value={data[dataFieldName]}
-										setValue={(val: number) => { data[dataFieldName] = val; }}
+										setValue={setValue}
 										type={field.type}
 										units={field.unit} />
 								);
@@ -139,7 +144,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<IntegerField
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={(val: number) => { data[dataFieldName] = val; }}
+									setValue={setValue}
 									type={"uint16"} />
 							);
 						}
@@ -149,7 +154,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<IntegerField
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={(val: number) => { data[dataFieldName] = val; }}
+									setValue={setValue}
 									type={"uint32"} />
 							);
 						}
@@ -162,7 +167,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<FloatBoundsField
 										label={field.name}
 										values={data[dataFieldName]}
-										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }}
+										setValue={setValue}
 										units={field.unit} />
 								);
 							}
@@ -171,7 +176,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<FloatField
 										label={field.name}
 										value={data[dataFieldName]}
-										setValue={(val: number) => { data[dataFieldName] = val; }}
+										setValue={setValue}
 										units={field.unit} />
 								);
 							}
@@ -183,7 +188,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<AngleBoundsField
 										label={field.name}
 										values={data[dataFieldName]}
-										setValue={(bound: number, val: number) => { data[dataFieldName][bound] = val; }} />
+										setValue={setValue} />
 								);
 							}
 							else {
@@ -191,7 +196,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<AngleField
 										label={field.name}
 										value={data[dataFieldName]}
-										setValue={(val: number) => { data[dataFieldName] = val; }} />
+										setValue={setValue} />
 								);
 							}
 						}
@@ -206,7 +211,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 										if(!elemsType) {
 											return <></>;
 										}
-										return renderTagDataStruct(elemsType as TagDataType, elem);
+										return renderTagDataStruct(elemsType as TagDataType, elem, `${fieldKey}[${data[dataFieldName].elements.indexOf(elem)}].`);
 									}}
 									getElemName={(elem: any): string => {
 										const elemType = tagDefinitions.find((definition) => definition.name === field.struct);
@@ -245,7 +250,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 											enumValues={fieldType.options as string[]} 
 											label={field.name}
 											value={data[dataFieldName]}
-											setValue={(val) => { data[dataFieldName] = val; }} />
+											setValue={setValue} />
 									);
 								}
 		
@@ -254,7 +259,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 										<FlagsField 
 											label={field.name}
 											values={data[dataFieldName]}
-											setValue={(flag, val) => { data[dataFieldName][flag] = val; }} />
+											setValue={(flag, val) => { updateValue(`${fieldKey}.${flag}`, val, "boolean") }} />
 									);
 								}
 		
@@ -264,8 +269,6 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 							}
 						}
 					}
-
-					
 				})
 			}
 		</div>
@@ -279,19 +282,10 @@ const renderTagClass = (tagClass: string, tagData: { [key: string]: any }): JSX.
 }
 
 const TagView: React.FC<TagViewProps> = ({tagData, tagEntry}) => {
-	let changelog = React.useRef<ITagChangelog>({ 
-		path: tagEntry.path, 
-		class: tagEntry.class, 
-		handle: tagEntry.handle, 
-		changes: [] 
-	});
-
-	let data = React.useRef(new TagDataProxy(tagData, changelog.current));
-
 	return (
 		<div>
 			<VSCodeDivider role="presentation"></VSCodeDivider>
-			{renderTagClass(tagEntry.class, data.current)}
+			{renderTagClass(tagEntry.class, tagData)}
 		</div>
 	);
 }

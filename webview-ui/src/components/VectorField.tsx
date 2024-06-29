@@ -5,8 +5,8 @@ import React from "react";
 import { round } from "../utilities/math";
 
 export interface PointFieldProps extends IFieldProps {
-	value: { [property: string]: number}
-	setValue: (axis: string, value: number) => void
+	value: { [property: string]: number};
+	setValue: (value: { [key: string]: number }) => void;
 };
 
 const VectorField: React.FC<PointFieldProps> = ({ label, value, setValue }) => {
@@ -41,8 +41,8 @@ const VectorField: React.FC<PointFieldProps> = ({ label, value, setValue }) => {
 		let inputValue = parseInt((e.target as HTMLInputElement).value);
 		let currentPosition = axis;
 		currentPosition[property] = inputValue;
-		setValue(property, currentPosition[property]);
 		setAxis(currentPosition);
+		setValue(currentPosition);
 	};
 
   	return (

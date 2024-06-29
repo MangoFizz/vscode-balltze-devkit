@@ -4,8 +4,8 @@ import "../css/field-container.css"
 import React from "react";
 
 export interface Rectangle2dFieldProps extends IFieldProps {
-	value: { [property: string]: number}
-	setValue: (bound: string, value: number) => void
+	value: { [property: string]: number};
+	setValue: (value: { [key: string]: number }) => void;
 };
 
 const Rectangle2dField: React.FC<Rectangle2dFieldProps> = ({ label, value, setValue }) => {
@@ -22,8 +22,8 @@ const Rectangle2dField: React.FC<Rectangle2dFieldProps> = ({ label, value, setVa
 
 		let currentBounds = bounds;
 		currentBounds[property] = inputValue;
-		setValue(property, currentBounds[property]);
 		setBounds(currentBounds);
+		setValue(currentBounds);
 	};
 
   	return (

@@ -5,7 +5,7 @@ import React from "react";
 
 export interface NumericFieldProps extends IFieldProps {
 	values: number[];
-	setValue: (bound: number, value: number) => void;
+	setValue: (values: number[]) => void;
 	type: string;
 	units?: string;
 };
@@ -76,10 +76,10 @@ const IntegerBoundsField: React.FC<NumericFieldProps> = ({ label, values, setVal
 				break;
 			}
 		}
-		setValue(bound, inputValue);
 		let values = inputValues;
 		inputValues[bound] = inputValue;
 		setInputValues(inputValues);
+		setValue(inputValues);
 	};
 
 	const getStringValue = (bound: number) => {

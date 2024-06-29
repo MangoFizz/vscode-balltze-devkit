@@ -9,7 +9,7 @@ import { tagClasses } from "../definitions";
 export interface TagDependencyFieldProps extends IFieldProps {
 	validClasses: string[];
 	value: { [key: string]: any };
-	setValue: (tagClass: string, tagHandle: number) => void;
+	setValue: (value: { [key: string]: number|string|null }) => void;
 	nullable: boolean;
 };
 
@@ -35,11 +35,12 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 				case "pickedTag": {
 					let data = JSON.parse(msg.data.value);
 					if(data.nonce == nonce) {
-						if(data.tagEntry) {
-							setSelectedTagHandle(data.tagEntry.handle);
-							setSelectedTagPath(data.tagEntry.path);
-							setSelectedClass(data.tagEntry.class);
-							setValue(data.tagEntry.class, data.tagEntry.handle);
+						let entry = data.tagEntry;
+						if(entry) {
+							setSelectedTagHandle(entry.handle);
+							setSelectedTagPath(entry.path);
+							setSelectedClass(entry.class);
+							setValue({ tagClass: entry.class, tagHandle: entry.handle, path: entry.path });
 						}
 					}
 					break;
@@ -77,7 +78,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 		setSelectedClass("");
 		setSelectedTagHandle(0xFFFFFFFF);
 		setSelectedTagPath("");
-		setValue("NULL", -1);
+		setValue({ tagClass: 0, tagHandle: 0xFFFFFFFF, path: null });
 	}
 	
   	return (

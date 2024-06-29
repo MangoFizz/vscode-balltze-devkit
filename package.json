@@ -93,6 +93,10 @@
 			{
 				"command": "tagsExplorer.showTagPicker",
 				"title": "Show tag quick pick"
+			},
+			{
+				"command": "tagsExplorer.getTagEntry",
+				"title": "Get a tag entry by its tag handle"
 			}
 		],
 		"menus": {
