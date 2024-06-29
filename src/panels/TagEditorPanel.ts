@@ -60,69 +60,7 @@ export class TagEditorPanel {
 
                     case "tagDataChange": {
                         if(msg.change) {
-                            window.showInformationMessage(`Changed ${msg.change.key} to ${msg.change.value}`);
-                            let staticKey = camelCaseToSnakeCase(msg.change.key);
-                            staticKey = normalToSnakeCase(staticKey);
-                            const editedObject = {} as any;
-                            let value = msg.change.value;
-
-                            console.log(msg.change);
-                            if(typeof(value) === "object") {
-                                switch(msg.change.fieldType) {
-                                    case "Rectangle2D": {
-                                        value = `${value.top},${value.left},${value.bottom},${value.right}`;
-                                        break;
-                                    }
-                                    case "ColorARGB": {
-                                        value = `${value.alpha},${value.red},${value.green},${value.blue}`;
-                                        break;
-                                    }
-                                    case "ColorRGB": {
-                                        value = `${value.red},${value.green},${value.blue}`;
-                                        break;
-                                    }
-                                    case "Point2D": {
-                                        value = `${value.x},${value.y}`;
-                                        break;
-                                    }
-                                    case "Point3D": {
-                                        value = `${value.x},${value.y},${value.z}`;
-                                        break;
-                                    }
-                                    case "Vector2D": {
-                                        value = `${value.i},${value.j}`;
-                                        break;
-                                    }
-                                    case "Vector3D": {
-                                        value = `${value.i},${value.j},${value.k}`;
-                                        break;
-                                    }
-                                    case "Euler2D": {
-                                        value = `${value.yaw},${value.pitch}`;
-                                        break;
-                                    }
-                                    case "Euler3D": {
-                                        value = `${value.yaw},${value.pitch},${value.roll}`;
-                                        break;
-                                    }
-                                    case "Euler3DPYR": {
-                                        value = `${value.pitch},${value.yaw},${value.roll}`;
-                                        break;
-                                    }
-                                    case "Quaternion": {
-                                        value = `${value.i},${value.j},${value.k},${value.w}`;
-                                        break;
-                                    }
-                                    case "TagDependency": {
-                                        value = `${value.path}.${value.tagClass}`;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            setDeepValue(editedObject, staticKey, value);
-                            console.log(editedObject);
-                            InvaderClient.edit(`${tagEntry.path}.${tagEntry.class}`, editedObject);
+                            
                         }
                         break;
                     }
