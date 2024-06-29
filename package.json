@@ -123,7 +123,7 @@
 				},
 				{
 					"command": "tagsExplorer.copyTagHandle",
-					"when": "view == tagsExplorer && viewItem == tag"
+					"when": "view == tagsExplorer"
 				},
 				{
 					"command": "tagsExplorer.copyPath",
