@@ -240,7 +240,22 @@ export class TagTreeItem extends vscode.TreeItem {
 		}
     }
 
-	contextValue = this.isFile ? 'tag' : 'folder';
+	contextValue = this.isFile
+		? this.tagEntry?.class === "vehicle" ||
+		  this.tagEntry?.class === "unit" ||
+		  this.tagEntry?.class === "weapon" ||
+		  this.tagEntry?.class === "device" ||
+		  this.tagEntry?.class === "scenery" ||
+		  this.tagEntry?.class === "biped" ||
+		  this.tagEntry?.class === "equipment" ||
+		  this.tagEntry?.class === "garbage" ||
+		  this.tagEntry?.class === "projectile" ||
+		  this.tagEntry?.class === "device_machine" ||
+		  this.tagEntry?.class === "device_light_fixture" ||
+		  this.tagEntry?.class === "placeholder"
+			? "object"
+			: "tag"
+		: "folder"
 }
 
 class TagQuickPickItem implements vscode.QuickPickItem {

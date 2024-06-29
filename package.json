@@ -111,7 +111,7 @@
 			"view/item/context": [
 				{
 					"command": "tagsExplorer.spawn",
-					"when": "view == tagsExplorer && viewItem == tag"
+					"when": "view == tagsExplorer && viewItem == object"
 				},
 				{
 					"command": "tagsExplorer.copyTagHandle",

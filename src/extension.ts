@@ -39,6 +39,19 @@ export function activate(context: vscode.ExtensionContext) {
 			action: () => objectTreeProvider.refresh()
 		},
 		{
+			command: "tagsExplorer.copyPath",
+			action: (item: TagTreeItem) => {
+				// Remove the leading slash
+				vscode.env.clipboard.writeText(item.path.slice(1))
+			}
+		},
+		{
+			command: "tagsExplorer.copyTagHandle",
+			action: (item: TagTreeItem) => {
+				vscode.env.clipboard.writeText(item.tagEntry?.handle.toString() || "")
+			}
+		},
+		{
 			command: "tagsExplorer.spawn",
 			action: async (item: TagTreeItem) => {
 				await tagTreeProvider.spawnObject(item)
