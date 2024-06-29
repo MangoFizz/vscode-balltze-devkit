@@ -93,7 +93,7 @@ const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, typ
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue()} placeholder="NULL" onchange={handleChange} />
+						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue()} placeholder="NULL" onChange={(e) => handleChange(e as Event)} />
 						<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
 					</div>
 				</div>

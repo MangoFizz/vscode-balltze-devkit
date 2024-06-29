@@ -95,9 +95,9 @@ const IntegerBoundsField: React.FC<NumericFieldProps> = ({ label, values, setVal
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue(0)} placeholder="NULL" onchange={(e) => handleChange(e, 0)} />
+						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue(0)} placeholder="NULL" onChange={(e) => handleChange(e as Event, 0)} />
 						<span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>-</span>
-						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue(1)} placeholder="NULL" onchange={(e) => handleChange(e, 1)} />
+						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue(1)} placeholder="NULL" onChange={(e) => handleChange(e as Event, 1)} />
 						<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
 					</div>
 				</div>

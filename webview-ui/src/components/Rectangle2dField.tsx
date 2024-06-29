@@ -37,7 +37,7 @@ const Rectangle2dField: React.FC<Rectangle2dFieldProps> = ({ label, value, setVa
 								return (
 									<div className="d-flex">
 										<label style={{ marginRight: "5px" }}>{key[0]}: </label>
-										<VSCodeTextField type="tel" className="numeric-field" value={bounds[key].toString()} onchange={(e) => handleChange(e as Event, key)} />
+										<VSCodeTextField type="tel" className="numeric-field" value={bounds[key].toString()} onChange={(e) => handleChange(e as Event, key)} />
 									</div>
 								);
 							})

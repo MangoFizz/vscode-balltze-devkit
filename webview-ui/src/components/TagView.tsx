@@ -53,7 +53,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<StringField 
 									label={field.name} 
 									value={data[dataFieldName]}
-									setValue={(val) => { data[dataFieldName] = val; }} />
+									setValue={(val) => { data[dataFieldName] = val; console.log("AAAAAAAAAAAAAAAAAAAAA: ", data, val) }} />
 							);
 						}
 

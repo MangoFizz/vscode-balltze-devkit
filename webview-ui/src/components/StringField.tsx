@@ -18,7 +18,7 @@ const StringField: React.FC<StringFieldProps> = ({ label, value, setValue }) => 
 			<section className="field-container">
 				<p className="field-label">{label}</p>
 				<div className="field-content">
-					<VSCodeTextField value={value} onchange={handleChange} />
+					<VSCodeTextField value={value} onChange={(e) => handleChange(e as Event)} />
 				</div>
 			</section>
 			<VSCodeDivider role="presentation"></VSCodeDivider>

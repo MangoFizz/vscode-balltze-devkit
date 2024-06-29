@@ -54,6 +54,13 @@ export class TagEditorPanel {
                         }
                         break;
                     }
+
+                    case "tagDataChange": {
+                        if(msg.change) {
+                            window.showInformationMessage(`Changed ${msg.change.key} to ${msg.change.value}`);
+                        }
+                        break;
+                    }
                 }
             },
             undefined,

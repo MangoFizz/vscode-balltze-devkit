@@ -50,7 +50,7 @@ const FloatField: React.FC<NumericFieldProps> = ({ label, value, setValue, units
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onchange={handleChange} onKeyDown={onKeyPress} />
+						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onChange={(e) => handleChange(e as Event)} onKeyDown={onKeyPress} />
 						<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
 					</div>
 				</div>

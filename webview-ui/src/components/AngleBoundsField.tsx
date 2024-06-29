@@ -52,9 +52,9 @@ const AngleBoundsField: React.FC<AngleFieldProps> = ({ label, values, setValue }
 				<p className="field-label">{label}</p>
 				<div className="field-content">
 					<div className="d-flex">
-						<VSCodeTextField className="numeric-field" value={inputValues[0].toString()} onchange={(e) => handleChange(e, 0)} onKeyDown={onKeyPress} />
+						<VSCodeTextField className="numeric-field" value={inputValues[0].toString()} onChange={(e) => handleChange(e as Event, 0)} onKeyDown={onKeyPress} />
 						<span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>-</span>
-						<VSCodeTextField className="numeric-field" value={inputValues[1].toString()} onchange={(e) => handleChange(e, 1)} onKeyDown={onKeyPress} />
+						<VSCodeTextField className="numeric-field" value={inputValues[1].toString()} onChange={(e) => handleChange(e as Event, 1)} onKeyDown={onKeyPress} />
 						<span style={{ marginLeft: "0.5rem" }}>degrees</span>
 					</div>
 				</div>

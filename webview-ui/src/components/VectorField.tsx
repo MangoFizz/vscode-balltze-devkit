@@ -56,7 +56,7 @@ const VectorField: React.FC<PointFieldProps> = ({ label, value, setValue }) => {
 								return (
 									<div className="d-flex">
 										<label style={{ marginRight: "5px" }}>{key[0]}: </label>
-										<VSCodeTextField type="tel" className="numeric-field" value={round(axis[key]).toString()} onKeyPress={onKeyPress} onchange={(e) => handleChange(e as Event, key)} />
+										<VSCodeTextField type="tel" className="numeric-field" value={round(axis[key]).toString()} onKeyPress={onKeyPress} onChange={(e) => handleChange(e as Event, key)} />
 									</div>
 								);
 							})

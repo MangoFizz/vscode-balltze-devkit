@@ -82,7 +82,7 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
 							Object.keys(colors).map((key, index) => (
 								<div className="d-flex" key={index}>
 									<label style={{ marginRight: "5px" }}>{key[0]}: </label>
-									<VSCodeTextField className="numeric-field" value={`${colors[key]}`} onchange={(e) => handleChange(e as Event, key)} onKeyDown={onKeyPress} />
+									<VSCodeTextField className="numeric-field" value={`${colors[key]}`} onChange={(e) => handleChange(e as Event, key)} onKeyDown={onKeyPress} />
 								</div>
 							))
 						}
