@@ -24,12 +24,16 @@ export class RuntimeTagWriter {
 			switch(fieldType) {
 				case "TagDependency": {
 					value = {
-						tagClass: value.tagClass,
-						path: value.path,
+						tagClass: value.tagClass.fourCC,
 						tagHandle: {
 							value: value.tagHandle
 						}
 					}
+					break;
+				}
+				case "enum": {
+					value = value.index;
+					break;
 				}
 			}
 		}
@@ -37,6 +41,7 @@ export class RuntimeTagWriter {
 	}
 
 	public writeTag() {
-		client.conn.devkit.updateTag(this.tag.handle, this.data);
+		let res = client.conn.devkit.updateTag(this.tag.handle, this.data);
+		console.log(res);
 	}
 }

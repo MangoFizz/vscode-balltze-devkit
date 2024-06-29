@@ -68,7 +68,11 @@ export class InvaderTagWriter {
 					break;
 				}
 				case "TagDependency": {
-					value = `${value.path}.${value.tagClass}`;
+					value = `${value.path}.${value.tagClass.name}`;
+					break;
+				}
+				case "enum": {
+					value = value.name;
 					break;
 				}
 			}

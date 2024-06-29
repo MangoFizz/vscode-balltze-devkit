@@ -2,7 +2,7 @@ import React from "react";
 import tagDefinitions, { TagDataType, TagStructField } from "../definitions"
 import TagDataProxy from "../utilities/TagDataProxy";
 import ITagChangelog from "../utilities/ITagChangeLog";
-import { normalToCamelCase } from "../utilities/naming";
+import { camelCaseToSnakeCase, normalToCamelCase } from "../utilities/naming";
 import EnumField from "./EnumField";
 import FlagsField from "./FlagsField";
 import StringField from "./StringField";
@@ -207,7 +207,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									label={field.name}
 									elems={data[dataFieldName].elements}
 									render={(elem: any) => {
-										const elemsType = tagDefinitions.find((definition) => definition.name === field.struct);
+										const elemsType = tagDefinitions.find((definition: any) => definition.name === field.struct);
 										if(!elemsType) {
 											return <></>;
 										}
@@ -250,7 +250,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 											enumValues={fieldType.options as string[]} 
 											label={field.name}
 											value={data[dataFieldName]}
-											setValue={setValue} />
+											setValue={(val: any) => { updateValue(fieldKey, { name: val, index: fieldType.options?.indexOf(val) }, "enum") }} />
 									);
 								}
 		
@@ -276,7 +276,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 }
 
 const renderTagClass = (tagClass: string, tagData: { [key: string]: any }): JSX.Element => {
-	const className = tagClass.toLowerCase();
+	const className = camelCaseToSnakeCase(tagClass);
 	const classDefinition = tagDefinitions.find((definition) => definition.class === className);
 	return renderTagDataStruct(classDefinition as TagDataType, tagData);
 }

@@ -5,19 +5,20 @@ import "../css/field-container.css"
 import React from "react";
 import { getNonce } from "../utilities/getNonce";
 import { tagClasses } from "../definitions";
+import { snakeCaseToCamelCase } from "../utilities/naming";
 
 export interface TagDependencyFieldProps extends IFieldProps {
 	validClasses: string[];
 	value: { [key: string]: any };
-	setValue: (value: { [key: string]: number|string|null }) => void;
+	setValue: (value: { [key: string]: any }) => void;
 	nullable: boolean;
 };
 
 const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validClasses, value, setValue, nullable }) => {
 	let [validClassesList, setValidClassesList] = React.useState(validClasses);
-	let [selectedClass, setSelectedClass] = React.useState("NULL");
+	let [selectedClass, setSelectedClass] = React.useState("null");
 	let [selectedTagHandle, setSelectedTagHandle] = React.useState(0xFFFFFFFF);
-	let [selectedTagPath, setSelectedTagPath] = React.useState(`${selectedClass}\\${selectedTagHandle}`);
+	let [selectedTagPath, setSelectedTagPath] = React.useState(`${selectedClass}\\${selectedTagHandle}` as string|null);
 	let [nonce] = React.useState(getNonce());
 
 	React.useEffect(() => {
@@ -40,7 +41,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 							setSelectedTagHandle(entry.handle);
 							setSelectedTagPath(entry.path);
 							setSelectedClass(entry.class);
-							setValue({ tagClass: entry.class, tagHandle: entry.handle, path: entry.path });
+							setValue({ tagClass: { name: entry.class, fourCC: (tagClasses as any)[entry.class] }, tagHandle: entry.handle, path: entry.path });
 						}
 					}
 					break;
@@ -50,19 +51,24 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 
 		let tagHandle = value.tagHandle.value;
 		let tagClass = value.tagClass;
-
-        if(tagHandle != 0xFFFFFFFF && tagClass !== -1) {
-			setSelectedClass(tagClass.toLowerCase());
+		
+        if(tagHandle != 0xFFFFFFFF && tagClass != tagClasses.null) {
+			setSelectedClass(tagClass);
 			setSelectedTagHandle(tagHandle);
 			vscode.postMessage({ type: "getTagPath", value: JSON.stringify({ nonce: nonce, handle: tagHandle }) });
 		}
 		else {
-			setSelectedTagPath("");
+			setSelectedTagPath(null);
 		}
 
 		// Populate shader classes
-		if(validClasses.find((value) => value === "shader")) {
-			setValidClassesList(validClassesList.concat(tagClasses.filter((value) => value.startsWith("shader"))));
+		if(validClasses.indexOf("shader") !== -1) {
+			setValidClassesList(validClassesList.concat(Object.keys(tagClasses).filter((value) => value.startsWith("shader"))));
+		}
+
+		// Add gbxmodel when model is a valid class
+		if(validClasses.indexOf("model") !== -1) {
+			setValidClassesList(validClasses.concat(["gbxmodel"]));
 		}
     }, []);
 
@@ -75,10 +81,10 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 	}
 
 	const clearDependency = () => {
-		setSelectedClass("");
+		setSelectedClass("null");
 		setSelectedTagHandle(0xFFFFFFFF);
-		setSelectedTagPath("");
-		setValue({ tagClass: 0, tagHandle: 0xFFFFFFFF, path: null });
+		setSelectedTagPath(null);
+		setValue({ tagClass: tagClasses.null, tagHandle: 0xFFFFFFFF, path: null });
 	}
 	
   	return (
@@ -90,16 +96,14 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 						<VSCodeDropdown 
 							position="below" 
 							style={{ width: "40%", marginRight: "5px" }} 
-							value={selectedClass}
-							disabled={true}
-						>
+							value={selectedClass} >
 							{
-								validClassesList.map((value, index) => (
-									<VSCodeOption key={index} value={value}>{value}</VSCodeOption>
+								validClassesList.map((value: string, index) => (
+									<VSCodeOption key={index} value={snakeCaseToCamelCase(value)}>{value}</VSCodeOption>
 								))
 							}	
 						</VSCodeDropdown>
-						<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath} placeholder="NULL" />
+						<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath || ""} placeholder="NULL" />
 						<div className="d-flex">
 							<VSCodeButton style={{ marginRight: "5px" }} onClick={pickTag} >Find</VSCodeButton>
 							<VSCodeButton onClick={openTagInEditor} >Open</VSCodeButton>

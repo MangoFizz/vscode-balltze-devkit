@@ -2,6 +2,7 @@ import * as vscode from "vscode"
 import client from "../utilities/devkitClient"
 import MetaEnginePlayer from "../types/MetaEnginePlayer"
 import { TagEntry } from "../types/EngineTag";
+import { camelCaseToSnakeCase } from "../utilities/naming";
 
 const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit");
 
@@ -272,7 +273,7 @@ class TagQuickPickItem implements vscode.QuickPickItem {
 		const { tagEntry } = tagTreeItem;
 		this.label = itemLabel ? itemLabel : tagTreeItem.label;
 		this.kind = vscode.QuickPickItemKind.Default;
-		this.description = tagTreeItem.isFile ? tagEntry?.class : "";
+		this.description = tagTreeItem.isFile ? camelCaseToSnakeCase(tagEntry?.class || "") : "";
 		this.picked = false;
 		this.alwaysShow = true;
 		this.iconPath = tagTreeItem.isFile ? new vscode.ThemeIcon("file") : new vscode.ThemeIcon("folder");
