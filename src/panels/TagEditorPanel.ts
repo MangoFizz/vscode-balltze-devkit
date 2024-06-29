@@ -6,6 +6,7 @@ import { TagEntry } from "../types/EngineTag";
 import InvaderClient from "../utilities/invaderTagClient";
 import setDeepValue from "../utilities/setDeepValue";
 import { camelCaseToSnakeCase, normalToSnakeCase } from "../utilities/naming";
+import { RuntimeTagWriter } from "../utilities/RuntimeTagWriter";
 
 interface PanelInstance {
     panel: TagEditorPanel;
@@ -60,7 +61,9 @@ export class TagEditorPanel {
 
                     case "tagDataChange": {
                         if(msg.change) {
-                            
+                            let writer = new RuntimeTagWriter(tagEntry);
+                            writer.applyTagChange(msg.change);
+                            writer.writeTag();
                         }
                         break;
                     }

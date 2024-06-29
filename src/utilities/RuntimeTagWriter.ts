@@ -19,6 +19,20 @@ export class RuntimeTagWriter {
 
 	public applyTagChange({ key, value, fieldType }: TagChange) {
 		let runtimeKey = normalToCamelCase(key);
+		runtimeKey = runtimeKey.replace(/\[(\d+)\]\./g, ".elements[$1].");
+		if(typeof(value) === "object") {
+			switch(fieldType) {
+				case "TagDependency": {
+					value = {
+						tagClass: value.tagClass,
+						path: value.path,
+						tagHandle: {
+							value: value.tagHandle
+						}
+					}
+				}
+			}
+		}
 		setDeepValue(this.data, runtimeKey, value);
 	}
 
