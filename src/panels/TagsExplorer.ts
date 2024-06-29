@@ -20,7 +20,10 @@ export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem
 				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
 				return;
 			}
-			this.tagsData = tagList;
+			this.tagsData = tagList.map(tag => { 
+				tag.class = camelCaseToSnakeCase(tag.class); 
+				return tag; 
+			});
 			this.buildTagsTree(this.tagsData);
 			this._onDidChangeTreeData.fire();
 		});
@@ -273,7 +276,7 @@ class TagQuickPickItem implements vscode.QuickPickItem {
 		const { tagEntry } = tagTreeItem;
 		this.label = itemLabel ? itemLabel : tagTreeItem.label;
 		this.kind = vscode.QuickPickItemKind.Default;
-		this.description = tagTreeItem.isFile ? camelCaseToSnakeCase(tagEntry?.class || "") : "";
+		this.description = tagTreeItem.isFile ? tagEntry?.class : "";
 		this.picked = false;
 		this.alwaysShow = true;
 		this.iconPath = tagTreeItem.isFile ? new vscode.ThemeIcon("file") : new vscode.ThemeIcon("folder");

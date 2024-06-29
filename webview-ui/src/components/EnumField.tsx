@@ -7,7 +7,7 @@ import React from "react";
 export interface EnumFieldProps extends IFieldProps {
     enumValues: string[];
 	value: string;
-	setValue: (value: string) => void;
+	setValue: (value: any) => void;
 };
 
 const EnumField: React.FC<EnumFieldProps> = ({ label, enumValues, value, setValue }) => {
@@ -15,7 +15,7 @@ const EnumField: React.FC<EnumFieldProps> = ({ label, enumValues, value, setValu
 	
 	let handleChange = function(target: HTMLSelectElement): void {
 		setSelectedValue(target.value);
-		setValue(selectedValue);
+		setValue({ name: target.value, index: enumValues.indexOf(target.value) });
 	};
 
   	return (

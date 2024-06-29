@@ -250,7 +250,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 											enumValues={fieldType.options as string[]} 
 											label={field.name}
 											value={data[dataFieldName]}
-											setValue={(val: any) => { updateValue(fieldKey, { name: val, index: fieldType.options?.indexOf(val) }, "enum") }} />
+											setValue={(val: any) => { updateValue(fieldKey, val, "enum") }} />
 									);
 								}
 		
