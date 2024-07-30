@@ -2,14 +2,18 @@ import { VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@v
 import { IFieldProps } from "../utilities/IFieldProps";
 import "../css/field-container.css"
 import React from "react";
+import { round } from "../utilities/math";
 
 export interface ColorArgbFieldProps extends IFieldProps {
 	value: { [property: string]: number};
 	setValue: (value: { [key: string]: number }) => void;
 };
 
-const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue }) => {
-	let [colors, setColors] = React.useState(value);
+const ColorField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue }) => {
+	let [colors, setColors] = React.useState(Object.keys(value).reduce((acc, key) => {
+		acc[key] = round(value[key]);
+		return acc;
+	}, {} as { [key: string]: number }));
 
 	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
 		const { key } = e;
@@ -46,15 +50,25 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
 
 	let handleColorPicker = (e: any) => {
 		let getChannel = (i: number): number => {
-			return parseFloat((parseInt(e.target.value.substr(i, 2), 16) / 255).toFixed(3));
+			return round(parseInt(e.target.value.substr(i, 2), 16) / 255);
 		};
 
-		let pickedColor = {
-			alpha: value.alpha,
-			red: getChannel(1),
-			green: getChannel(3),
-			blue: getChannel(5)
-		};
+		let pickedColor;
+		if(Object.keys(colors).length == 4) {
+			pickedColor = {
+				alpha: value.alpha,
+				red: getChannel(1),
+				green: getChannel(3),
+				blue: getChannel(5)
+			};
+		}
+		else {
+			pickedColor = {
+				red: getChannel(1),
+				green: getChannel(3),
+				blue: getChannel(5)
+			};
+		}
 
 		setColors(pickedColor);
 		setValue(pickedColor);
@@ -63,9 +77,9 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
 	let getColorHexValue = () => {
 		let colorHex = "#";
 		let getColorHex = (channel: number): string => Math.round(channel * 255).toString(16).padStart(2, '0');
-		colorHex += getColorHex(colors["red"]);
-		colorHex += getColorHex(colors["green"]);
-		colorHex += getColorHex(colors["blue"]);
+		colorHex += getColorHex(colors.red);
+		colorHex += getColorHex(colors.green);
+		colorHex += getColorHex(colors.blue);
 		return colorHex;
 	};
 
@@ -92,4 +106,4 @@ const ColorArgbField: React.FC<ColorArgbFieldProps> = ({ label, value, setValue 
   	);
 }
 
-export default ColorArgbField;
+export default ColorField;

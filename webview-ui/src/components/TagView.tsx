@@ -10,7 +10,7 @@ import Rectangle2dField from "./Rectangle2dField";
 import IntegerField from "./IntegerField";
 import TagDependencyField from "./TagDependencyField";
 import FloatField from "./FloatField";
-import ColorArgbField from "./ColorArgbField";
+import ColorField from "./ColorField";
 import TagBlock from "./TagBlock";
 import VectorField from "./VectorField";
 import AngleField from "./AngleField";
@@ -74,9 +74,10 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 							);
 						}
 
+						case "ColorRGB":
 						case "ColorARGB": {
 							return (
-								<ColorArgbField 
+								<ColorField 
 									label={field.name}
 									value={data[dataFieldName]}
 									setValue={setValue} />
