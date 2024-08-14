@@ -18,7 +18,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 	let [validClassesList, setValidClassesList] = React.useState(validClasses);
 	let [selectedClass, setSelectedClass] = React.useState("null");
 	let [selectedTagHandle, setSelectedTagHandle] = React.useState(0xFFFFFFFF);
-	let [selectedTagPath, setSelectedTagPath] = React.useState(`${selectedClass}\\${selectedTagHandle}` as string|null);
+	let [selectedTagPath, setSelectedTagPath] = React.useState('Loading...' as string|null);
 	let [nonce] = React.useState(getNonce());
 
 	React.useEffect(() => {
