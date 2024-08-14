@@ -70,6 +70,10 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 		if(validClasses.indexOf("model") !== -1) {
 			setValidClassesList(validClasses.concat(["gbxmodel"]));
 		}
+
+		if(validClasses.indexOf("*") !== -1) {
+			setValidClassesList(Object.keys(tagClasses));
+		}
     }, []);
 
 	const openTagInEditor = () => {
