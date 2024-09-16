@@ -19,6 +19,7 @@ import IntegerBoundsField from "./IntegerBoundsField";
 import FloatBoundsField from "./FloatBoundsField";
 import AngleBoundsField from "./AngleBoundsField";
 import { vscode } from "../utilities/vscode";
+import ColorFieldInt from "./ColorFieldInt";
 
 type TagEntry = {
 	path: string;
@@ -78,6 +79,16 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 						case "ColorARGB": {
 							return (
 								<ColorField 
+									label={field.name}
+									value={data[dataFieldName]}
+									setValue={setValue} />
+							);
+						}
+
+						case "ColorRGBInt":
+						case "ColorARGBInt": {
+							return (
+								<ColorFieldInt
 									label={field.name}
 									value={data[dataFieldName]}
 									setValue={setValue} />
