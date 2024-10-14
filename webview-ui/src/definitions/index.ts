@@ -182,6 +182,10 @@ export interface TagStructField {
 	non_null?: boolean;
 };
 
+export interface TagDataTypeExclude {
+	field: string;
+}
+
 export interface TagDataType {
 	name: string;
 	type: "struct"|"bitfield"|"enum";
@@ -192,6 +196,7 @@ export interface TagDataType {
 	options?: string[];
 	width?: number;
 	inherits?: string;
+	exclude?: TagDataTypeExclude[];
 };
 
 export const tagClasses = {

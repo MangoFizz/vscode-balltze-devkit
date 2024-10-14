@@ -265,12 +265,21 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								}
 		
 								case "bitfield": {
-									return (
-										<FlagsField 
-											label={field.name}
-											values={data[dataFieldName]}
-											setValue={(flag, val) => { updateValue(`${fieldKey}.${flag}`, val, "boolean") }} />
-									);
+									let filteredOptions = Object.keys(data[dataFieldName])
+										.filter(key => fieldType.exclude?.find((exclude) => normalToCamelCase(exclude.field) === key) == undefined)
+										.reduce((obj: any, key: string) => {
+											obj[key] = data[dataFieldName][key];
+											return obj;
+										}, {});
+
+									if(Object.keys(filteredOptions).length > 1) {
+										return (
+											<FlagsField 
+												label={field.name}
+												values={filteredOptions}
+												setValue={(flag, val) => { updateValue(`${fieldKey}.${flag}`, val, "boolean") }} />
+										);
+									}
 								}
 		
 								default: {
