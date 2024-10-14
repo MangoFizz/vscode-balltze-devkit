@@ -15,6 +15,10 @@ export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem
 	private tagTreeItemsList: TagTreeItem[] = [];
 
 	constructor(private workspaceRoot: string | undefined) {
+		this.refresh();
+	}
+
+	refresh(): void {
 		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
 			if (!tagList) {
 				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
@@ -24,18 +28,6 @@ export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem
 				tag.class = camelCaseToSnakeCase(tag.class); 
 				return tag; 
 			});
-			this.buildTagsTree(this.tagsData);
-			this._onDidChangeTreeData.fire();
-		});
-	}
-
-	refresh(): void {
-		client.conn.devkit.getTagList().then((tagList?: TagEntry[]) => {
-			if (!tagList) {
-				vscode.window.showErrorMessage("Failed to get tag list from devkit server");
-				return;
-			}
-			this.tagsData = tagList;
 			this.buildTagsTree(this.tagsData);
 			this._onDidChangeTreeData.fire();
 		});
