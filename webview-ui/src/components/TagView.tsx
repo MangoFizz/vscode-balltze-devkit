@@ -1,7 +1,5 @@
 import React from "react";
 import tagDefinitions, { TagDataType, TagStructField } from "../definitions"
-import TagDataProxy from "../utilities/TagDataProxy";
-import ITagChangelog from "../utilities/ITagChangeLog";
 import { camelCaseToSnakeCase, normalToCamelCase } from "../utilities/naming";
 import EnumField from "./EnumField";
 import FlagsField from "./FlagsField";
@@ -289,7 +287,25 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 
 const renderTagClass = (tagClass: string, tagData: { [key: string]: any }): JSX.Element => {
 	const className = camelCaseToSnakeCase(tagClass);
-	const classDefinition = tagDefinitions.find((definition) => definition.class === className);
+	let classDefinition = tagDefinitions.find((definition) => definition.class === className);
+	
+	if (!classDefinition) {
+		console.error(`Class definition for ${className} not found`);
+		return <></>;
+	}
+
+	const getParentFields = (struct: TagDataType): TagStructField[] => {
+		let parentFields: TagStructField[] = [];
+		if(struct.inherits) {
+			const parentClass = tagDefinitions.find((definition) => definition.name == struct.inherits);
+			if(parentClass && parentClass.fields) {
+				parentFields = [parentClass.fields, getParentFields(parentClass)].flat() as TagStructField[];
+			}
+		}
+		return parentFields;
+	};
+	classDefinition.fields = [getParentFields(classDefinition), classDefinition.fields].flat() as TagStructField[];
+
 	return renderTagDataStruct(classDefinition as TagDataType, tagData);
 }
 

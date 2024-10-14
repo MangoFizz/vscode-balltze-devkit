@@ -191,6 +191,7 @@ export interface TagDataType {
 	title?: string;
 	options?: string[];
 	width?: number;
+	inherits?: string;
 };
 
 export const tagClasses = {
