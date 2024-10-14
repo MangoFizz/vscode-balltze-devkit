@@ -299,7 +299,7 @@ const renderTagClass = (tagClass: string, tagData: { [key: string]: any }): JSX.
 		if(struct.inherits) {
 			const parentClass = tagDefinitions.find((definition) => definition.name == struct.inherits);
 			if(parentClass && parentClass.fields) {
-				parentFields = [parentClass.fields, getParentFields(parentClass)].flat() as TagStructField[];
+				parentFields = [getParentFields(parentClass), parentClass.fields].flat() as TagStructField[];
 			}
 		}
 		return parentFields;
