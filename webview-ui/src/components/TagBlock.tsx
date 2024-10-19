@@ -1,15 +1,15 @@
-import { VSCodeDivider, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react";
+import { VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react";
 import React from "react";
 import "../css/tag-block.css"
 
-interface ITagBlock {
+interface TagBlockProps {
 	label: string;
 	elems: any[];
 	render: (elem: any) => JSX.Element;
 	getElemName?: (elem: any) => string;
 };
 
-const TagBlock: React.FC<ITagBlock> = ({label, elems, render, getElemName}) => {
+const TagBlock: React.FC<TagBlockProps> = ({label, elems, render, getElemName}) => {
 	let [elemIndex, setElemIndex] = React.useState(0);
 
 	let nameForElem = getElemName || ((elem: any) => `${elems.indexOf(elem)}`);

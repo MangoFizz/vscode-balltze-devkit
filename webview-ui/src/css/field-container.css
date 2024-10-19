@@ -16,11 +16,17 @@
 }
 
 .field-content vscode-text-field {
+	display: inline-table; /* This makes the container to be the same width as the shadow DOM of the component */
+	border: 1px solid transparent;
 	width: 50%;
 }
 
-.field-content vscode-text-field {
-	width: 50%;
+.field-content .invalid {
+	border: 1px solid red;
+}
+
+.field-content .saved-feedback {
+	border: 1px solid green;
 }
 
 .field-content .numeric-field {
@@ -41,5 +47,6 @@
 }
 
 .d-flex-column {
+	display: flex;
 	flex-direction: column;
 }

@@ -1,13 +1,12 @@
-import { VSCodeButton, VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
-import { IFieldProps } from "../utilities/IFieldProps";
+import { VSCodeButton, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
 import { vscode } from "../utilities/vscode";
-import "../css/field-container.css"
 import React from "react";
 import { getNonce } from "../utilities/getNonce";
 import { tagClasses } from "../definitions";
 import { snakeCaseToCamelCase } from "../utilities/naming";
+import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
-export interface TagDependencyFieldProps extends IFieldProps {
+export interface TagDependencyFieldProps extends BaseFieldProps {
 	validClasses: string[];
 	value: { [key: string]: any };
 	setValue: (value: { [key: string]: any }) => void;
@@ -92,32 +91,24 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 	}
 	
   	return (
-		<div>
-			<section className="field-container">
-				<p className="field-label">{label}</p>
-				<div className="field-content">
-					<div className="d-flex">
-						<VSCodeDropdown 
-							position="below" 
-							style={{ width: "40%", marginRight: "5px" }} 
-							value={selectedClass} >
-							{
-								validClassesList.map((value: string, index) => (
-									<VSCodeOption key={index} value={snakeCaseToCamelCase(value)}>{value}</VSCodeOption>
-								))
-							}	
-						</VSCodeDropdown>
-						<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath || ""} placeholder="NULL" />
-						<div className="d-flex">
-							<VSCodeButton style={{ marginRight: "5px" }} onClick={pickTag} >Find</VSCodeButton>
-							<VSCodeButton onClick={openTagInEditor} >Open</VSCodeButton>
-							{ nullable ? <VSCodeButton style={{ marginLeft: "5px" }} onClick={clearDependency} >Clear</VSCodeButton> : null }
-						</div>
-					</div>
-				</div>
-			</section>
-			<VSCodeDivider role="presentation"></VSCodeDivider>
-		</div>
+		<FieldContainer label={label}>
+			<VSCodeDropdown 
+				position="below" 
+				style={{ width: "40%", marginRight: "5px" }} 
+				value={selectedClass} >
+				{
+					validClassesList.map((value: string, index) => (
+						<VSCodeOption key={index} value={snakeCaseToCamelCase(value)}>{value}</VSCodeOption>
+					))
+				}	
+			</VSCodeDropdown>
+			<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath || ""} placeholder="NULL" />
+			<div className="d-flex">
+				<VSCodeButton style={{ marginRight: "5px" }} onClick={pickTag} >Find</VSCodeButton>
+				<VSCodeButton onClick={openTagInEditor} >Open</VSCodeButton>
+				{ nullable ? <VSCodeButton style={{ marginLeft: "5px" }} onClick={clearDependency} >Clear</VSCodeButton> : null }
+			</div>
+		</FieldContainer>
   	);
 }
 

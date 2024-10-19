@@ -2,20 +2,21 @@ import React from "react";
 import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
 import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 import { round } from "../utilities/math";
-import { isFloat, toFloat } from "validator";
+import { isFloat, isInt, toFloat, toInt } from "validator";
 
-export interface VectorFieldValue {
-	i: number;
-	j: number;
-	k?: number;
+export interface PointFieldValue {
+	x: number;
+	y: number;
+	z?: number;
 }
 
-export interface VectorFieldProps extends BaseFieldProps {
-	value: VectorFieldValue;
-	submitValue: (value: VectorFieldValue) => void;
+export interface PointFieldProps extends BaseFieldProps {
+	value: PointFieldValue;
+	submitValue: (value: PointFieldValue) => void;
+	type: "integer" | "real";
 };
 
-const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) => {
+const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type }) => {
 	let [currentValue, setCurrentValue] = React.useState(value);
 
 	let [iInputValue, setIInputValue] = React.useState("");
@@ -32,7 +33,7 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 
 	let axisInputs = {
 		i: {
-			currentValue: currentValue.i,
+			currentValue: currentValue.x,
 			inputValue: iInputValue,
 			setInputValue: setIInputValue,
 			isInputValid: isIInputValid,
@@ -41,7 +42,7 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 			setSavedFeedback: setISavedFeedback
 		},
 		j: {
-			currentValue: currentValue.j,
+			currentValue: currentValue.y,
 			inputValue: jInputValue,
 			setInputValue: setJInputValue,
 			isInputValid: isJInputValid,
@@ -50,7 +51,7 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 			setSavedFeedback: setJSavedFeedback
 		},
 		k: {
-			currentValue: currentValue.k,
+			currentValue: currentValue.z,
 			inputValue: kInputValue,
 			setInputValue: setKInputValue,
 			isInputValid: isKInputValid,
@@ -61,13 +62,13 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 	};
 
 	React.useEffect(() => {
-		setIInputValue(round(value.i).toString());
+		setIInputValue(value.x.toString());
 		setIsIInputValid(true);
 		
-		setJInputValue(round(value.j).toString());
+		setJInputValue(value.y.toString());
 		setIsJInputValid(true);
 
-		setKInputValue(value.k !== undefined ? round(value.k).toString() : "");
+		setKInputValue(value.z !== undefined ? round(value.z).toString() : "");
 		setIsKInputValid(true);
 	}, [value]);
 
@@ -76,8 +77,14 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 		let textFieldValue = textField.value;
 		let axisInput = axisInputs[axis as keyof typeof axisInputs];
 
-		if (isFloat(textFieldValue)) {
-			let val = toFloat(textFieldValue);
+		if ((isFloat(textFieldValue) && type == "real") || (isInt(textFieldValue) && type == "integer")) {
+			let val;
+			if (type == "real") {
+				val = toFloat(textFieldValue);
+			}
+			else {
+				val = toInt(textFieldValue);
+			}
 			let curr = currentValue;
 			curr[axis as keyof typeof curr] = val;
 			setCurrentValue(curr);
@@ -106,9 +113,10 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
   	return (
 		<FieldContainer label={label}>
 			<div className="d-flex">
-				<label style={{ marginRight: "5px" }}>i</label>
+				<label style={{ marginRight: "5px" }}>x</label>
 				<VSCodeTextField 
 					type="text"
+					placeholder="NULL"
 					className={`numeric-field ${!isIInputValid ? "invalid" : ""} ${iSavedFeedback ? "saved-feedback" : ""}`}
 					value={iInputValue} 
 					onChange={(e) => handleChange(e as Event, "i")} 
@@ -116,9 +124,10 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 				/>
 			</div>
 			<div className="d-flex">
-				<label style={{ marginRight: "5px" }}>j</label>
+				<label style={{ marginRight: "5px" }}>y</label>
 				<VSCodeTextField 
 					type="text"
+					placeholder="NULL"
 					className={`numeric-field ${!isJInputValid ? "invalid" : ""} ${jSavedFeedback ? "saved-feedback" : ""}`}
 					value={jInputValue} 
 					onChange={(e) => handleChange(e as Event, "j")} 
@@ -126,11 +135,12 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
 				/>
 			</div>
 			{
-				currentValue.k !== undefined &&
+				currentValue.z !== undefined &&
 				<div className="d-flex">
-					<label style={{ marginRight: "5px" }}>k</label>
+					<label style={{ marginRight: "5px" }}>z</label>
 					<VSCodeTextField 
 						type="text"
+						placeholder="NULL"
 						className={`numeric-field ${!isKInputValid ? "invalid" : ""} ${kSavedFeedback ? "saved-feedback" : ""}`} 
 						value={kInputValue} 
 						onChange={(e) => handleChange(e as Event, "k")} 
@@ -142,4 +152,4 @@ const VectorField: React.FC<VectorFieldProps> = ({ label, value, submitValue }) 
   	);
 }
 
-export default VectorField;
+export default PointField;

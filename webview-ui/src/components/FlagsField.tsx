@@ -1,44 +1,39 @@
-import { VSCodeCheckbox, VSCodeDivider, VSCodeDropdown, VSCodeOption } from "@vscode/webview-ui-toolkit/react";
-import "../css/field-container.css"
-import { IFieldProps } from "../utilities/IFieldProps";
+import { VSCodeCheckbox } from "@vscode/webview-ui-toolkit/react";
 import { camelCaseToNormal } from "../utilities/naming";
+import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
 export type FlagsState = { [flagName: string]: boolean };
 
-export interface FlagsFieldProps extends IFieldProps {
+export interface FlagsFieldProps extends BaseFieldProps {
 	values: FlagsState,
-	setValue: (flag: string, val: boolean) => void
+	submitValue: (flag: string, val: boolean) => void
 };
 
-const FlagsField: React.FC<FlagsFieldProps> = ({ label, values, setValue }) => {
+const FlagsField: React.FC<FlagsFieldProps> = ({ label, values, submitValue }) => {
 	let handleChange = function(e: Event, flagName: string): void {
 		const val = (e.target as HTMLInputElement).checked;
 		values[flagName] = val;
-		setValue(flagName, val);
+		submitValue(flagName, val);
 	};
 
   	return (
-		<div>
-			<section className="field-container">
-				<p className="field-label">{label}</p>
-				<div className="field-content">
-					{
-						Object.keys(values).map((flagName: string) => {
-							if(flagName === "flags") {
-								return null;
-							}
-							let flag = values[flagName];
-							return (
-								<VSCodeCheckbox key={flagName} checked={flag} onChange={(e) => handleChange(e as Event, flagName)}>
-									{camelCaseToNormal(flagName)}
-								</VSCodeCheckbox>
-							);
-						})
-					}
-				</div>
-			</section>
-			<VSCodeDivider role="presentation"></VSCodeDivider>
-		</div>
+		<FieldContainer label={label}>
+			<div className="d-flex-column">
+				{
+					Object.keys(values).map((flagName: string) => {
+						if(flagName === "flags") {
+							return null;
+						}
+						let flag = values[flagName];
+						return (
+							<VSCodeCheckbox key={flagName} checked={flag} onChange={(e) => handleChange(e as Event, flagName)}>
+								{camelCaseToNormal(flagName)}
+							</VSCodeCheckbox>
+						);
+					})
+				}
+			</div>
+		</FieldContainer>
   	);
 }
 

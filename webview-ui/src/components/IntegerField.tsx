@@ -1,105 +1,169 @@
-import { VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
-import { IFieldProps } from "../utilities/IFieldProps";
-import "../css/field-container.css"
 import React from "react";
+import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
+import { isInt, toInt } from "validator";
+import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
-export interface NumericFieldProps extends IFieldProps {
+export interface NumericFieldProps extends BaseFieldProps {
 	value: number;
-	setValue: (value: number) => void;
+	submitValue: (value: number) => void;
 	type: string;
 	units?: string;
 };
 
-const IntegerField: React.FC<NumericFieldProps> = ({ label, value, setValue, type, units }) => {
-	let [inputValue, setInputValue] = React.useState(value);
+const IntegerField: React.FC<NumericFieldProps> = ({ label, value, submitValue, type, units }) => {
+	let [currentValue, setCurrentValue] = React.useState(value);
+	let [inputValue, setInputValue] = React.useState("");
+	let [isInputValid, setIsInputValid] = React.useState(false);
+	let [savedFeedback, setSavedFeedback] = React.useState(false);
+
+	React.useEffect(() => {
+		let strval = value.toString();
+		if (currentValue == 0xFFFF || currentValue == 0xFFFFFFFF) {
+			strval = "";
+		}
+		setInputValue(strval);
+		setIsInputValid(true);
+	}, [value]);
 
 	let handleChange = function(e: Event): void {
-		let inputValue = parseInt((e.target as HTMLInputElement).value);
-		switch(type) {
-			case "int8": {
-				if (inputValue < -128) {
-					inputValue = -128;	
-				}
-				else if(inputValue >= 128) {
-					inputValue = 128;
-				}
-				break;
-			}
+		let textField = e.target as HTMLInputElement;
+		let textFieldValue = textField.value;
+		if(isInt(textFieldValue)) {
+			let val = toInt(textFieldValue);
 
-			case "uint8": {
-				if (inputValue < 0) {
-					inputValue = 0;	
+			if(!isNaN(val)) {
+				switch(type) {
+					case "int8": {
+						if (val < -128) {
+							val = -128;	
+						}
+						else if(val >= 128) {
+							val = 128;
+						}
+						break;
+					}
+		
+					case "uint8": {
+						if (val < 0) {
+							val = 0;	
+						}
+						else if(val >= 255) {
+							val = 255;
+						}
+						break;
+					}
+		
+					case "int16": {
+						if (val < -32768) {
+							val = -32768;	
+						}
+						else if(val >= 32767) {
+							val = 32767;
+						}
+						break;
+					}
+		
+					case "uint16": {
+						if (val < 0) {
+							val = 0;	
+						}
+						else if(val >= 65535) {
+							val = 65535;
+						}
+						break;
+					}
+		
+					case "int32": {
+						if (val < -2147483648) {
+							val = -2147483648;	
+						}
+						else if(val >= 2147483647) {
+							val = 2147483647;
+						}
+						break;
+					}
+		
+					case "uint32": {
+						if (val < 0) {
+							val = 0;	
+						}
+						else if(val >= 4294967295) {
+							val = 4294967295;
+						}
+						break;
+					}
 				}
-				else if(inputValue >= 255) {
-					inputValue = 255;
-				}
-				break;
+	
+				setCurrentValue(val);
+				submitValue(val);
+				setIsInputValid(true);
+	
+				// Saved feedback
+				setSavedFeedback(true);
+				setTimeout(() => {
+					setSavedFeedback(false);
+				}, 1000);
 			}
-
-			case "int16": {
-				if (inputValue < -32768) {
-					inputValue = -32768;	
-				}
-				else if(inputValue >= 32767) {
-					inputValue = 32767;
-				}
-				break;
-			}
-
-			case "uint16": {
-				if (inputValue < 0) {
-					inputValue = 0;	
-				}
-				else if(inputValue >= 65535) {
-					inputValue = 65535;
-				}
-				break;
-			}
-
-			case "int32": {
-				if (inputValue < -2147483648) {
-					inputValue = -2147483648;	
-				}
-				else if(inputValue >= 2147483647) {
-					inputValue = 2147483647;
-				}
-				break;
-			}
-
-			case "uint32": {
-				if (inputValue < 0) {
-					inputValue = 0;	
-				}
-				else if(inputValue >= 4294967295) {
-					inputValue = 4294967295;
-				}
-				break;
+			else {
+				setIsInputValid(false);
 			}
 		}
-		setValue(inputValue);
-		setInputValue(inputValue);
+		else {
+			if(textFieldValue === "") {
+				let val = 0;
+				switch(type) {
+					case "uint8": {
+						val = 255;
+						break;
+					}
+
+					case "uint16": {
+						val = 65535;
+						break;
+					}
+
+					case "uint32": {
+						val = 4294967295;
+						break;
+					}
+
+					case "int8": 
+					case "int16": 
+					case "int32": 
+					default: {
+						val = -1;
+					}
+				}
+				setCurrentValue(val);
+				submitValue(val);
+				setIsInputValid(true);
+				textFieldValue = "NULL";
+			}
+			else {
+				setIsInputValid(false);
+			}
+		}
+		setInputValue(textFieldValue);
 	};
 
-	const getStringValue = () => {
-		if (inputValue == 0xFFFF || inputValue == 0xFFFFFFFF) {
-			return "";
+	let handleKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
+		if (e.key === "Escape") {
+			setInputValue(currentValue.toString());
+			setIsInputValid(true);
 		}
-		return inputValue.toString();
 	};
 
   	return (
-		<div>
-			<section className="field-container">
-				<p className="field-label">{label}</p>
-				<div className="field-content">
-					<div className="d-flex">
-						<VSCodeTextField type="tel" className="numeric-field" value={getStringValue()} placeholder="NULL" onChange={(e) => handleChange(e as Event)} />
-						<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
-					</div>
-				</div>
-			</section>
-			<VSCodeDivider role="presentation"></VSCodeDivider>
-		</div>
+		<FieldContainer label={label}>
+			<VSCodeTextField 
+				type="text" 
+				className={`numeric-field ${!isInputValid ? "invalid" : ""} ${savedFeedback ? "saved-feedback" : ""}`} 
+				value={inputValue} 
+				onChange={ev => handleChange(ev as Event)} 
+				onKeyDown={handleKeyPress}
+			/>
+			<span style={{ marginLeft: "0.5rem" }}>{units || ""}</span>
+		</FieldContainer>
   	);
 }
 

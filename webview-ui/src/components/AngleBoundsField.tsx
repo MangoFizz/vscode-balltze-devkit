@@ -1,66 +1,107 @@
-import { VSCodeDivider, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
-import { IFieldProps } from "../utilities/IFieldProps";
-import "../css/field-container.css"
 import React from "react";
+import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
+import { isFloat, toFloat } from "validator";
 import { degToRad, radToDeg, round } from "../utilities/math";
+import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
-export interface AngleFieldProps extends IFieldProps {
+export interface AngleBoundsFieldProps extends BaseFieldProps {
 	values: number[];
-	setValue: (value: number[]) => void;
+	submitValues: (value: number[]) => void;
 };
 
-const AngleBoundsField: React.FC<AngleFieldProps> = ({ label, values, setValue }) => {
-	let [inputValues, setInputValues] = React.useState(values.map(val => round(radToDeg(val))));
+const AngleBoundsField: React.FC<AngleBoundsFieldProps> = ({ label, values, submitValues }) => {
+	let [currentValues, setCurrentValues] = React.useState(values);
+	let [lowerBoundInputValue, setLowerBoundInputValue] = React.useState("");
+	let [isLowerBoundInputValid, setIsLowerBoundInputValid] = React.useState(false);
+	let [lowerBoundSavedFeedback, setLowerBoundSavedFeedback] = React.useState(false);
+	let [upperBoundInputValue, setUpperBoundInputValue] = React.useState("");
+	let [isUpperBoundInputValid, setIsUpperBoundInputValid] = React.useState(false);
+	let [upperBoundSavedFeedback, setUpperBoundSavedFeedback] = React.useState(false);
 
-	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
-		const { key } = e;
-    	const { value } = e.target as HTMLInputElement;
+	React.useEffect(() => {
+		setLowerBoundInputValue(round(radToDeg(values[0])).toString());
+		setUpperBoundInputValue(round(radToDeg(values[1])).toString());
+		setIsLowerBoundInputValid(true);
+		setIsUpperBoundInputValid(true);
+	}, [values]);
 
-		if (
-			key === 'Backspace' ||
-			key === 'Tab' ||
-			key === 'Enter' ||
-			key === 'ArrowLeft' ||
-			key === 'ArrowRight' ||
-			key === 'ArrowUp' ||
-			key === 'ArrowDown' ||
-			key === 'Delete'
-		) {
-			return;
+	let handleLowerBoundChange = function(e: Event): void {
+		let textField = e.target as HTMLInputElement;
+		let textFieldValue = textField.value;
+		if(isFloat(textFieldValue)) {
+			let degs = toFloat(textFieldValue);
+			let rads = degToRad(degs);
+			let curr = [rads, currentValues[1]];
+			setCurrentValues(curr);
+			submitValues(curr);
+			setIsLowerBoundInputValid(true);
+
+			setLowerBoundSavedFeedback(true);
+			setTimeout(() => {
+				setLowerBoundSavedFeedback(false);
+			}, 1000);
 		}
-	  
-		try {
-			Number.parseFloat(value + key);
+		else {
+			setIsLowerBoundInputValid(false);
 		}
-		catch (error) {
-			e.preventDefault();
+		setLowerBoundInputValue(textFieldValue);
+	}
+
+	let handleLowerBoundKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
+		if (e.key === "Escape") {
+			setLowerBoundInputValue(round(radToDeg(values[0])).toString());
+			setIsLowerBoundInputValid(true);
 		}
 	};
 
-	let handleChange = function(e: Event, bound: number): void {
-		let degs = Number.parseFloat((e.target as HTMLInputElement).value);
-		let rads = degToRad(degs);
-		let values = inputValues;
-		values[bound] = degs;
-		setInputValues(values);
-		setValue(values);
-	};
+	let handleUpperBoundChange = function(e: Event): void {
+		let textField = e.target as HTMLInputElement;
+		let textFieldValue = textField.value;
+		if(isFloat(textFieldValue)) {
+			let degs = toFloat(textFieldValue);
+			let rads = degToRad(degs);
+			let curr = [currentValues[0], rads];
+			setCurrentValues(curr);
+			submitValues(curr);
+			setIsUpperBoundInputValid(true);
+
+			setUpperBoundSavedFeedback(true);
+			setTimeout(() => {
+				setUpperBoundSavedFeedback(false);
+			}, 1000);
+		}
+		else {
+			setIsUpperBoundInputValid(false);
+		}
+		setUpperBoundInputValue(textFieldValue);
+	}
+
+	let handleUpperBoundKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
+		if (e.key === "Escape") {
+			setUpperBoundInputValue(round(radToDeg(values[1])).toString());
+			setIsUpperBoundInputValid(true);
+		}
+	}
 
   	return (
-		<div>
-			<section className="field-container">
-				<p className="field-label">{label}</p>
-				<div className="field-content">
-					<div className="d-flex">
-						<VSCodeTextField className="numeric-field" value={inputValues[0].toString()} onChange={(e) => handleChange(e as Event, 0)} onKeyDown={onKeyPress} />
-						<span style={{ marginLeft: "0.5rem", marginRight: "0.5rem" }}>-</span>
-						<VSCodeTextField className="numeric-field" value={inputValues[1].toString()} onChange={(e) => handleChange(e as Event, 1)} onKeyDown={onKeyPress} />
-						<span style={{ marginLeft: "0.5rem" }}>degrees</span>
-					</div>
-				</div>
-			</section>
-			<VSCodeDivider role="presentation"></VSCodeDivider>
-		</div>
+		<FieldContainer label={label}>
+			<VSCodeTextField 
+				type="text" 
+				className={`numeric-field ${!isLowerBoundInputValid ? "invalid" : ""} ${lowerBoundSavedFeedback ? "saved-feedback" : ""}`} 
+				value={lowerBoundInputValue} 
+				onChange={ev => handleLowerBoundChange(ev as Event)}
+				onKeyDown={handleLowerBoundKeyPress} 
+			/>
+			<span style={{ margin: "0 0.5rem" }}>-</span>
+			<VSCodeTextField 
+				type="text" 
+				className={`numeric-field ${!isUpperBoundInputValid ? "invalid" : "" } ${upperBoundSavedFeedback ? "saved-feedback" : ""}`} 
+				value={upperBoundInputValue} 
+				onChange={ev => handleUpperBoundChange(ev as Event)}
+				onKeyDown={handleUpperBoundKeyPress}
+			/>
+			<span style={{ marginLeft: "0.5rem" }}>degrees</span>
+		</FieldContainer>
   	);
 }
 

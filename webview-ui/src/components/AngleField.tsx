@@ -1,62 +1,65 @@
-import { VSCodeDivider, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
-import { IFieldProps } from "../utilities/IFieldProps";
-import "../css/field-container.css"
 import React from "react";
+import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
+import { isFloat, toFloat } from "validator";
 import { degToRad, radToDeg, round } from "../utilities/math";
+import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
-export interface AngleFieldProps extends IFieldProps {
+export interface AngleFieldProps extends BaseFieldProps {
 	value: number;
-	setValue: (value: number) => void;
+	submitValue: (value: number) => void;
 };
 
-const AngleField: React.FC<AngleFieldProps> = ({ label, value, setValue }) => {
-	let [inputValue, setInputValue] = React.useState(round(radToDeg(value)));
+const AngleField: React.FC<AngleFieldProps> = ({ label, value, submitValue }) => {
+	let [currentValue, setCurrentValue] = React.useState(value);
+	let [inputValue, setInputValue] = React.useState("");
+	let [isInputValid, setIsInputValid] = React.useState(false);
+	let [savedFeedback, setSavedFeedback] = React.useState(false);
 
-	let onKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
-		const { key } = e;
-    	const { value } = e.target as HTMLInputElement;
-
-		if (
-			key === 'Backspace' ||
-			key === 'Tab' ||
-			key === 'Enter' ||
-			key === 'ArrowLeft' ||
-			key === 'ArrowRight' ||
-			key === 'ArrowUp' ||
-			key === 'ArrowDown' ||
-			key === 'Delete'
-		) {
-			return;
-		}
-	  
-		try {
-			Number.parseFloat(value + key);
-		}
-		catch (error) {
-			e.preventDefault();
-		}
-	};
+	React.useEffect(() => {
+		setInputValue(round(radToDeg(value)).toString());
+		setIsInputValid(true);
+	}, [value]);
 
 	let handleChange = function(e: Event): void {
-		let degs = Number.parseFloat((e.target as HTMLInputElement).value);
-		let rads = degToRad(degs);
-		setValue(rads);
-		setInputValue(degs);
+		let textField = e.target as HTMLInputElement;
+		let textFieldValue = textField.value;
+		if(isFloat(textFieldValue)) {
+			let degs = toFloat(textFieldValue);
+			let rads = degToRad(degs);
+			setCurrentValue(rads);
+			submitValue(rads);
+			setIsInputValid(true);
+
+			// Saved feedback
+			setSavedFeedback(true);
+			setTimeout(() => {
+				setSavedFeedback(false);
+			}, 1000);
+		}
+		else {
+			setIsInputValid(false);
+		}
+		setInputValue(textFieldValue);
+	};
+
+	let handleKeyPress = function(e: React.KeyboardEvent<HTMLInputElement>): void {
+		if (e.key === "Escape") {
+			setInputValue(round(radToDeg(currentValue)).toString());
+			setIsInputValid(true);
+		}
 	};
 
   	return (
-		<div>
-			<section className="field-container">
-				<p className="field-label">{label}</p>
-				<div className="field-content">
-					<div className="d-flex">
-						<VSCodeTextField className="numeric-field" value={inputValue.toString()} onChange={(e) => handleChange(e as Event)} onKeyDown={onKeyPress} />
-						<span style={{ marginLeft: "0.5rem" }}>degrees</span>
-					</div>
-				</div>
-			</section>
-			<VSCodeDivider role="presentation"></VSCodeDivider>
-		</div>
+		<FieldContainer label={label}>
+			<VSCodeTextField 
+				type="text" 
+				className={`numeric-field ${!isInputValid ? "invalid" : ""} ${savedFeedback ? "saved-feedback" : ""}`} 
+				value={inputValue} 
+				onChange={ev => handleChange(ev as Event)} 
+				onKeyDown={handleKeyPress}
+			/>
+			<span style={{ marginLeft: "0.5rem" }}>degrees</span>
+		</FieldContainer>
   	);
 }
 

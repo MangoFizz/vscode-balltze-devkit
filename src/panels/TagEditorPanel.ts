@@ -7,6 +7,7 @@ import InvaderClient from "../utilities/invaderTagClient";
 import setDeepValue from "../utilities/setDeepValue";
 import { camelCaseToSnakeCase, normalToSnakeCase } from "../utilities/naming";
 import { RuntimeTagWriter } from "../utilities/RuntimeTagWriter";
+import * as vscode from "vscode"
 
 interface PanelInstance {
     panel: TagEditorPanel;

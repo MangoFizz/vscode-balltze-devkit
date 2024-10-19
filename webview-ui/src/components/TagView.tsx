@@ -17,7 +17,7 @@ import IntegerBoundsField from "./IntegerBoundsField";
 import FloatBoundsField from "./FloatBoundsField";
 import AngleBoundsField from "./AngleBoundsField";
 import { vscode } from "../utilities/vscode";
-import ColorFieldInt from "./ColorFieldInt";
+import PointField from "./PointField";
 
 type TagEntry = {
 	path: string;
@@ -52,7 +52,9 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 					const dataFieldName = normalToCamelCase(field.name);
 					const fieldKey = `${parentKey}${field.name}`;
 
-					const setValue = (val: any) => { updateValue(fieldKey, val, field.type) };
+					const setValue = (val: any) => { 
+						updateValue(fieldKey, val, field.type);
+					};
 
 					switch(field.type) {
 						case "TagString": {
@@ -60,7 +62,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<StringField 
 									label={field.name} 
 									value={data[dataFieldName]}
-									setValue={setValue} />
+									submitValue={setValue} />
 							);
 						}
 
@@ -69,7 +71,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<Rectangle2dField
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={setValue} />
+									submitValue={setValue} />
 							);
 						}
 
@@ -79,22 +81,42 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<ColorField 
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={setValue} />
+									submitValue={setValue} 
+									type="real" />
 							);
 						}
 
 						case "ColorRGBInt":
 						case "ColorARGBInt": {
 							return (
-								<ColorFieldInt
+								<ColorField 
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={setValue} />
+									submitValue={setValue} 
+									type="pixel" />
 							);
 						}
 
-						case "Point2D":
-						case "Point3D":
+						case "Point2D": {
+							return (
+								<PointField 
+									label={field.name}
+									value={data[dataFieldName]}
+									submitValue={setValue}
+									type="real" />
+							);
+						}
+
+						case "Point2DInt": {
+							return (
+								<PointField 
+									label={field.name}
+									value={data[dataFieldName]}
+									submitValue={setValue}
+									type="integer" />
+							);
+						}
+
 						case "Vector2D":
 						case "Vector3D":
 						case "Euler2D":
@@ -104,7 +126,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<VectorField 
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={setValue} />
+									submitValue={setValue} />
 							);
 						}
 
@@ -130,7 +152,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<IntegerBoundsField
 										label={field.name}
 										values={data[dataFieldName]}
-										setValue={setValue}
+										submitValues={setValue}
 										type={field.type}
 										units={field.unit} />
 								);
@@ -140,7 +162,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<IntegerField
 										label={field.name}
 										value={data[dataFieldName]}
-										setValue={setValue}
+										submitValue={setValue}
 										type={field.type}
 										units={field.unit} />
 								);
@@ -154,7 +176,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<IntegerField
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={setValue}
+									submitValue={setValue}
 									type={"uint16"} />
 							);
 						}
@@ -164,7 +186,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 								<IntegerField
 									label={field.name}
 									value={data[dataFieldName]}
-									setValue={setValue}
+									submitValue={setValue}
 									type={"uint32"} />
 							);
 						}
@@ -177,7 +199,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<FloatBoundsField
 										label={field.name}
 										values={data[dataFieldName]}
-										setValue={setValue}
+										submitValues={setValue}
 										units={field.unit} />
 								);
 							}
@@ -186,7 +208,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<FloatField
 										label={field.name}
 										value={data[dataFieldName]}
-										setValue={setValue}
+										submitValue={setValue}
 										units={field.unit} />
 								);
 							}
@@ -198,7 +220,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<AngleBoundsField
 										label={field.name}
 										values={data[dataFieldName]}
-										setValue={setValue} />
+										submitValues={setValue} />
 								);
 							}
 							else {
@@ -206,7 +228,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									<AngleField
 										label={field.name}
 										value={data[dataFieldName]}
-										setValue={setValue} />
+										submitValue={setValue} />
 								);
 							}
 						}
@@ -260,24 +282,24 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 											enumValues={fieldType.options as string[]} 
 											label={field.name}
 											value={data[dataFieldName]}
-											setValue={(val: any) => { updateValue(fieldKey, val, "enum") }} />
+											submitValue={(val: any) => { updateValue(fieldKey, val, "enum") }} />
 									);
 								}
 		
 								case "bitfield": {
-									let filteredOptions = Object.keys(data[dataFieldName])
+									let options = (fieldType.fields as string[])
 										.filter(key => fieldType.exclude?.find((exclude) => normalToCamelCase(exclude.field) === key) == undefined)
 										.reduce((obj: any, key: string) => {
 											obj[key] = data[dataFieldName][key];
 											return obj;
 										}, {});
 
-									if(Object.keys(filteredOptions).length > 1) {
+									if(Object.keys(options).length > 1) {
 										return (
 											<FlagsField 
 												label={field.name}
-												values={filteredOptions}
-												setValue={(flag, val) => { updateValue(`${fieldKey}.${flag}`, val, "boolean") }} />
+												values={options}
+												submitValue={(flag, val) => { updateValue(`${fieldKey}.${flag}`, val, "boolean") }} />
 										);
 									}
 								}

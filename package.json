@@ -158,7 +158,7 @@
 		"compile": "tsc -p ./",
 		"watch": "tsc -watch -p ./",
 		"lint": "eslint \"src/**/*.ts\"",
-		"install:all": "npm install && cd tag-editor-ui && npm install",
+		"install:all": "npm install && cd webview-ui && npm install",
 		"start:webview": "cd webview-ui && npm run start",
     	"build:webview": "cd webview-ui && npm run build"
 	},
