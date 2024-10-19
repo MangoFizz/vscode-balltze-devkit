@@ -1,6 +1,4 @@
-import { VSCodeDivider, VSCodeDropdown, VSCodeOption, VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
-import { IFieldProps } from "../utilities/IFieldProps";
-import "../css/field-container.css"
+import { VSCodeTextField } from "@vscode/webview-ui-toolkit/react";
 import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
 export interface StringFieldProps extends BaseFieldProps {
