@@ -22,7 +22,7 @@ const EnumField: React.FC<EnumFieldProps> = ({ label, enumValues, value, submitV
 			<VSCodeDropdown position="below" value={selectedValue} onChange={(e) => handleChange(e.target as HTMLSelectElement)}>
 				{
 					enumValues.map((value, index) => (
-						<VSCodeOption key={index} value={value}>{value}</VSCodeOption>
+						<VSCodeOption key={index} value={value}>{camelCaseToNormal(value)}</VSCodeOption>
 					))
 				}	
 			</VSCodeDropdown>
