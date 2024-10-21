@@ -3,7 +3,7 @@ import { vscode } from "../utilities/vscode";
 import React from "react";
 import { getNonce } from "../utilities/getNonce";
 import { tagClasses } from "../definitions";
-import { snakeCaseToCamelCase } from "../utilities/naming";
+import { camelCaseToSnakeCase, snakeCaseToCamelCase } from "../utilities/naming";
 import FieldContainer, { BaseFieldProps } from "./FieldContainer";
 
 export interface TagDependencyFieldProps extends BaseFieldProps {
@@ -13,11 +13,13 @@ export interface TagDependencyFieldProps extends BaseFieldProps {
 	nullable: boolean;
 };
 
+const defaultClass = Object.keys(tagClasses)[0];
+
 const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validClasses, value, setValue, nullable }) => {
 	let [validClassesList, setValidClassesList] = React.useState(validClasses);
-	let [selectedClass, setSelectedClass] = React.useState("null");
+	let [selectedClass, setSelectedClass] = React.useState(defaultClass);
 	let [selectedTagHandle, setSelectedTagHandle] = React.useState(0xFFFFFFFF);
-	let [selectedTagPath, setSelectedTagPath] = React.useState('Loading...' as string|null);
+	let [selectedTagPath, setSelectedTagPath] = React.useState<string|null>("Loading...");
 	let [nonce] = React.useState(getNonce());
 
 	React.useEffect(() => {
@@ -51,7 +53,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 		let tagHandle = value.tagHandle.value;
 		let tagClass = value.tagClass;
 		
-        if(tagHandle != 0xFFFFFFFF && tagClass != tagClasses.null) {
+        if(tagHandle != 0xFFFFFFFF && tagClass != "null") {
 			setSelectedClass(tagClass);
 			setSelectedTagHandle(tagHandle);
 			vscode.postMessage({ type: "getTagPath", value: JSON.stringify({ nonce: nonce, handle: tagHandle }) });
@@ -60,19 +62,27 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 			setSelectedTagPath(null);
 		}
 
+		let classes = [] as string[];
+
 		// Populate shader classes
 		if(validClasses.indexOf("shader") !== -1) {
-			setValidClassesList(validClassesList.concat(Object.keys(tagClasses).filter((value) => value.startsWith("shader"))));
+			classes = validClassesList.concat(Object.keys(tagClasses).filter((value) => value.startsWith("shader")));
 		}
 
 		// Add gbxmodel when model is a valid class
 		if(validClasses.indexOf("model") !== -1) {
-			setValidClassesList(validClasses.concat(["gbxmodel"]));
+			classes = validClasses.concat(["gbxmodel"]);
 		}
 
+		// Populate all classes
 		if(validClasses.indexOf("*") !== -1) {
-			setValidClassesList(Object.keys(tagClasses));
+			classes = Object.keys(tagClasses);;
 		}
+
+		// Remove null class
+		classes = classes.filter((value) => value !== "null");
+
+		setValidClassesList(classes);
     }, []);
 
 	const openTagInEditor = () => {
@@ -84,7 +94,7 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 	}
 
 	const clearDependency = () => {
-		setSelectedClass("null");
+		setSelectedClass(defaultClass);
 		setSelectedTagHandle(0xFFFFFFFF);
 		setSelectedTagPath(null);
 		setValue({ tagClass: tagClasses.null, tagHandle: 0xFFFFFFFF, path: null });
@@ -95,11 +105,13 @@ const TagDependencyField: React.FC<TagDependencyFieldProps> = ({ label, validCla
 			<VSCodeDropdown 
 				position="below" 
 				style={{ width: "40%", marginRight: "5px" }} 
-				value={selectedClass} >
+				value={selectedClass} 
+			>
 				{
-					validClassesList.map((value: string, index) => (
-						<VSCodeOption key={index} value={snakeCaseToCamelCase(value)}>{value}</VSCodeOption>
-					))
+					validClassesList
+						.map((value: string, index: number) => (
+							<VSCodeOption key={index} value={value}>{camelCaseToSnakeCase(value)}</VSCodeOption>
+						))
 				}	
 			</VSCodeDropdown>
 			<VSCodeTextField style={{ marginRight: "5px" }} readOnly={true} value={selectedTagPath || ""} placeholder="NULL" />

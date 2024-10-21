@@ -259,7 +259,8 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 												case "TagDependency": {
 													const tagDependency = elem[fieldName];
 													if(tagDependency.tagHandle.value != 0xFFFFFFFF) {
-														return `${elemIndex}: ${tagDependency.path}`;
+														const pathParts = tagDependency.path.split('\\');
+														return `${elemIndex}: ${pathParts[pathParts.length - 1]}`;
 													}
 												}
 											}

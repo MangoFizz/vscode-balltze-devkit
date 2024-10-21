@@ -2,7 +2,7 @@ import * as vscode from "vscode"
 import client from "../utilities/devkitClient"
 import MetaEnginePlayer from "../types/MetaEnginePlayer"
 import { TagEntry } from "../types/EngineTag";
-import { camelCaseToSnakeCase } from "../utilities/naming";
+import { camelCaseToSnakeCase, snakeCaseToCamelCase } from "../utilities/naming";
 
 const balltzeOutput: vscode.OutputChannel = vscode.window.createOutputChannel("Balltze Devkit");
 
@@ -176,7 +176,7 @@ export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem
 			}
 			quickPickItems = quickPickItems.concat(
 				currentLevelItems
-					.filter(item => !item.isFile || item.tagEntry && validClasses.includes(item.tagEntry.class))
+					.filter(item => !item.isFile || item.tagEntry && validClasses.includes(snakeCaseToCamelCase(item.tagEntry.class)))
 					.map(item => new TagQuickPickItem(item))
 			);
 			
