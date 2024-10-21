@@ -318,7 +318,12 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 }
 
 const renderTagClass = (tagClass: string, tagData: { [key: string]: any }): JSX.Element => {
-	const className = camelCaseToSnakeCase(tagClass);
+	let className = camelCaseToSnakeCase(tagClass);
+
+	if(className == "ui_widget_collection") {
+		className = "tag_collection";
+	}
+
 	let classDefinition = tagDefinitions.find((definition) => definition.class === className);
 	
 	if (!classDefinition) {
