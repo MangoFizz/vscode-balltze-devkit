@@ -176,7 +176,7 @@ export class TagsTreeDataProvider implements vscode.TreeDataProvider<TagTreeItem
 			}
 			quickPickItems = quickPickItems.concat(
 				currentLevelItems
-					.filter(item => !item.isFile || item.tagEntry && validClasses.includes(snakeCaseToCamelCase(item.tagEntry.class)))
+					.filter(item => !item.isFile || item.tagEntry && validClasses.includes(item.tagEntry.class))
 					.map(item => new TagQuickPickItem(item))
 			);
 			
