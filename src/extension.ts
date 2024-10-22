@@ -4,7 +4,7 @@ import * as vscode from "vscode"
 
 import { initialize as initializeDevkitClient } from "./utilities/devkitClient"
 import { TagsTreeDataProvider, TagTreeItem } from "./panels/TagsExplorer"
-import { ObjectTreeDataProvider, ObjectTreeItem } from "./panels/ObjectExplorer"
+import { ObjectsTreeDataProvider, ObjectsTreeItem } from "./panels/ObjectsExplorer"
 import { TagEditorPanel } from "./panels/TagEditorPanel"
 import { TagEntry } from "./types/EngineTag"
 
@@ -39,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
 		treeDataProvider: tagTreeProvider
 	});
 
-	const objectTreeProvider = new ObjectTreeDataProvider(rootPath)
+	const objectTreeProvider = new ObjectsTreeDataProvider(rootPath)
 	vscode.window.registerTreeDataProvider("objectsExplorer", objectTreeProvider)
 
 	const commands = [
@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
 			command: "balltzeDevkit.reconnect",
 			action: () => {
 				connectDevkitServer();
-				tagTreeProvider.refresh();
+				tagTreeProvider.fetchTagList();
 				objectTreeProvider.refresh();
 			}
 		},
@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 			command: "tagsExplorer.refresh",
 			action: () => {
 				if(connected) {
-					tagTreeProvider.refresh();
+					tagTreeProvider.fetchTagList();
 				}
 				else {
 					vscode.window.showErrorMessage("Not connected to devkit server");
@@ -104,7 +104,7 @@ export function activate(context: vscode.ExtensionContext) {
 		},
 		{
 			command: "objectsExplorer.delete",
-			action: (item: ObjectTreeItem) => {
+			action: (item: ObjectsTreeItem) => {
 				if(connected) {
 					objectTreeProvider.deleteItem(item);
 					vscode.window.showInformationMessage(`Deleted ${item.label}`);
