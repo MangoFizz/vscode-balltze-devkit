@@ -22,4 +22,9 @@ to debug and create content for Halo Custom Edition.
 Make sure to have installed `vsce` globally, see [here](https://code.visualstudio.com/api/working-with-extensions/publishing-extension) fore more information as this is required to build the VS Code extension
 package.
 
+Run the following command to build the extension:
 - `npm run build`
+
+This will generate a `.vsix` following the version specified in the `package.json` file, you can
+then install this package in VS Code by running the following command:
+- `code --install-extension <path-to-vsix>`
