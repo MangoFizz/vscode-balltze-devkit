@@ -160,7 +160,8 @@
 		"lint": "eslint \"src/**/*.ts\"",
 		"install:all": "npm install && cd webview-ui && npm install",
 		"start:webview": "cd webview-ui && npm run start",
-    	"build:webview": "cd webview-ui && npm run build"
+    	"build:webview": "cd webview-ui && npm run build",
+		"build": "npm run compile && npm run build:webview"
 	},
 	"devDependencies": {
 		"@types/ftp": "^0.3.33",
