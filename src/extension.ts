@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
 			command: "balltzeDevkit.reconnect",
 			action: () => {
 				connectDevkitServer();
-				tagTreeProvider.fetchTagList();
+				tagTreeProvider.refresh();
 				objectTreeProvider.refresh();
 			}
 		},
@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
 			command: "tagsExplorer.refresh",
 			action: () => {
 				if(connected) {
-					tagTreeProvider.fetchTagList();
+					tagTreeProvider.refresh();
 				}
 				else {
 					vscode.window.showErrorMessage("Not connected to devkit server");
