@@ -291,7 +291,7 @@ const renderTagDataStruct = (definition: TagDataType, data: { [key: string]: any
 									let options = (fieldType.fields as string[])
 										.filter(key => fieldType.exclude?.find((exclude) => normalToCamelCase(exclude.field) === key) == undefined)
 										.reduce((obj: any, key: string) => {
-											obj[key] = data[dataFieldName][key];
+											obj[key] = data[dataFieldName][normalToCamelCase(key)];
 											return obj;
 										}, {});
 

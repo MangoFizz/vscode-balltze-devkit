@@ -32,7 +32,7 @@ const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type
 	let [kSavedFeedback, setKSavedFeedback] = React.useState(false);
 
 	let axisInputs = {
-		i: {
+		x: {
 			currentValue: currentValue.x,
 			inputValue: iInputValue,
 			setInputValue: setIInputValue,
@@ -41,7 +41,7 @@ const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type
 			savedFeedback: iSavedFeedback,
 			setSavedFeedback: setISavedFeedback
 		},
-		j: {
+		y: {
 			currentValue: currentValue.y,
 			inputValue: jInputValue,
 			setInputValue: setJInputValue,
@@ -50,7 +50,7 @@ const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type
 			savedFeedback: jSavedFeedback,
 			setSavedFeedback: setJSavedFeedback
 		},
-		k: {
+		z: {
 			currentValue: currentValue.z,
 			inputValue: kInputValue,
 			setInputValue: setKInputValue,
@@ -119,8 +119,8 @@ const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type
 					placeholder="NULL"
 					className={`numeric-field ${!isIInputValid ? "invalid" : ""} ${iSavedFeedback ? "saved-feedback" : ""}`}
 					value={iInputValue} 
-					onChange={(e) => handleChange(e as Event, "i")} 
-					onKeyDown={e => handleKeyPress(e, "i")} 
+					onChange={(e) => handleChange(e as Event, "x")} 
+					onKeyDown={e => handleKeyPress(e, "x")} 
 				/>
 			</div>
 			<div className="d-flex">
@@ -130,8 +130,8 @@ const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type
 					placeholder="NULL"
 					className={`numeric-field ${!isJInputValid ? "invalid" : ""} ${jSavedFeedback ? "saved-feedback" : ""}`}
 					value={jInputValue} 
-					onChange={(e) => handleChange(e as Event, "j")} 
-					onKeyDown={e => handleKeyPress(e, "j")} 
+					onChange={(e) => handleChange(e as Event, "y")} 
+					onKeyDown={e => handleKeyPress(e, "y")} 
 				/>
 			</div>
 			{
@@ -143,8 +143,8 @@ const PointField: React.FC<PointFieldProps> = ({ label, value, submitValue, type
 						placeholder="NULL"
 						className={`numeric-field ${!isKInputValid ? "invalid" : ""} ${kSavedFeedback ? "saved-feedback" : ""}`} 
 						value={kInputValue} 
-						onChange={(e) => handleChange(e as Event, "k")} 
-						onKeyDown={e => handleKeyPress(e, "k")} 
+						onChange={(e) => handleChange(e as Event, "z")} 
+						onKeyDown={e => handleKeyPress(e, "z")} 
 					/>
 				</div>
 			}
