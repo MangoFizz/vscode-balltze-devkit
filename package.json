@@ -2,7 +2,7 @@
 	"name": "balltze-devkit",
 	"displayName": "Balltze Devkit",
 	"description": "Balltze Devkit is a tool for Halo Custom Edition modding, it provides a set of tools to help you debug, test and develop your mods.",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"icon": "media/total_control.png",
 	"publisher": "ShadowMods",
 	"private": true,
@@ -52,6 +52,10 @@
 			{
 				"command": "balltzeDevkit.reconnect",
 				"title": "Balltze Devkit: Reconnect to Balltze Devkit Server"
+			},
+			{
+				"command": "balltzeDevkit.reloadPlugins",
+				"title": "Balltze Devkit: Reload plugins"
 			},
 			{
 				"command": "tagsExplorer.refresh",

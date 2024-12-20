@@ -43,6 +43,13 @@ export class DevkitRpcClient {
         return DevkitRpcClient.instance;
     }
 
+    public static destroyInstance() {
+        if (DevkitRpcClient.instance) {
+            DevkitRpcClient.instance.client.end();
+            DevkitRpcClient.instance = null;
+        }
+    }
+
     private connect() {
         this.client.connect(this.port, this.host, () => {
             console.log('Connected to devkit server');
@@ -132,6 +139,10 @@ const client = {
 export function initialize(host: string, port: number, onConnect: () => void, onError: () => void) {
     const rpcClient = DevkitRpcClient.getInstance(host, port, onConnect, onError);
     client.conn = createProxy(rpcClient);
+}
+
+export function disconnect() {
+    DevkitRpcClient.destroyInstance();
 }
 
 export default client;

@@ -2,7 +2,7 @@
 
 import * as vscode from "vscode"
 
-import { initialize as initializeDevkitClient } from "./utilities/devkitClient"
+import client, { initialize as initializeDevkitClient, disconnect as disconnectDevkitClient } from "./utilities/devkitClient"
 import { TagsTreeDataProvider, TagTreeItem } from "./panels/TagsExplorer"
 import { ObjectsTreeDataProvider, ObjectsTreeItem } from "./panels/ObjectsExplorer"
 import { TagEditorPanel } from "./panels/TagEditorPanel"
@@ -49,6 +49,17 @@ export function activate(context: vscode.ExtensionContext) {
 				connectDevkitServer();
 				tagTreeProvider.refresh();
 				objectTreeProvider.refresh();
+			}
+		},
+		{
+			command: "balltzeDevkit.reloadPlugins",
+			action: () => {
+				if(connected) {
+					client.conn.devkit.reloadPlugins();
+				}
+				else {
+					vscode.window.showErrorMessage("Not connected to devkit server");
+				}
 			}
 		},
 		{
